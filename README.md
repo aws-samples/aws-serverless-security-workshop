@@ -24,7 +24,7 @@ Click on the link to module 0 below to get started deploying the simple serverle
 
 Here's an overview of the modules in this workshop and how they map to different areas of security:
 
-<table style="text-align:center">
+<table style="text-align:center" align="center">
   <tr>
     <th rowspan="3"> 
     	Identity & Access ⚔ <br> 
