@@ -24,30 +24,30 @@ Click on the link to module 0 below to get started deploying the simple serverle
 
 Here's an overview of the modules in this workshop and how they map to different areas of security:
 
-<table style="text-align:center" align="center">
+<table style="text-align:center width:100%" align="center" >
   <tr>
-    <th rowspan="3"> 
+    <th rowspan="3" width="20%"> 
     	Identity & Access ⚔ <br> 
     	<a href="docs/01-add-authentication/"><img src="docs/images/moduel1.png" alt="module 1" height="90" width="140" width="150" width="185"></a>
 	 </th>
-    <th >
+    <th width="60%">
     	<span style="font-weight:bold">Code 🏰</span> <br> 
     	<a href="docs/02-add-secrets-manager/"><img src="docs/images/module2.png" alt="module 2" height="90" width="140" width="150" width="185"></a>
     	<a href="docs/03-input-validation/"><img src="docs/images/module3.png" alt="module 3" height="90" width="140" width="150" width="185"></a>
     	<a href="docs/07-dependency-vulnerability/"><img src="docs/images/module7.png" alt="module 3" height="90" width="140" width="150" width="185" ></a>
     </th>
-    <th  colspan="3" rowspan="3">Logging & Monitoring 🕶
+    <th width="20%" colspan="3" rowspan="3">Logging & Monitoring 🕶
     	<a href="docs/08-xray/"><img src="docs/images/module8.png" alt="module 3" height="90" width="140" width="150" width="185"></a>
 </th>
   </tr>
-  <tr>
-    <td align="center">
+  <tr >
+    <td align="center" width="60%">
     	<span style="font-weight:bold">Data 🏆</span><br> 	    
     	<a href="docs/04-ssl-in-transit/"><img src="docs/images/module4.png" alt="module 4" height="90" width="140" width="150" width="185"></a>
     </td>
   </tr>
   <tr>
-    <td align="center"><span style="font-weight:bold">Infrastructure 🛡</span><br> 
+    <td align="center" width="60%"><span style="font-weight:bold">Infrastructure 🛡</span><br> 
  		<a href="docs/05-usage-plan/"><img src="docs/images/module5.png" alt="module 5" height="90" width="140" width="150" width="185"></a>
   		<a href="docs/06-waf/"><img src="docs/images/module6.png" alt="module 6" height="90" width="140" width="150" width="185"></a>
 	</td>
@@ -58,4 +58,5 @@ Here's an overview of the modules in this workshop and how they map to different
 
 The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the LICENSE file.
 
-The sample code within this documentation is made available under a modified MIT license. See the LICENSE-SAMPLECODE file.
+The sample 
+within this documentation is made available under a modified MIT license. See the LICENSE-SAMPLECODE file.
