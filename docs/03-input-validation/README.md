@@ -113,7 +113,7 @@ Now it's time to deploy and test! Go to the Actions menu and click on **Deploy A
 
 Use postman, you can try making requests to the **POST /customizations** API using invalid parameters and see the input validation kick in: 
 
-### Wrong parameters = Invalid request:
+### Wrong parameters = Invalid request:
 
 Here are some example request bodies that fail:
 
@@ -173,7 +173,9 @@ The result should be:
 {"customUnicornId":<the-id-of-the-customization>}
 ```
 
-## You want more? 
+
+
+## Extra credit
 
 There is, at least, one more method that needs to be validated. Build your own json schema for that method and apply the same steps mentioned before and you should be able to validate these methods as well!
 
