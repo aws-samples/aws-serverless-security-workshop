@@ -50,7 +50,7 @@ In addition, it also creates the below resources
 * A **Security Group** that will be used by the lambda functions
 
 
-## Module-0B: Prepare your database
+## Module-0B: Prepare your database
 
 We need to create some tables and insert some initial values to the Aurora database. We launched the Aurora database in private subnet following security best practices so the database is not reachable directly from the Internet. 
 
