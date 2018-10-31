@@ -1,16 +1,12 @@
-## AWS Serverless Security Workshop
-
-In this workshop, you will learn techniques to secure a serverless application built with AWS Lambda, Amazon API Gateway and RDS Aurora. We will cover AWS services and features you can leverage to improve the security of a serverless applications in 5 domains: identity & access management, code, data, infrastructure, logging & monitoring.
-
 # Serverless Security Workshop
 
-In this workshop you will learn various techniques to secure a serverless application in AWS. 
+In this workshop, you will learn techniques to secure a serverless application built with AWS Lambda, Amazon API Gateway and RDS Aurora. We will cover AWS services and features you can leverage to improve the security of a serverless applications in 5 domains: identity & access management, code, data, infrastructure, logging & monitoring.
 
 You'll start by deploying a simple serverless application that allows third party companies to submit unicorn customizations. This will help Wild Rydes receive ad revenue and allow  third party companies to market their brand leveraging Wild Rydes's popularity. 
 
 The simple serverless application has the below architecture to start with:
 
-![](docs/00-initial-setup/images/00-base-architecture.png)
+![architecture-diagram](docs/00-initial-setup/images/00-base-architecture.png)
 
 However, this simple serverless application is not very secure, and we need your help to implement measures to protect this serverless API from attackers. 
 
