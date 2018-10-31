@@ -7,7 +7,7 @@ To lock down access to the API to only trusted partners, we must add authenticat
 Given that our use case is for 3rd party companies to programmatically access the API, there are a few options we can take to implement auth: 
 
 * Use **API Keys** - this is the simplest option, but it doesn't provide lots of flexibility. For example, it requires us to build our own authorization system if fine-grained access control is needed (e.g. different clients may require different access to different APIs). 
-* Use **OAuth** [**Client Credentials Flow**] (https://tools.ietf.org/html/rfc6749#section-4.4) This is a well-defined standard where the client authenticates with an authorization server (in our example, Amazon Cognito) using client credentials, get a access token, then calls the API Gateway with the access token. 
+* Use **OAuth** [**Client Credentials Flow**](https://tools.ietf.org/html/rfc6749#section-4.4) This is a well-defined standard where the client authenticates with an authorization server (in our example, Amazon Cognito) using client credentials, get a access token, then calls the API Gateway with the access token. 
 
 	<img src="images/10-oauth-flow.png" alt="oauth flow" width="60%">
 	
@@ -53,7 +53,7 @@ Quick links to submodules:
 
 ### <a name="1A"></a>Module 1A: Create a Cognito User Pool and hosted domain
 
-**[Amazon Cognito](https://aws.amazon.com/cognit)** provides a managed service for simplifying identity management for your apps. In order to 
+**[Amazon Cognito](https://aws.amazon.com/cognito)** provides a managed service for simplifying identity management for your apps. In order to 
 
 1. As a preparation for this module, we have already provisioned a Cognito User Pool. Review it under the **Resources** section of `template.yaml`:
 
