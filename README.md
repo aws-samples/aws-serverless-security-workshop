@@ -41,13 +41,13 @@ Here's an overview of the modules in this workshop and how they map to different
 </th>
   </tr>
   <tr>
-    <td >
+    <td align="center">
     	<span style="font-weight:bold">Data 🏆</span><br> 	    
     	<a href="docs/04-ssl-in-transit/"><img src="docs/images/module4.png" alt="module 4" height="90" width="140" width="150" width="185"></a>
     </td>
   </tr>
   <tr>
-    <td ><span style="font-weight:bold">Infrastructure 🛡</span><br> 
+    <td align="center"><span style="font-weight:bold">Infrastructure 🛡</span><br> 
  		<a href="docs/05-usage-plan/"><img src="docs/images/module5.png" alt="module 5" height="90" width="140" width="150" width="185"></a>
   		<a href="docs/06-waf/"><img src="docs/images/module6.png" alt="module 6" height="90" width="140" width="150" width="185"></a>
 	</td>
