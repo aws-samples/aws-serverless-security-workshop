@@ -23,9 +23,9 @@ This means that, on our API Gateway we will ensure that every request trying to 
 
 ## Module 3A: Create a model for your Customizations
 
-In API Gateway, a [**model**](https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html#models-mappings-models) defines the data structure of a payload, using the [JSON schema draft 4] (https://tools.ietf.org/html/draft-zyp-json-schema-04).
+In API Gateway, a [**model**](https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html#models-mappings-models) defines the data structure of a payload, using the [JSON schema draft 4](https://tools.ietf.org/html/draft-zyp-json-schema-04).
 
-When we define our model, we can ensure that the parameters we are receiving are in the format we are expecting. Furthermore, you can check them against regex expressions. A good tool to test if your regex is correct is [regexr.com] (https://regexr.com/). 
+When we define our model, we can ensure that the parameters we are receiving are in the format we are expecting. Furthermore, you can check them against regex expressions. A good tool to test if your regex is correct is [regexr.com](https://regexr.com/). 
 
 For our **POST /customizations** API, we are going to use the following model:
 
