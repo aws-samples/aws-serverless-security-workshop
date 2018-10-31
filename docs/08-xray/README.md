@@ -123,4 +123,4 @@ If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you
 
 ## Next Step 
 
-Return to the workshop [landing page](../..) to pick another module.
+Return to the workshop [landing page](../../README.md) to pick another module.

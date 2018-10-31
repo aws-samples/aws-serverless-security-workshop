@@ -70,4 +70,4 @@ For more information on SSL connections with MySQL, go to the [MySQL documentati
 ## Next step 
 You have now further secured your data by enabling encryption in transit for your database connection! 
 
-Return to the workshop [landing page](../..) to pick another module.
+Return to the workshop [landing page](../../README.md) to pick another module.

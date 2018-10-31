@@ -166,4 +166,4 @@ If you want extra credit (karma points), here are some ideas:
 ## Next Step 
 You have now configured throttling for your API consumers using API Gateway Usage Plans! 
 
-Return to the workshop [landing page](../..) to pick another module.
+Return to the workshop [landing page](../../README.md) to pick another module.

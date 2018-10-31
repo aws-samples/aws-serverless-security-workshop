@@ -437,4 +437,4 @@ Now we have a set of client credentials for the partner company you just registe
 
 ## Next Step
 
-You have now completed Module 1 and added auth to your serverelss application. You can now return to the workshop [landing page](../..) to pick another module to work on!
+You have now completed Module 1 and added auth to your serverelss application. You can now return to the workshop [landing page](../../README.md) to pick another module to work on!

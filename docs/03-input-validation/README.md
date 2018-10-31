@@ -202,4 +202,4 @@ There is, at least, one more method that needs to be validated. Build your own j
 ## Next step 
 You have now added basic input validation to your API and further reduced the risk of attackers using bad inputs to sabotage your API! 
 
-Return to the workshop [landing page](../..) to pick another module.
+Return to the workshop [landing page](../../README.md) to pick another module.

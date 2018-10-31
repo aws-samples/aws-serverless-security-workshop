@@ -154,4 +154,4 @@ To reduce network traffic to Secrets Manager, you can take advantage of [Executi
 
 ## Next Step 
 
-Return to the workshop [landing page](../..) to pick another module.
+Return to the workshop [landing page](../../README.md) to pick another module.
