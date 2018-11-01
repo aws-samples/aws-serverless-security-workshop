@@ -128,18 +128,6 @@ This method returns a [promise](http://google.com) resolving with the JSON param
 
 ```
 
-This code is replacing this one below:
-
-```javascript
-resolve({
-    host: "xxxxxxxxxxxxxxx.cluster-co70iacvvr8l.eu-west-1.rds.amazonaws.com",
-    user: "admin",
-    password: "Corp123!",
-    database: "unicorn_customization",
-    multipleStatements: true
-});
-```
-
 If you read the code closely, you will see that is gathering the secrets from AWS Secrets Manager service and use them to resolve the promise with the values returned by the service.
 
 ## Module 2D: Deploy and test
