@@ -99,32 +99,32 @@ This method returns a [promise](http://google.com) resolving with the JSON param
  Replace the lines above with the following code:
 
 ```javascript
-client.getSecretValue({SecretId: secretName}, function (err, data) {
-    if (err) {
-        console.error(err);
-        if (err.code === 'ResourceNotFoundException')
-            reject("The requested secret " + secretName + " was not found");
-        else if (err.code === 'InvalidRequestException')
-            reject("The request was invalid due to: " + err.message);
-        else if (err.code === 'InvalidParameterException')
-            reject("The request had invalid params: " + err.message);
-        else
-            reject(err.message);
-    }
-    else {
-        if (data.SecretString !== "") {
-            secret = data.SecretString;
-            resolve({
-                host: JSON.parse(secret).host,
-                user: JSON.parse(secret).username,
-                password: JSON.parse(secret).password,
-                database: "unicorn_customization"
+            client.getSecretValue({SecretId: secretName}, function (err, data) {
+                if (err) {
+                    console.error(err);
+                    if (err.code === 'ResourceNotFoundException')
+                        reject("The requested secret " + secretName + " was not found");
+                    else if (err.code === 'InvalidRequestException')
+                        reject("The request was invalid due to: " + err.message);
+                    else if (err.code === 'InvalidParameterException')
+                        reject("The request had invalid params: " + err.message);
+                    else
+                        reject(err.message);
+                }
+                else {
+                    if (data.SecretString !== "") {
+                        secret = data.SecretString;
+                        resolve({
+                            host: JSON.parse(secret).host,
+                            user: JSON.parse(secret).username,
+                            password: JSON.parse(secret).password,
+                            database: "unicorn_customization"
+                        });
+                    } else {
+                        reject("Cannot parse DB credentials from secrets manager.");
+                    }
+                }
             });
-        } else {
-            reject("Cannot parse DB credentials from secrets manager.");
-        }
-    }
-});
 
 ```
 
