@@ -66,7 +66,7 @@ Quick links to submodules:
 
 1. To configure the Cognito User Pool with a domain, go to the [Cognito management console](https://console.aws.amazon.com/cognito/home), and click on **Manage User Pools**
 
-1. Click on the user pool created by the SAM Template (`template.yaml`. It should be named "CustomizeUnicorns-users"
+1. Click on the user pool created by the SAM Template (`template.yaml`). It should be named "**CustomizeUnicorns-users**"
 
 1. Under **App Integration**, go to the **Domain Name** tab to set up an unique Cognito domain our API consumers will use for authentication requests.
 
@@ -219,19 +219,19 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 1. Replace the `### TODO: add authorizer` section with
 
 	```
-        securityDefinitions:
-          CustomAuthorizer:
-            type: apiKey
-            name: Authorization
-            in: header
-            x-amazon-apigateway-authtype: custom
-            x-amazon-apigateway-authorizer:
-              type: token
-              authorizerUri:
-                Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomAuthorizerFunction.Arn}/invocations
-              authorizerCredentials:
-                Fn::Sub: ${ApiGatewayAuthorizerRole.Arn}
-              authorizerResultTtlInSeconds: 60
+	        securityDefinitions:
+	          CustomAuthorizer:
+	            type: apiKey
+	            name: Authorization
+	            in: header
+	            x-amazon-apigateway-authtype: custom
+	            x-amazon-apigateway-authorizer:
+	              type: token
+	              authorizerUri:
+	                Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomAuthorizerFunction.Arn}/invocations
+	              authorizerCredentials:
+	                Fn::Sub: ${ApiGatewayAuthorizerRole.Arn}
+	              authorizerResultTtlInSeconds: 60
 
 	```
 	
