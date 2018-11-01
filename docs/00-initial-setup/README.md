@@ -293,7 +293,7 @@ This indicates that the application run successfully within your Cloud9 environm
 1. Ensure you are in the `src` folder:
 
 	```
-	cd ../src/
+	cd	~/environment/aws-serverless-security-workshop/src
 	```
 
 1. Run the following to package up the lambda code and upload it to S3, and update the CloudFormation template to reference the S3 paths that hosts the code:
@@ -329,7 +329,7 @@ This indicates that the application run successfully within your Cloud9 environm
 	
 	Alternatively, you can go to the CloudFormation Console, find the `CustomizeUnicorns` stack and look in the Output Module
 
-1. You can test in your browser (or `curl`) for the following APIs: 
+1. You can test in your browser (or `curl`) for the following APIs. Remember to append the API path (e.g. `/socks`) to the endpoint
 
 	<table>
 	  <tr>
@@ -370,8 +370,16 @@ This indicates that the application run successfully within your Cloud9 environm
 We will use [**Postman**](https://www.getpostman.com/) for the rest of the workshop for testing API requests. 
 
 1. If you don't have installed yet on your laptop, please download it at: [https://www.getpostman.com/](https://www.getpostman.com/)
-1. To save you time, we created a Postman collection that you can use to test each of the APIs we are working with today. Download the file from `test-events/Customize_Unicorns.postman_collection.json`
-1. In Postman, use the **Import** option to import the collection file from the previous step
+1. To save you time, we created a Postman collection that you can use to test each of the APIs we are working with today. 
+
+	* click on the **Import** button in postman
+	* Then use **Import from Link** and supply the below link:
+
+		`https://raw.githubusercontent.com/aws-samples/aws-serverless-security-workshop/master/src/test-events/Customize_Unicorns.postman_collection.json`
+	* Click on **Import**
+	
+		<img src="images/0F-import-postman.png" width="50%" />
+	
 1. You should now see a collection called `Customize_Unicorns` imported in postman
 1. We need to set the `base_url` variable by creating a environment in postman. See documentation from Postman on [managing environments](https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments) if you want to learn more:
 	1. Click the “Manage Environments” icon in the upper right corner of the Postman app.
