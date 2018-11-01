@@ -249,7 +249,9 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
 ## Module-0D: Run your serverless application locally with SAM Local
 
-After reviewing the code, under **dbUtils.js**, inside dbConfig, replace the *host* with the Aurora endpoint. 
+After reviewing the code, under **dbUtils.js**, replace the *host* with the Aurora endpoint. 
+
+![DB endpoint in code](images/0D-db-endpoint-in-code.png)
 
 After doing this, it's time to test your API locally using SAM Local. 
 
