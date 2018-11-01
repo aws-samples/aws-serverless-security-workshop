@@ -21,7 +21,7 @@ This information should be on our request to create a new customization regardle
 
 This means that, on our API Gateway we will ensure that every request trying to create a new customization has a value (numeric or URL) for it no matter if those values are real or good. That is what you should focus on in your application. 
 
-## Module 3A: Create a model for your Customizations
+## Module 3A: Create a model for your Customizations
 
 In API Gateway, a [**model**](https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html#models-mappings-models) defines the data structure of a payload, using the [JSON schema draft 4](https://tools.ietf.org/html/draft-zyp-json-schema-04).
 
