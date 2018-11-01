@@ -40,7 +40,7 @@ First thing we need to do is create a secret in Secrets Manager.
 
 We need to modify the execution policy on the lambda functions, so they areallowed to make API calls to Secrets Manager. 
 
-In `template.yaml`, look for the block below that defines policies for Secrets Manager (You should find a total 3 occurrences) and uncomment them. 
+In `template.yaml`, look for the block below that defines policies for Secrets Manager (**You should find a total 3 occurrences**) and uncomment them. 
 
 ```yaml
 #        - Version: '2012-10-17'
@@ -83,7 +83,20 @@ const client = new AWS.SecretsManager();
 Taking a look at this code you might notice that we are using Environment Variables. To see where these variables are defined, go to `template.yaml` and check on *Global*. These have been defined from the beginning. Verify that they follow the previous step work.
 
 Now, it's time to modify how we set the configuration of our connection to the database. The method that does this is called **getDbConfig** within *dbUtils.js*.
-This method returns a [promise](http://google.com) resolving with the JSON parameters. No problem! Replace the content of the promise with the following code:
+This method returns a [promise](http://google.com) resolving with the JSON parameters.
+
+```javascript
+            resolve({
+                host: host,
+                user: "admin",
+                password: "Corp123!",
+                database: "unicorn_customization",
+                multipleStatements: true
+            });
+
+```
+
+ Replace the lines above with the following code:
 
 ```javascript
 client.getSecretValue({SecretId: secretName}, function (err, data) {
