@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "7e41857e-3481-4390-821c-395ef8670d36",
+		"name": "Customize_Unicorns",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List customization options",
+			"item": [
+				{
+					"name": "Socks-List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/socks"
+					},
+					"response": []
+				},
+				{
+					"name": "Horns-List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/horns"
+					},
+					"response": []
+				},
+				{
+					"name": "Glasses-List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/glasses"
+					},
+					"response": []
+				},
+				{
+					"name": "Capes-List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/capes"
+					},
+					"response": []
+				}
+			],
+			"description": "A set of read-only APIs that lists unicorn customization options. Intended to be used by 3rd party partner companies of Wild Rydes.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "17f97895-d515-44f2-b09a-ee2a57c931cf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a8b9906-16d2-4065-a50d-5f38dd3ccee7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Customization APIs",
+			"item": [
+				{
+					"name": "DELETE Custom_Unicorn",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": "{{base_url}}/customizations/1"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Custom_Unicorn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "{{base_url}}/customizations/1"
+					},
+					"response": []
+				},
+				{
+					"name": "POST create Custom_Unicorn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Great Custom Unicorn\", \"imageUrl\":\"https://mom/myimage\", \"sock\":\"1\", \"horn\": \"2\", \"glasses\":\"1\", \"cape\":\"1\", \"company\":\"1\"}"
+						},
+						"url": "{{base_url}}/customizations"
+					},
+					"response": []
+				},
+				{
+					"name": "LIST Custom_Unicorn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "{{base_url}}/customizations"
+					},
+					"response": []
+				}
+			],
+			"description": "THE CRUD APIs related to creating, describing and deleting Unicorn customizations. Intended to be used by 3rd party partner companies of Wild Rydes."
+		},
+		{
+			"name": "Manage Partner",
+			"item": [
+				{
+					"name": "POST Create Partner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"This Good Company\"\n}"
+						},
+						"url": "{{base_url}}/partners"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "61d4f653-a4a3-49ed-b200-441d64fca425",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e8aada25-a7bb-49bc-97f5-dabf1f44c945",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "979f9454-2a9b-4fcc-a938-05189a640013",
+			"key": "base_url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

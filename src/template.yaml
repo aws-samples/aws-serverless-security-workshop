@@ -1,0 +1,286 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Third party API functionality for Wild Rydes
+
+Globals:
+  Function:
+    Timeout: 30
+    Environment:
+      Variables:
+        SECRET_NAME: secure-serverless-db-secret # name of the RDS credentials in secrets manager
+
+Parameters:
+  InitResourceStack:
+    Type: String
+    MinLength: 1
+    MaxLength: 255
+    AllowedPattern: "^[a-zA-Z][-a-zA-Z0-9]*$"
+    Default: Secure-Serverless
+
+Resources:
+  CognitoUserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      UserPoolName: !Sub '${AWS::StackName}-users'
+
+  PartnerDDBTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: ClientID
+        Type: String
+      TableName: !Sub '${AWS::StackName}-WildRydePartners'
+
+  ManagePartnerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app/
+      Handler: managePartners.lambda_handler
+      Runtime: nodejs8.10
+      Policies:
+        - VPCAccessPolicy: {}
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - "cognito-idp:*"
+              Resource: "*"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - "dynamodb:*"
+              Resource: "*"
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "secretsmanager:GetSecretValue"
+#              Resource: "*"
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
+        SubnetIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet1"
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet2"
+      Events:
+        CreatePartner:
+          Type: Api
+          Properties:
+            Path: /partners
+            Method: post
+            RestApiId:
+              Ref: UnicornApi
+      Environment:
+        Variables:
+          USER_POOL_ID: !Ref CognitoUserPool
+          PARTNER_DDB_TABLE: !Ref PartnerDDBTable
+
+
+  CustomizeUnicornFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app/
+      Handler: customizeUnicorn.lambda_handler
+      Runtime: nodejs8.10
+      Policies:
+        - VPCAccessPolicy: {}
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "secretsmanager:GetSecretValue"
+#              Resource: "*"
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
+        SubnetIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet1"
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet2"
+      Events:
+        ListCustomizations:
+          Type: Api
+          Properties:
+            Path: /customizations
+            Method: get
+            RestApiId:
+              Ref: UnicornApi
+        CreateCustomizations:
+          Type: Api
+          Properties:
+            Path: /customizations
+            Method: post
+            RestApiId:
+              Ref: UnicornApi
+        GetCustomization:
+          Type: Api
+          Properties:
+            Path: /customizations/{id}
+            Method: get
+            RestApiId:
+              Ref: UnicornApi
+        DeleteCustomization:
+          Type: Api
+          Properties:
+            Path: /customizations/{id}
+            Method: delete
+            RestApiId:
+              Ref: UnicornApi
+
+  UnicornPartsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app/
+      Handler: unicornParts.lambda_handler
+      Runtime: nodejs8.10
+      Policies:
+        - VPCAccessPolicy: {}
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "secretsmanager:GetSecretValue"
+#              Resource: "*"
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
+        SubnetIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet1"
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet2"
+      Events:
+        ListSocks:
+          Type: Api
+          Properties:
+            Path: /socks
+            Method: get
+            RestApiId:
+              Ref: UnicornApi
+        ListHorns:
+          Type: Api
+          Properties:
+            Path: /horns
+            Method: get
+            RestApiId:
+              Ref: UnicornApi
+        ListGlasses:
+          Type: Api
+          Properties:
+            Path: /glasses
+            Method: get
+            RestApiId:
+              Ref: UnicornApi
+        ListCapes:
+          Type: Api
+          Properties:
+            Path: /capes
+            Method: get
+            RestApiId:
+              Ref: UnicornApi
+
+  UnicornApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      DefinitionBody:
+        swagger: "2.0"
+        info:
+          title:
+            Ref: AWS::StackName
+          description: Wild Ryde API for describing and managing unicorn customizations
+          version: 1.0.0
+        ### TODO: add authorizer
+        paths:
+          "/socks":
+            get:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
+              responses: {}
+          "/horns":
+            get:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
+              responses: {}
+          "/glasses":
+            get:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
+              responses: {}
+          "/capes":
+            get:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
+              responses: {}
+          "/customizations":
+            get:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
+              responses: {}
+            post:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
+              responses: {}
+          "/customizations/{id}":
+            get:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
+              responses: {}
+            delete:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
+              responses: {}
+          "/partners":
+            post:
+#              security:
+#                - CustomAuthorizer: []
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ManagePartnerFunction.Arn}/invocations
+              responses: {}
+
+
+Outputs:
+  ApiURL:
+    Description: "API endpoint URL for dev environment"
+    Value: !Sub "https://${UnicornApi}.execute-api.${AWS::Region}.amazonaws.com/dev/"

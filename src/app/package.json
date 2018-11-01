@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "babel-core": "*",
+    "babel-plugin-transform-flow-strip-types": "*",
+    "babel-preset-es2017": "*",
+    "minimatch": "^2.0.10",
+    "mysql": "^2.16.0"
+  },
+  "name": "customize-unicorn",
+  "version": "1.0.0",
+  "description": "lambda functions that allows third party companies to customize unicorn to place ads",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ignacio García, Angela Wang",
+  "license": "Apache-2.0"
+}

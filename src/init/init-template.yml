@@ -1,0 +1,255 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Initial resource setup for serverless security workshop
+
+Parameters:
+    DbPassword:
+        Type: String
+        NoEcho: true
+
+Resources:
+  PubPrivateVPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: Secure-Serverless
+
+
+  PublicSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: pub-subnet-1-Secure-Serverless
+
+  PublicSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: pub-subnet-3-Secure-Serverless
+
+  PrivateSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.0.3.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: priv-subnet-1-Secure-Serverless
+
+  PrivateSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: 10.0.4.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: priv-subnet-2-Secure-Serverless
+
+
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+
+  GatewayToInternet:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+
+  PublicRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: GatewayToInternet
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnet1RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+
+  PublicSubnet2RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
+  NatGateway:
+    Type: "AWS::EC2::NatGateway"
+    DependsOn: NatPublicIP
+    Properties: 
+      AllocationId: !GetAtt NatPublicIP.AllocationId
+      SubnetId: !Ref PublicSubnet1
+
+  NatPublicIP:
+    Type: "AWS::EC2::EIP"
+    DependsOn: PubPrivateVPC
+    Properties:
+      Domain: vpc
+
+  PrivateRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref PubPrivateVPC
+
+  PrivateRoute:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway
+
+  PrivateSubnet1RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PrivateSubnet1
+      RouteTableId: !Ref PrivateRouteTable
+
+  PrivateSubnet2RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PrivateSubnet2
+      RouteTableId: !Ref PrivateRouteTable
+  
+  Cloud9Environment:
+    Type: AWS::Cloud9::EnvironmentEC2
+    Properties:
+      Description: Use Cloud 9 as the default environment to launch your operations.
+      InstanceType: t2.micro
+      Name: Secure-Serverless-Cloud9
+      SubnetId: !Ref PublicSubnet1
+  
+  DeploymentsS3Bucket:
+    Type: AWS::S3::Bucket
+
+  
+  AuroraSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties: 
+      DBSubnetGroupDescription: Subnet for Serverless Aurora
+      DBSubnetGroupName: secure-serverless-aurora
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+
+  AuroraSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Serverless Aurora Access trhough the VPC
+      VpcId:
+        Ref: PubPrivateVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 10.0.0.0/16
+
+  # should we start with a broad SG and narrow it down as part of workshop?
+  # move this to the sam template instead?
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SecurityGroup for lambda function
+      VpcId:
+        Ref: PubPrivateVPC
+      SecurityGroupEgress:
+        - Description: Access to Aurora MYSQL
+          FromPort: 3306
+          IpProtocol: tcp
+          DestinationSecurityGroupId: !Ref AuroraSecurityGroup
+          ToPort: 3306
+        - Description: Access to Secrets Manager
+          FromPort: 80
+          IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          ToPort: 80
+        - Description: Access to Secrets Manager SSL
+          FromPort: 443
+          IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          ToPort: 443
+        - Description: Access to Secrets Manager SSL
+          FromPort: 53
+          IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          ToPort: 53
+
+  AuroraDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t2.small
+      Engine: aurora
+      DBClusterIdentifier: !Ref AuroraDBCluster
+
+  AuroraDBCluster:
+    Type: AWS::RDS::DBCluster
+    DependsOn: AuroraSubnetGroup
+    Properties:
+      MasterUsername: admin
+      MasterUserPassword: !Ref DbPassword
+      Engine: aurora
+      DBSubnetGroupName: !Ref AuroraSubnetGroup
+      VpcSecurityGroupIds:
+        - !Ref AuroraSecurityGroup 
+
+Outputs:
+
+  AuroraEndpoint:
+    Description: VPC subnet group for aurora database
+    Value: !GetAtt AuroraDBCluster.Endpoint.Address
+
+  DeploymentS3Bucket:
+    Description: S3 Bucket to place your SAM deployments
+    Value: !Ref DeploymentsS3Bucket
+
+  LambdaSecurityGroup:
+    Description: SecurityGroup for lambda function
+    Value: !Ref LambdaSecurityGroup
+    Export:
+      Name:
+        !Sub ${AWS::StackName}-LambdaSecurityGroup
+  PublicSubnet1:
+    Description: PublicSubnet1
+    Value: !Ref PublicSubnet1
+    Export:
+      Name:
+        !Sub ${AWS::StackName}-PublicSubnet1
+  PublicSubnet2:
+    Description: PublicSubnet2
+    Value: !Ref PublicSubnet2
+    Export:
+      Name:
+        !Sub ${AWS::StackName}-PublicSubnet2
+  PrivateSubnet1:
+    Description: PrivateSubnet1
+    Value: !Ref PrivateSubnet1
+    Export:
+      Name:
+        !Sub ${AWS::StackName}-PrivateSubnet1
+  PrivateSubnet2:
+    Description: PrivateSubnet2
+    Value: !Ref PrivateSubnet2
+    Export:
+      Name:
+        !Sub ${AWS::StackName}-PrivateSubnet2
