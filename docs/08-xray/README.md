@@ -62,14 +62,14 @@ The Lambda authorizer you added in [**Module 1: Auth**](../01-add-authentication
 ### Capturing AWS SDK requests in the backend lambda functions
 
 <details>
-<summary><strong>If you haven't gone through **Module 2: Secrets** </strong></summary><p>
+<summary><strong>If you haven't gone through Module 2: Secrets </strong></summary><p>
 
 The backend lambda functions currently doesn't use the AWS SDK, so no additional action needed! 
 
 </details>
 
 <details>
-<summary><strong>If you have gone through **Module 2: Secrets** </strong></summary><p>
+<summary><strong>If you have gone through Module 2: Secrets </strong></summary><p>
 
 If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you would have added the AWS SDK to `dbUtils.js` so the code would retrieve the database username and password from [**AWS Secrets Manager**](https://aws.amazon.com/secrets-manager/)
 
