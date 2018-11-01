@@ -66,7 +66,7 @@ First go to your **Cloud9** Environment.
 
 1. We need to get the content of this workshop in this environment so clone this repository using the terminal:
 
-	`git clone git@github.com:xxxxxx/xxxxxxxx.git`
+	`git clone https://github.com/aws-samples/aws-serverless-security-workshop.git`
 
 1. Go into the folder of the repo using `cd aws-serverless-security-workhop/`
 
@@ -258,10 +258,10 @@ After doing this, it's time to test your API locally using SAM Local.
 1. Select **UnicornPartsFunction** under the `src` folder
 1. Once you have selected, above the tree, top of the panel, you should see a play button.With a Drop down. Within that dropdown, select **Run APIGateway Local**  
 
-	![Run API Gateway Local] (images/0D-run-apigateway-local.png)
+	![Run API Gateway Local](images/0D-run-apigateway-local.png)
 
 1. Then, click on the play icon. You will get a new panel to test the API locally. 
-2. In the **Path** parameter of this new panel, you should see it filled as `/socks`. If not, pick any of the unicorn parts (e.g `/socks`, `/glasses`, `/capes`, `/horns`) and click **Run**.
+1. In the **Path** parameter of this new panel, you should see it filled as `/socks`. If not, pick any of the unicorn parts (e.g `/socks`, `/glasses`, `/capes`, `/horns`) and click **Run**.
 
 	
 You should be able to get a result similar to this:
