@@ -17,18 +17,18 @@ First thing we need to do is create a secret in Secrets Manager.
 	- Username: `admin`
 	- Password: `Corp123!`
 	- Select the encryption key: `DefaultEncryptionKey`.
-	![AWS Secrets Manager - Secret] (images/01-store-new-secret.png)
+	![AWS Secrets Manager - Secret](images/01-store-new-secret.png)
 	- Select your cluser `Secure-Serverless-Aurora`
-	![Select Secret DB] (images/02-secret-select-db.png)
+	![Select Secret DB](images/02-secret-select-db.png)
 1. Click on *Next* and continue fill the wizard with the following values.
 	- Secret name: `secure-serverless-db-secret`
 	- Description: Use an optional description here.
-	![Secret name] (images/03-secret-name.png)
+	![Secret name](images/03-secret-name.png)
 1. Again, click on *Next* and configure your rotation.
 	- Click on `Enable Rotation`
 	- Select `30 Days` as the rotation interval.
 	- Select this same secret as the one used for rotation.
-	![Rotation] (images/04-rotation.png)
+	![Rotation](images/04-rotation.png)
 1. Then, click *Next* and, if you want, review the example code. During the next sections we will modify our code to use Secrets Manager and this code will be used as an example.
 1. Finally, click *Store*.
 
