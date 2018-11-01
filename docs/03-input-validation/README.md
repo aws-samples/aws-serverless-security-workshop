@@ -21,7 +21,7 @@ This information should be on our request to create a new customization regardle
 
 This means that, on our API Gateway we will ensure that every request trying to create a new customization has a value (numeric or URL) for it no matter if those values are real or good. That is what you should focus on in your application. 
 
-## Module 3A: Create a model for your Customizations
+## Module 3A: Create a model for your Customizations
 
 In API Gateway, a [**model**](https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html#models-mappings-models) defines the data structure of a payload, using the [JSON schema draft 4](https://tools.ietf.org/html/draft-zyp-json-schema-04).
 
@@ -88,7 +88,7 @@ Now, follow these steps:
 1. In the model schema, use the one provided before (the *json* before this section).
 1. Once everything is filled, click on **Create model**.
 	
-	![Create model] (images/06_api_model.png)
+	![Create model](images/06_api_model.png)
 
 Once we have created our model, we need to apply it to our customizations/post method.
 
@@ -103,9 +103,9 @@ Once we have created our model, we need to apply it to our customizations/post m
 	- Model name: `CustomizationPost`
 4. Click to the tick to confirm.
 
-	![Method Execution] (images/06_method_execution.png)
+	![Method Execution](images/06_method_execution.png)
 	
-On step number 2 you might have notice that we can also validate QueryStrings and body + query  strings. This is really useful when our application uses both at the same time and we want to have complex validations. If you want to find more information, [here] (https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html) is our documentation about this.
+On step number 2 you might have notice that we can also validate QueryStrings and body + query  strings. This is really useful when our application uses both at the same time and we want to have complex validations. If you want to find more information, [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html) is our documentation about this.
 
 Now it's time to deploy and test! Go to the Actions menu and click on **Deploy API**. Select `dev` as the *Deployment stage* and confirm by clicking **Deploy**.
 

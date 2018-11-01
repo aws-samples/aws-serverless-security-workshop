@@ -17,18 +17,20 @@ First thing we need to do is create a secret in Secrets Manager.
 	- Username: `admin`
 	- Password: `Corp123!`
 	- Select the encryption key: `DefaultEncryptionKey`.
-	![AWS Secrets Manager - Secret] (images/01-store-new-secret.png)
-	- Select your cluser `Secure-Serverless-Aurora`
-	![Select Secret DB] (images/02-secret-select-db.png)
+	![AWS Secrets Manager - Secret](images/01-store-new-secret.png)
+	- Select your Aurora cluster (starts with `secure-serverless-aurora`)
+
+		<img src="images/02-secret-select-db.png" width="60%"/>
+	
 1. Click on *Next* and continue fill the wizard with the following values.
 	- Secret name: `secure-serverless-db-secret`
 	- Description: Use an optional description here.
-	![Secret name] (images/03-secret-name.png)
+	![Secret name](images/03-secret-name.png)
 1. Again, click on *Next* and configure your rotation.
 	- Click on `Enable Rotation`
 	- Select `30 Days` as the rotation interval.
 	- Select this same secret as the one used for rotation.
-	![Rotation] (images/04-rotation.png)
+	![Rotation](images/04-rotation.png)
 1. Then, click *Next* and, if you want, review the example code. During the next sections we will modify our code to use Secrets Manager and this code will be used as an example.
 1. Finally, click *Store*.
 
@@ -38,7 +40,7 @@ First thing we need to do is create a secret in Secrets Manager.
 
 We need to modify the execution policy on the lambda functions, so they areallowed to make API calls to Secrets Manager. 
 
-In `template.yaml`, look for the block below that defines policies for Secrets Manager (You should find a total 3 occurrences) and uncomment them. 
+In `template.yaml`, look for the block below that defines policies for Secrets Manager (**You should find a total 3 occurrences**) and uncomment them. 
 
 ```yaml
 #        - Version: '2012-10-17'
@@ -81,48 +83,49 @@ const client = new AWS.SecretsManager();
 Taking a look at this code you might notice that we are using Environment Variables. To see where these variables are defined, go to `template.yaml` and check on *Global*. These have been defined from the beginning. Verify that they follow the previous step work.
 
 Now, it's time to modify how we set the configuration of our connection to the database. The method that does this is called **getDbConfig** within *dbUtils.js*.
-This method returns a [promise](http://google.com) resolving with the JSON parameters. No problem! Replace the content of the promise with the following code:
+This method returns a [promise](http://google.com) resolving with the JSON parameters.
 
 ```javascript
-client.getSecretValue({SecretId: secretName}, function (err, data) {
-    if (err) {
-        console.error(err);
-        if (err.code === 'ResourceNotFoundException')
-            reject("The requested secret " + secretName + " was not found");
-        else if (err.code === 'InvalidRequestException')
-            reject("The request was invalid due to: " + err.message);
-        else if (err.code === 'InvalidParameterException')
-            reject("The request had invalid params: " + err.message);
-        else
-            reject(err.message);
-    }
-    else {
-        if (data.SecretString !== "") {
-            secret = data.SecretString;
             resolve({
-                host: JSON.parse(secret).host,
-                user: JSON.parse(secret).username,
-                password: JSON.parse(secret).password,
-                database: "unicorn_customization"
+                host: host,
+                user: "admin",
+                password: "Corp123!",
+                database: "unicorn_customization",
+                multipleStatements: true
             });
-        } else {
-            reject("Cannot parse DB credentials from secrets manager.");
-        }
-    }
-});
 
 ```
 
-This code is replacing this one below:
+ Replace the lines above with the following code:
 
 ```javascript
-resolve({
-    host: "xxxxxxxxxxxxxxx.cluster-co70iacvvr8l.eu-west-1.rds.amazonaws.com",
-    user: "admin",
-    password: "Corp123!",
-    database: "unicorn_customization",
-    multipleStatements: true
-});
+            client.getSecretValue({SecretId: secretName}, function (err, data) {
+                if (err) {
+                    console.error(err);
+                    if (err.code === 'ResourceNotFoundException')
+                        reject("The requested secret " + secretName + " was not found");
+                    else if (err.code === 'InvalidRequestException')
+                        reject("The request was invalid due to: " + err.message);
+                    else if (err.code === 'InvalidParameterException')
+                        reject("The request had invalid params: " + err.message);
+                    else
+                        reject(err.message);
+                }
+                else {
+                    if (data.SecretString !== "") {
+                        secret = data.SecretString;
+                        resolve({
+                            host: JSON.parse(secret).host,
+                            user: JSON.parse(secret).username,
+                            password: JSON.parse(secret).password,
+                            database: "unicorn_customization"
+                        });
+                    } else {
+                        reject("Cannot parse DB credentials from secrets manager.");
+                    }
+                }
+            });
+
 ```
 
 If you read the code closely, you will see that is gathering the secrets from AWS Secrets Manager service and use them to resolve the promise with the values returned by the service.

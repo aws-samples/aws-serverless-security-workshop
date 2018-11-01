@@ -9,6 +9,7 @@ AWS X-Ray gives you visibility into the data flow of your microservices architec
  
 ## Module 8A: Enable X-Ray for Lambda function
 
+
 In the `template.yaml`, find the [**Globals**](https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst) section, which contains settings that all resources in the SAM template share unless explicitly overwritten. 
 
 ```
@@ -41,7 +42,7 @@ The Lambda authorizer you added in [**Module 1: Auth**](../01-add-authentication
 1. Install the XRay SDK in the `authorizer/` folder by running in a terminal
 
 	```bash
-	cd authorizer/
+	cd	~/environment/aws-serverless-security-workshop/src/authorizer 
 	npm install aws-xray-sdk-core --save
 	```
 	
@@ -61,16 +62,37 @@ The Lambda authorizer you added in [**Module 1: Auth**](../01-add-authentication
 ### Capturing AWS SDK requests in the backend lambda functions
 
 <details>
-<summary><strong>If you haven't gone through **Module 2: Secrets** </strong></summary><p>
+<summary><strong>If you haven't gone through Module 2: Secrets </strong></summary><p>
 
 The backend lambda functions currently doesn't use the AWS SDK, so no additional action needed! 
 
 </details>
 
 <details>
-<summary><strong>If you have gone through **Module 2: Secrets** </strong></summary><p>
+<summary><strong>If you have gone through Module 2: Secrets </strong></summary><p>
 
 If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you would have added the AWS SDK to `dbUtils.js` so the code would retrieve the database username and password from [**AWS Secrets Manager**](https://aws.amazon.com/secrets-manager/)
+
+1. Install the XRay SDK in the `app/` folder by running in a terminal
+
+	```bash
+	cd	~/environment/aws-serverless-security-workshop/src/app 
+	npm install aws-xray-sdk-core --save
+	```
+	
+1. In `app/dbUtils.js`, find the line where the AWS SDK is imported: 
+
+	```javascript
+	const AWS = require('aws-sdk');
+	```
+	
+	And replace it with:
+	
+	```
+	const AWSXRay = require('aws-xray-sdk-core');
+	const AWS = AWSXRay.captureAWS(require('aws-sdk'));
+	```
+
 
 </details>
 
@@ -80,6 +102,7 @@ If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you
 1. In the terminal, validate the SAM template:
 
 	```
+	cd	~/environment/aws-serverless-security-workshop/src/
 	sam validate -t template.yaml
 	```
 
@@ -100,7 +123,7 @@ If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you
 
 1. Go to the **Stages** tab, click on the `dev` stage
 
-1. Find the **Logs/Tracing** tab, check the box for **Enable X-Ray Tracing**, and** Save changes** 
+1. Find the **Logs/Tracing** tab, check the box for **Enable X-Ray Tracing**, and **Save changes** 
 
 	![enable xray in api gateway](images/8E-enable-apig.png)
 	
