@@ -280,7 +280,7 @@ This indicates that the application run successfully within your Cloud9 environm
 1. Select `Secure-Serverless` stack.
 1. In the Output Module, take note of **DeploymentS3Bucket**
 
-	![CloudFormation output] (images/0D-cloudformation-output-w-bucket-highlight.png)
+	![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
 
 
 1. In the terminal, set the bash variables:
