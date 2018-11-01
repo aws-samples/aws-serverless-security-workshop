@@ -18,8 +18,10 @@ First thing we need to do is create a secret in Secrets Manager.
 	- Password: `Corp123!`
 	- Select the encryption key: `DefaultEncryptionKey`.
 	![AWS Secrets Manager - Secret](images/01-store-new-secret.png)
-	- Select your cluser `Secure-Serverless-Aurora`
-	![Select Secret DB](images/02-secret-select-db.png)
+	- Select your Aurora cluster (starts with `secure-serverless-aurora`)
+
+		<img src="images/02-secret-select-db.png" width="60%"/>
+	
 1. Click on *Next* and continue fill the wizard with the following values.
 	- Secret name: `secure-serverless-db-secret`
 	- Description: Use an optional description here.
