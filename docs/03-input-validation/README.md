@@ -17,7 +17,7 @@ For example, in our application, when defining an customization, we have to be s
  - An id for the pair of **glasses**.
  - A type of **cape** by id.
 
-This information should be on our request to create a new customization regardless if that company exist, those glasses are available or the image is present at the moment.
+This information should be in our request body to create a new customization that follows specific patterns.  E.g. the imageUrl should be a valid URL, the IDs for socks and horns are numeric values. 
 
 By leveraging input validation on API Gateway, you can enforce required parameters and regex patterns each parameter must adhere to. This allows you to remove boilerplate validation logic from backend implementations and focus on actual business logic and deep validation.
 
@@ -145,6 +145,17 @@ Use postman, you can try making requests to the **POST /customizations** API usi
 ### Wrong parameters = Invalid request:
 
 Here are some example request bodies that fail:
+
+* Missing fields: 
+
+	```javascript
+	{  
+	   "name":"Cherry-themed unicorn",
+	   "imageUrl":"htt://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
+	   "glasses": 3,
+	   "cape": 4
+	}
+	```
 
 * The `imageUrl` not a valid URL: 
 
