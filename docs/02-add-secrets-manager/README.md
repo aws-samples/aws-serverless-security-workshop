@@ -118,7 +118,8 @@ This method returns a [promise](http://google.com) resolving with the JSON param
                             host: JSON.parse(secret).host,
                             user: JSON.parse(secret).username,
                             password: JSON.parse(secret).password,
-                            database: "unicorn_customization"
+                            database: "unicorn_customization",
+	                    multipleStatements: true
                         });
                     } else {
                         reject("Cannot parse DB credentials from secrets manager.");
