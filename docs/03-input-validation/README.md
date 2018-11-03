@@ -19,11 +19,11 @@ For example, in our application, when defining an customization, we have to be s
 
 This information should be on our request to create a new customization regardless if that company exist, those glasses are available or the image is present at the moment.
 
-By leveraging input validation on API Gateway, you can enforce required parameters and regex patterns each parameter must adhere to. 
+By leveraging input validation on API Gateway, you can enforce required parameters and regex patterns each parameter must adhere to. This allows you to remove boilerplate validation logic from backend implementations and focus on actual business logic and deep validation.
 
 ## Module 3 - Optional: attack your API with SQL injection! 
 
-If you haven't completed **Module 6: WAF**, your serverless API is now vulnerable to SQL injection attacks. This optional module shows how you can perform the attack. 
+If you haven't completed **Module 6: WAF**, your serverless API is currently vulnerable to SQL injection attacks. This optional module shows how you can perform the attack. 
 
 If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting: 
 
