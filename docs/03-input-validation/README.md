@@ -203,6 +203,15 @@ The result should be:
 {"customUnicornId":<the-id-of-the-customization>}
 ```
 
+## Additional input validation options
+
+As you have now seen, API Gateway input validation gives you basic features such as type checks and regex matching. In a production application, this is often not enough and you may have additional constraints on the API input. 
+
+To gain further protection, you should consider using the below in addition to the input validation features from API Gateway:
+
+* Add an AWS WAF ACL to your API Gateway - check out [**Module 6**](../06-waf/)
+* Add further input validation logic in your lambda function code itself 
+
 
 
 ## Extra credit
