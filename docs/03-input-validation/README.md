@@ -10,16 +10,51 @@ You can configure API Gateway to perform basic validation of an API request befo
 
 For example, in our application, when defining an customization, we have to be sure that our new customization should have:
 
- - A **company** id
+ - A **name** for the customization object 
  - An url for the cape's **image** .
  - A type of **socks** for our unicorn specified by an id.
  - A specific id for the **horn** to use.
  - An id for the pair of **glasses**.
  - A type of **cape** by id.
 
-This information should be on our request to create a new customization regardless if that company exist, those glasses are available or the image is present at the moment.
+This information should be in our request body to create a new customization that follows specific patterns.  E.g. the imageUrl should be a valid URL, the IDs for socks and horns are numeric values. 
 
-This means that, on our API Gateway we will ensure that every request trying to create a new customization has a value (numeric or URL) for it no matter if those values are real or good. That is what you should focus on in your application. 
+By leveraging input validation on API Gateway, you can enforce required parameters and regex patterns each parameter must adhere to. This allows you to remove boilerplate validation logic from backend implementations and focus on actual business logic and deep validation.
+
+## Module 3 - Optional: attack your API with SQL injection! 
+
+If you haven't completed **Module 6: WAF**, your serverless API is currently vulnerable to SQL injection attacks. This optional module shows how you can perform the attack. 
+
+If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting:  
+
+```
+                multipleStatements: true
+
+```
+
+> **Note**: As a best practice you should set the `multipleStatements` option to false in your code (the nodejs mysql client actually defaults it false). However, this is not disabled by default in all programming languages/libraries, so we enabled it in our starter code for you to see the easiness of this attack.
+
+we can easily embed SQL statements in the body of the request to get executed. For example, in the body of the POST customizations/ API, try using the below:
+
+```
+{  
+   "name":"Orange-themed unicorn",
+   "imageUrl":"https://en.wikipedia.org/wiki/Orange_(fruit)#/media/File:Orange-Whole-%26-Split.jpg",
+   "sock":"1",
+   "horn":"2",
+   "glasses":"3",
+   "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00"
+}
+```
+
+![](images/3A-injection.png)
+
+Send the request using Postman. If the request succeeds, you have now just performed a SQL injection attack! 
+
+If you look at the SQL injection statement we just performed, it's adding a bad value into the `Socks` table. We can verify that took effect by running the **GET /socks** API:
+
+![](images/3A-after-injection.png)
+
 
 ## Module 3A: Create a model for your Customizations
 
@@ -54,24 +89,20 @@ For our **POST /customizations** API, we are going to use the following model:
       "pattern": "[a-zA-Z0-9- ]+"
     },
     "sock": {
-      "type": "string",
-      "title": "The Sock Schema",
-      "pattern": "[0-9]+"
+      "type": "number",
+      "title": "The Sock Schema"
     },
     "horn": {
-      "type": "string",
-      "title": "The Horn Schema",
-      "pattern": "[0-9]+"
+      "type": "number",
+      "title": "The Horn Schema"
     },
     "glasses": {
-      "type": "string",
-      "title": "The Glasses Schema",
-      "pattern": "[0-9]+"
+      "type": "number",
+      "title": "The Glasses Schema"
     },
     "cape": {
-      "type": "string",
-      "title": "The Cape Schema",
-      "pattern": "[0-9]+"
+      "type": "number",
+      "title": "The Cape Schema"
     }
   }
 }
@@ -117,31 +148,44 @@ Use postman, you can try making requests to the **POST /customizations** API usi
 
 Here are some example request bodies that fail:
 
+* Missing fields: 
+
+	```javascript
+	{  
+	   "name":"Cherry-themed unicorn",
+	   "imageUrl":"htt://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
+	   "glasses": 3,
+	   "cape": 4
+	}
+	```
+
 * The `imageUrl` not a valid URL: 
 
 	```javascript
 	{  
 	   "name":"Cherry-themed unicorn",
 	   "imageUrl":"htt://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-	   "sock":"1",
-	   "horn":"2",
-	   "glasses":"3",
-	   "cape":"4"
+	   "sock": 1 ,
+	   "horn": 2 ,
+	   "glasses": 3,
+	   "cape": 4
 	}
 	```
 
-* The `sock ` parameter not a number: 
+* The `cape ` parameter not a number (SQL injection attempt)
 
 	```javascript
 	{  
-	   "name":"Cherry-themed unicorn",
-	   "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-	   "sock":"black",
-	   "horn":"2",
-	   "glasses":"3",
-	   "cape":"4"
+	   "name":"Orange-themed unicorn",
+	   "imageUrl":"https://en.wikipedia.org/wiki/Orange_(fruit)#/media/File:Orange-Whole-%26-Split.jpg",
+	   "sock": 1,
+	   "horn": 2,
+	   "glasses": 3,
+	   "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00"
 	}
+
 	```
+
 
 You should get a 400 Bad Request response: 
 
@@ -149,7 +193,6 @@ You should get a 400 Bad Request response:
 {"message": "Invalid request body"}
 ```
 
-![screenshot postman](images/3B_invalid_request_postman.png)
 
 ### Correct parameters
 
@@ -159,10 +202,10 @@ Testing the API with right parameters:
 {  
    "name":"Cherry-themed unicorn",
    "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-   "sock":"1",
-   "horn":"2",
-   "glasses":"3",
-   "cape":"4"
+   "sock": 1,
+   "horn": 2,
+   "glasses": 3,
+   "cape": 4
 }
 ```
 
@@ -172,6 +215,15 @@ The result should be:
 ```bash
 {"customUnicornId":<the-id-of-the-customization>}
 ```
+
+## Additional input validation options
+
+As you have now seen, API Gateway input validation gives you basic features such as type checks and regex matching. In a production application, this is often not enough and you may have additional constraints on the API input. 
+
+To gain further protection, you should consider using the below in addition to the input validation features from API Gateway:
+
+* Add an AWS WAF ACL to your API Gateway - check out [**Module 6**](../06-waf/)
+* Add further input validation logic in your lambda function code itself 
 
 
 
@@ -194,7 +246,7 @@ There is, at least, one more method that needs to be validated. Build your own j
     "name": {
       "type": "string",
       "title": "Partner Schema",
-      "pattern": "^(.*)$"
+      "pattern": "[a-zA-Z0-9- ]+"
     }
   }
 }
