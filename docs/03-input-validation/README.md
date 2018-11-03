@@ -25,12 +25,14 @@ By leveraging input validation on API Gateway, you can enforce required paramete
 
 If you haven't completed **Module 6: WAF**, your serverless API is currently vulnerable to SQL injection attacks. This optional module shows how you can perform the attack. 
 
-If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting: 
+If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting:  
 
 ```
                 multipleStatements: true
 
 ```
+
+> **Note**: As a best practice you should set the `multipleStatements` option to false in your code (the nodejs mysql client actually defaults it false). However, this is not disabled by default in all programming languages/libraries, so we enabled it in our starter code for you to see the easiness of this attack.
 
 we can easily embed SQL statements in the body of the request to get executed. For example, in the body of the POST customizations/ API, try using the below:
 
