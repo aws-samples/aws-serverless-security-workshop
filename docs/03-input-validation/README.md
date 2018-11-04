@@ -89,20 +89,24 @@ For our **POST /customizations** API, we are going to use the following model:
       "pattern": "[a-zA-Z0-9- ]+"
     },
     "sock": {
-      "type": "number",
-      "title": "The Sock Schema"
+      "type": "string",
+      "title": "The Sock Schema",
+      "pattern": "^[0-9]*$"
     },
     "horn": {
-      "type": "number",
-      "title": "The Horn Schema"
+      "type": "string",
+      "title": "The Horn Schema",
+      "pattern": "^[0-9]*$"
     },
     "glasses": {
-      "type": "number",
-      "title": "The Glasses Schema"
+      "type": "string",
+      "title": "The Glasses Schema",
+      "pattern": "^[0-9]*$"
     },
     "cape": {
-      "type": "number",
-      "title": "The Cape Schema"
+      "type": "string",
+      "title": "The Cape Schema",
+      "pattern": "^[0-9]*$"
     }
   }
 }
@@ -154,8 +158,8 @@ Here are some example request bodies that fail:
 	{  
 	   "name":"Cherry-themed unicorn",
 	   "imageUrl":"htt://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-	   "glasses": 3,
-	   "cape": 4
+	   "glasses": "3",
+	   "cape": "4"
 	}
 	```
 
@@ -165,10 +169,10 @@ Here are some example request bodies that fail:
 	{  
 	   "name":"Cherry-themed unicorn",
 	   "imageUrl":"htt://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-	   "sock": 1 ,
-	   "horn": 2 ,
-	   "glasses": 3,
-	   "cape": 4
+	   "sock": "1" ,
+	   "horn": "2" ,
+	   "glasses": "3",
+	   "cape": "4"
 	}
 	```
 
@@ -178,9 +182,9 @@ Here are some example request bodies that fail:
 	{  
 	   "name":"Orange-themed unicorn",
 	   "imageUrl":"https://en.wikipedia.org/wiki/Orange_(fruit)#/media/File:Orange-Whole-%26-Split.jpg",
-	   "sock": 1,
-	   "horn": 2,
-	   "glasses": 3,
+	   "sock": "1",
+	   "horn": "2",
+	   "glasses": "3",
 	   "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00"
 	}
 
@@ -202,10 +206,10 @@ Testing the API with right parameters:
 {  
    "name":"Cherry-themed unicorn",
    "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-   "sock": 1,
-   "horn": 2,
-   "glasses": 3,
-   "cape": 4
+   "sock": "1",
+   "horn": "2",
+   "glasses": "3",
+   "cape": "4"
 }
 ```
 
