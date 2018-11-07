@@ -258,7 +258,7 @@ After doing this, it's time to test your API locally using SAM Local.
 1. On the **right panel**, click on **AWS Resources**. 
 1. You should see a folder tree with the name *Local Functions (1)*. 
 1. Select **UnicornPartsFunction** under the `src` folder
-1. Once you have selected, above the tree, top of the panel, you should see a play button.With a Drop down. Within that dropdown, select **Run APIGateway Local**  
+1. Once you have selected, above the tree, top of the panel, you should see a play button with a Drop down. Within that dropdown, select **Run APIGateway Local**  
 
 	![Run API Gateway Local](images/0D-run-apigateway-local.png)
 
