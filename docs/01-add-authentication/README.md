@@ -324,7 +324,7 @@ Now we have configured our API so only authenticated requests can get through to
 
 Each new company that signs up to customize unicorns will need to be provisioned a set of client credentials (client ID and client secret) they can use with their request. This means we would need a process to create and distribute these client credentials.  
 
-In an actual platform like this in real life, you would probably want to do this in a web developer portal. The partner companies sign in with some user name and password to the web portal, then they can request a set of client credentials to use to make programmatic requests with. However, due to limited time for the workshop, we will just simplify this by having a **POST /partner** API that you as the admin working for Wild Rydes can use to sign up partner companies. 
+In real life, you would probably want to do this in a web developer portal. The partner companies sign in with some user name and password to the web portal, then they can request a set of client credentials to use to make programmatic requests with. However, due to limited time for the workshop, we will just simplify this by having a **POST /partner** API that you as the admin working for Wild Rydes can use to sign up partner companies. 
 
 So now, let's get you a set of admin credentials with the `WildRydes/ManagePartners` OAuth scope, so you can start signing up other companies! 
 
