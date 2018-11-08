@@ -85,13 +85,11 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 
 	* Click **Create Rule** 
 	* Give it a name, like `LargeBodyMatchRule`
-	* For 	* Click **Create Rule** 
-	* Give it a name, like `SQLinjectionRule`
-	* Rule type, keep `Regular rule`
+	* For 	**Rule type**, keep `Regular rule`
 	* In Add conditions section, select 
 		* 	`does`
-		*  `match at least one of the filters in the SQL injection match condition `
-		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL inject in 6B 
+		*  `match at least one of the filters in the size constraint condition `
+		*  `LargeBodyMatch`  -- the name of the condition we created for large request body in 6B 
 
 
 	![screenshot](images/large-body-rule.png)
@@ -104,7 +102,7 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 	* In Add conditions section, select 
 		* 	`does`
 		*  `match at least one of the filters in the SQL injection match condition `
-		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL inject in 6B 
+		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL injection in 6B 
 	*  Click **Add condition** 
 	*  Then click **Create**
 
