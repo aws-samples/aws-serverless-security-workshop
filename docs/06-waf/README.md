@@ -7,9 +7,92 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 
 ### Module 6A: Create a WAF ACL 
 
-1. Go to the <a href="https://console.aws.amazon.com/waf/home" target="_blank"> AWS WAF Console </a>
+1. Go to the [AWS WAF Console](https://console.aws.amazon.com/waf/home)
+
+1. Click on **Create web ACL**
+
+1. In Step 1 of the ACL creation wizard, fill in:
+
+	* **Web ACL Name**: `ProtectUnicorn`
+	* **CloudWatch metric name**: this should be automatically populated for you
+	* **Region**: select the AWS region you chose for previous steps of the workshop
+	* **Resource type to associate with web ACL**: Pick `API Gateway`
+	* **Amazon API Gateway API**: Pick the API Gateway we deployed previously, `CustomizeUnicorns`
+	* **Stage**: select `dev`
+
+	![screenshot](images/web-acl-name.png)
+	
+	and click **Next**
+
+1. Next you will create 2 different conditions. Let's start with a condition to restrict the maximum size of request body: 
+
+	* Go to **Size constraint conditions** section, click **Create condition**
+	* Give the condition a name, like `LargeBodyMatch`
+	* In Filter settings, add a filer on 
+		*  	**Part of the request to filter on**: body
+		*  **Comparison operator**: Greater than
+		*  **Size (Bytes)**: 3000
+	* Click **Add filter**  
+	* After the filter is added to the condition, click **Create**
+
+	![screenshot](images/large-body-condition.png)
+	
+
+1. Next, let's add a SQL injection condition. 
+
+	* Go to **SQL injection match conditions** section, click **Create condition**
+	* Give the condition a name, like `SQLinjectionMatch`
+	* Here, we want to add multiple rules to inspect multiple aspects of the request: request body, request URI and query strings 
+	* In the **Filter settings**, add 4 filters:
+
+		<table>
+		  <tr>
+		    <th></th>
+		    <th>Part of the request to filter on</th>
+		    <th>Transformation</th>
+		  </tr>
+		  <tr>
+		    <td>1</td>
+		    <td>Body</td>
+		    <td>None</td>
+		  </tr>
+		  <tr>
+		    <td>2</td>
+		    <td>Body</td>
+		    <td>URL decode</td>
+		  </tr>
+		  <tr>
+		    <td>3</td>
+		    <td>URI</td>
+		    <td>URL decode</td>
+		  </tr>
+		  <tr>
+		    <td>4</td>
+		    <td>Query string</td>
+		    <td>URL decode</td>
+		  </tr>
+		</table>
+	* Click **Create**
+	
+	![screenshot](images/sql-condition.png)
+
+1.  Next, we create Rules that are composed of one or more conditions. Let's start by creating a rule based on the request body size condition:
+
+	* Click **Create Rule** 
+	* Give it a name, like `LargeBodyMatchRule`
+	* Rule type, keep `Regular rule`
+	* In Add conditions section, select 
+		* 	`does`
+		*  `size constraint condition`
+		*  `LargeBodyMatch`  -- the name of the condition we created for the request body size constraint 
+	*  Click **Add condition** 
+	*  Then click **Create**
+	
+	![screenshot](images/large-body-rule.png)
 
 
+
+### Module 6B: Test requests with WAF protection 
 
 ## Next Step 
 
