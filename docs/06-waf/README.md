@@ -78,10 +78,10 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 	
 	![screenshot](images/sql-condition.png)
 
-### Module 6C: Create WAF conditions
+### Module 6C: Create WAF rules
 
 
-1.  Next, we create Rules that are composed of one or more conditions. Let's start by creating a rule based on the request body size condition:
+1.  Next, we create **Rules** that are composed of one or more **Conditions**. Let's start by creating a rule based on the request body size condition:
 
 	* Click **Create Rule** 
 	* Give it a name, like `LargeBodyMatchRule`
@@ -92,16 +92,7 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 		* 	`does`
 		*  `match at least one of the filters in the SQL injection match condition `
 		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL inject in 6B 
-	*  Click **Add condition** 
-	*  Then click **Create**
-, keep `Regular rule`
-	* In Add conditions section, select 
-		* 	`does`
-		*  `match at least one of the filters in the size constraint condition `
-		*  `LargeBodyMatch`  -- the name of the condition we created for the request body size constraint 
-	*  Click **Add condition** 
-	*  Then click **Create**
-	
+
 
 	![screenshot](images/large-body-rule.png)
 	
