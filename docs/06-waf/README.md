@@ -24,6 +24,8 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 	
 	and click **Next**
 
+### Module 6B: Create WAF conditions
+
 1. Next you will create 2 different conditions. Let's start with a condition to restrict the maximum size of request body: 
 
 	* Go to **Size constraint conditions** section, click **Create condition**
@@ -76,23 +78,73 @@ In this module, you will create a WAF ACL and attach it to the API Gateway we cr
 	
 	![screenshot](images/sql-condition.png)
 
+### Module 6C: Create WAF conditions
+
+
 1.  Next, we create Rules that are composed of one or more conditions. Let's start by creating a rule based on the request body size condition:
 
 	* Click **Create Rule** 
 	* Give it a name, like `LargeBodyMatchRule`
+	* For 	* Click **Create Rule** 
+	* Give it a name, like `SQLinjectionRule`
 	* Rule type, keep `Regular rule`
 	* In Add conditions section, select 
 		* 	`does`
-		*  `size constraint condition`
+		*  `match at least one of the filters in the SQL injection match condition `
+		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL inject in 6B 
+	*  Click **Add condition** 
+	*  Then click **Create**
+, keep `Regular rule`
+	* In Add conditions section, select 
+		* 	`does`
+		*  `match at least one of the filters in the size constraint condition `
 		*  `LargeBodyMatch`  -- the name of the condition we created for the request body size constraint 
 	*  Click **Add condition** 
 	*  Then click **Create**
 	
+
 	![screenshot](images/large-body-rule.png)
+	
+1. Next, we create the rule for SQL injection. 
 
+	* Click **Create Rule** 
+	* Give it a name, like `SQLinjectionRule`
+	* For **Rule type**, keep `Regular rule`
+	* In Add conditions section, select 
+		* 	`does`
+		*  `match at least one of the filters in the SQL injection match condition `
+		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL inject in 6B 
+	*  Click **Add condition** 
+	*  Then click **Create**
 
+	![screenshot](images/sql-rule.png)
 
-### Module 6B: Test requests with WAF protection 
+1. Lastly, we can create a rate-based rule that prevents an overwhelming number of requests (either valid or invalid) from flooding our API:
+
+	* Click **Create Rule** 
+	* Give it a name, like `RequestFloodRule`
+	* For **Rule type**, select `Rate-based rule`
+	* For **Rate limit**, use `2000` 
+	*  Click **Add condition** 
+	*  Then click **Create**
+
+	![screenshot](images/request-flood-rule.png)
+	
+1. You should now see 3 rules in like below. Ensure you select `Block` if the request matches any of the rules. 
+ 
+	For **Default action**, select `Allow all requests that don't match any rules`
+
+	![screenshot](images/list-rules.png)
+
+1. Click **Review and create** 
+
+1. In the next page, review the configuration and click **Confirm and Create** 	
+	
+	![screenshot](images/review-acl.png)
+
+You have now added a WAF to our API gateway stage! 
+
+### Module 6D: Test requests with WAF protection 
 
 ## Next Step 
 
