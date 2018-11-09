@@ -240,7 +240,7 @@ There is, at least, one more method that needs to be validated. Build your own j
 
 ```json
 {
-  "title": "ParameterPOST",
+  "title": "PartnerPOST",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "required": [
