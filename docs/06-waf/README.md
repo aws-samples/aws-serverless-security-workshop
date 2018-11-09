@@ -135,7 +135,9 @@ You have now added a WAF to our API gateway stage!
 
 ### Module 6D: Test requests with WAF protection 
 
-1. We can easily test the large request body rule by sending a few POST /customizations requests with a giant request body, like this one below: 
+1. First, send some valid requests using Postman to make sure well-behaving requests are getting through. 
+
+1. Next, we can easily test the large request body rule by sending a few **POST /customizations** requests with a giant request body, like this one below: 
 
 	```
 	{  
@@ -148,6 +150,46 @@ You have now added a WAF to our API gateway stage!
 	}
 	
 	```
+	
+	You should see your requests getting blocked with a **403 Forbidden** response
+	
+1. Next, let's try a request with a SQL injection attack:
+
+	```
+	{  
+	   "name":"Cherry-themed unicorn",
+	   "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
+	   "sock":"1",
+	   "horn":"2",
+	   "glasses":"3",
+	   "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00"
+	}
+	```
+
+	You should see your requests getting blocked with a **403 Forbidden** response
+
+## Extra credit 
+
+Use a load test tool like [Artillery](https://artillery.io/docs/getting-started/) to test sending more than 2000 requests in 5 minutes to test the request flood rule. 
+
+Note that you will need to ensure the Authorization headers are being sent. 
+
+If you have completed **Module 5: Usage Plan**, your API may be throttled first by the usage plan based on the API key. 
+
+## Want more?
+
+In this module, we only explored 3 types of AWS WAF rules:
+
+* SQL Injection
+* Request size constraint
+* Rate limiting 
+
+There are a lot more other types of protection you can enable, based on the types of risks you want to defend against 
+
+Check out the below to learn about other type of rules: 
+
+* AWS WAF Security Automations: [https://aws.amazon.com/answers/security/aws-waf-security-automations](https://aws.amazon.com/answers/security/aws-waf-security-automations/)
+* Managed WAF Rules from AWS Marketplace: [https://aws.amazon.com/mp/security/WAFManagedRules](https://aws.amazon.com/mp/security/WAFManagedRules/)
 
 ## Next Step 
 
