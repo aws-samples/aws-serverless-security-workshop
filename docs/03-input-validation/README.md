@@ -81,12 +81,12 @@ For our **POST /customizations** API, we are going to use the following model:
     "imageUrl": {
       "type": "string",
       "title": "The Imageurl Schema",
-      "pattern": "https?:\/\/[-a-zA-Z0-9@:%_+.~#?&//=]+"
+      "pattern": "^https?:\/\/[-a-zA-Z0-9@:%_+.~#?&//=]+$"
     },
     "name": {
       "type": "string",
       "title": "The name Schema",
-      "pattern": "[a-zA-Z0-9- ]+"
+      "pattern": "^[a-zA-Z0-9- ]+$"
     },
     "sock": {
       "type": "string",
