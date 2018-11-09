@@ -168,11 +168,15 @@ You have now added a WAF to our API gateway stage!
 
 	You should see your requests getting blocked with a **403 Forbidden** response
 
+1. The WAF console gives you metrics and sample requests that are allowed/denied by the WAF rules. You can find this information by going to the WAF console, under **Web ACLs**, select the AWS region and then the WAF we just created: 
+
+	![screenshot](images/request-sample.png)
+
 ## Extra credit 
 
 Use a load test tool like [Artillery](https://artillery.io/docs/getting-started/) to test sending more than 2000 requests in 5 minutes to test the request flood rule. 
 
-Note that you will need to ensure the Authorization headers are being sent. 
+Note that you will need to configure Artillery to send the `Authorization` headers.
 
 If you have completed **Module 5: Usage Plan**, your API may be throttled first by the usage plan based on the API key. 
 
