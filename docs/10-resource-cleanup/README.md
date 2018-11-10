@@ -57,10 +57,7 @@ This page provides instructions for cleaning up the resources created during the
 	
 	</details>
 
-1. Delete Aurora cluster
-
-
-1. Delete the resource setup CloudFormation stack
+1. Delete the `Secure-Serverless` resource setup CloudFormation stack
 
 6. CloudWatch Logs
 AWS Lambda automatically creates a new log group per function in Amazon CloudWatch Logs and writes logs to it when your function is invoked. You should delete the log group for the RequestUnicorn function. Also, if you launched any CloudFormation stacks, there may be log groups associated with custom resources in those stacks that you should delete.
