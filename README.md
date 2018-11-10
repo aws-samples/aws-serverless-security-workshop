@@ -50,6 +50,15 @@ Here's an overview of the modules in this workshop and how they map to different
     </tr>
 </table>
 
+## Resource cleanup
+
+Click below to go to the resource cleanup steps: 
+
+
+<a href="docs/10-resource-cleanup/"><img src="docs/images/cleanup.png" alt="module 2" height="90" width="140" width="150" width="185"></a>
+
+
+
 ## License Summary
 
 The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the LICENSE file.
