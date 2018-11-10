@@ -21,25 +21,7 @@ In this module, you will use **Amazon Cognito** to act as the **Authorization se
 ![high level architecture](images/10-high-level-architecture-w-auth.png)
 
 
-## Module 1 completion options
-
-Setting up authentication is the most complex module of this workshop. Due to the time it takes to set it up step-by-step, we provide two options:
-
-### Option 1: Fast-pass
-
-If you are familiar with Cognito, Oauth, Lambda authorizers for API gateway, etc. or simply more interested in doing the rest of the modules of the workshop, choose the fast-pass to skip ahead to next modules. 
-
-<details>
-<summary><strong>Click here for instructions to automatically set up authentication and skip ahead to next step</strong></summary><p>
-
-TO BE implemented 
-</details>
-
-### Option 2: Step by step
-
-If you'd like to implement auth for the serverless API step by step, expand to follow detailed instructions 
-<details>
-<summary><strong>Step by step instructions to set up authentication</strong></summary><p>
+## Module 1 instructions
 
 Quick links to submodules:
 
@@ -433,7 +415,6 @@ Now we have a set of client credentials for the partner company you just registe
 1. You can also test out other APIs in the collection, e.g. LIST, GET, DELETE on Unicorn Customizations. 
 
 
-</details>
 
 ## Next Step
 
