@@ -44,7 +44,7 @@ This page provides instructions for cleaning up the resources created during the
 
 	</details>
 
-1. Delete WAF if you created one 
+1. Delete the AWS WAF if you created one in **Module 6: WAF**
 
 1. Delete `CustomizeUnicorns` CloudFormation stack
 
