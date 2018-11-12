@@ -1,6 +1,6 @@
 # Module 4: Use SSL in-transit for your DB connections
 
-Although we are using VPC and traffic is private within it, some regulations or compliance requirements might require encryption in transit. This encryption secures the data when communicating with the database. This will ensure that any traffic sniffing within your VPC won't result in a data breach.
+Although we are using VPC and traffic is private within it, some regulations or compliance requirements might require encryption in transit. This encryption secures the data when communicating with the database. 
 
 Go to *dbUtils.js* to add a new property to your database connection. Under the method ***getDbConfig***, within the resolve object (a JSON object), add a new line to the JSON:
 
