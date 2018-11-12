@@ -47,6 +47,7 @@ The resolve should be like this:
                         secret = data.SecretString;
                         resolve({
                             ssl: "Amazon RDS",
+			    multipleStatements: true
                             host: JSON.parse(secret).host,
                             user: JSON.parse(secret).username,
                             password: JSON.parse(secret).password,
