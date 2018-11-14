@@ -5,7 +5,65 @@ AWS WAF is a web application firewall that helps protect your web applications f
 
 In this module, you will create a WAF ACL and attach it to the API Gateway we created.
 
+### Module 6 - Optional: attack your API with SQL injection!
+
+If you have completed **Module 3: Input validation on API Gateway**, your API now has some basic input validation in place for the JSON request body. However, it turns out our application is still vulnerable to SQL injection attacks as part of the request URI. This optional module shows how you can perform the attack.
+
+<details>
+<summary><strong>Click to expand for optional step instructions </strong></summary>
+
+
+1. In Postman, go to the **GET Custom_Unicorn** request. Change the request URL to include a SQL injection in the request URI: 
+
+	```
+	{{base_url}}/customizations/1; drop table Custom_Unicorns;
+	```
+
+	and Click **Send**. 
+
+	![screenshot](images/SQLi-attack-success.png)
+
+	You may get a "`Error querying`" response back because the SQL injection messed up the database query so not all of it succeeded (you can check the Cloudwatch Logs for the **CustomizeUnicorns-CustomizeUnicornFunction** Lambda function on what SQL queries got executed). However, the injected query to drop the `Custom_Unicorns` table should have succeeded. 
+
+1. If you now try to submit some valid quests, such as LIST or POST customizations, you will now get error back, because the `Custom_Unicorns` table got dropped by our evil attack! 
+
+1. To recover from this, go to your cloud9 browser tab, connect to the database again through the mysql command line 
+	
+	```
+	 cd ~/environment/aws-serverless-security-workshop/src
+	 mysql -h <replace-with-your-aurora-cluster-endpoint> -u admin -p
+	```
+
+	type in the DB password (if you have gone through **Module 2: Secrets Manager**, your DB password may have been rotated by Secrets Manager. You can retrieve the new password by going to the Secrets Manager and click on the **Retrieve secret value** button 
+
+1. In the MySQL cli prompt, you can run the show tables command to verify the `Custom_Unicorns` table is gone: 
+
+	```
+	use unicorn_customization;
+	show tables;
+	```
+
+1. Rerun the DB initialization script to recreate the `Custom_Unicorns` table:
+
+	```
+	source init/db/queries.sql
+	```
+	
+	See screenshot: 
+	
+	![screenshot](images/recreate-table.png)
+
+1. List the tables again to verify the `Custom_Unicorns` table is recreated. 
+
+	```
+	show tables;
+	```
+
+</details>
+
 ### Module 6A: Create a WAF ACL 
+
+Now let's start creating an AWS WAF to give us additional protection: 
 
 1. Go to the [AWS WAF Console](https://console.aws.amazon.com/waf/home)
 
@@ -137,7 +195,11 @@ You have now added a WAF to our API gateway stage!
 
 1. First, send some valid requests using Postman to make sure well-behaving requests are getting through. 
 
-1. Next, we can easily test the large request body rule by sending a few **POST /customizations** requests with a giant request body, like this one below: 
+1. Next, we can easily test the large request body rule by sending a few **POST /customizations** requests with a giant request body. 
+
+	In Postman, choose the **POST create Custom_Unicorn** request and replace the request body with: 
+
+
 
 	```
 	{  
@@ -153,17 +215,12 @@ You have now added a WAF to our API gateway stage!
 	
 	You should see your requests getting blocked with a **403 Forbidden** response
 	
-1. Next, let's try a request with a SQL injection attack:
+1. Next, let's try a request with a SQL injection attack in the request URI for a **GET /customizations/{id}** request
+
+	In Postman, choose the **GET Custom_Unicorn** request and replace the URL with: 
 
 	```
-	{  
-	   "name":"Cherry-themed unicorn",
-	   "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
-	   "sock":"1",
-	   "horn":"2",
-	   "glasses":"3",
-	   "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00"
-	}
+	{{base_url}}/customizations/1; drop table Custom_Unicorns;
 	```
 
 	You should see your requests getting blocked with a **403 Forbidden** response
