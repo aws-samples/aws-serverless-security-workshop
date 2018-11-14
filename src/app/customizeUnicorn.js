@@ -7,6 +7,10 @@ exports.lambda_handler = function (event, context, callback) {
 
     let id = (event.pathParameters || {}).id || false;
 
+    if (id) {
+        id = decodeURI(id)
+    }
+
     var company;
 
     // use the copmany id from auth context
