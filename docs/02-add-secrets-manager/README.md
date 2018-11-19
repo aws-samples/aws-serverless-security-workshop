@@ -29,7 +29,9 @@ First thing we need to do is create a secret in Secrets Manager.
 1. Again, click on *Next* and configure your rotation.
 	- Click on `Enable Rotation`
 	- Select `30 Days` as the rotation interval.
-	- Select this same secret as the one used for rotation.
+	- Choose **Create a new Lambda Function to perform rotation**
+	- Give the lambda function a name, e.g. `aurora-rotation`
+	- Select **Use this secret** 
 	![Rotation](images/04-rotation.png)
 1. Then, click *Next* and, if you want, review the example code. During the next sections we will modify our code to use Secrets Manager and this code will be used as an example.
 1. Finally, click *Store*.
