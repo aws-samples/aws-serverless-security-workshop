@@ -172,7 +172,6 @@ Now let's start creating an AWS WAF to give us additional protection:
 	* Give it a name, like `RequestFloodRule`
 	* For **Rule type**, select `Rate-based rule`
 	* For **Rate limit**, use `2000` 
-	*  Click **Add condition** 
 	*  Then click **Create**
 
 	![screenshot](images/request-flood-rule.png)
