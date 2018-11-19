@@ -254,7 +254,7 @@ There is, at least, one more method that needs to be validated. Build your own j
     "name": {
       "type": "string",
       "title": "Partner Schema",
-      "pattern": "[a-zA-Z0-9- ]+"
+      "pattern": "^[a-zA-Z0-9- ]+$"
     }
   }
 }
