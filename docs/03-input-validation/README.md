@@ -6,6 +6,10 @@ A quote from the OWASP website:
 > 
 >  --- [**OWASP** (The Open Web Application Security Project)](https://www.owasp.org/index.php/Data_Validation)
 
+A great [XKCD comic](https://xkcd.com/327/) demonstrate this point well: 
+
+![xkcd exploits_of_a_mom ](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
+
 You can configure API Gateway to perform basic validation of an API request before proceeding with the integration request. When the validation fails, API Gateway immediately fails the request, returns a 400 error response to the caller, and publishes the validation results in CloudWatch Logs. This reduces unnecessary calls to the backend. More importantly, it lets you focus on the validation efforts specific to your application.
 
 For example, in our application, when defining an customization, we have to be sure that our new customization should have:
