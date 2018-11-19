@@ -46,7 +46,8 @@ If you have completed **Module 3: Input validation on API Gateway**, your API no
 1. Rerun the DB initialization script to recreate the `Custom_Unicorns` table:
 
 	```
-	source init/db/queries.sql
+	drop table Capes, Glasses, Horns, Socks;
+	source init/db/queries.sql;
 	```
 	
 	See screenshot: 
@@ -136,6 +137,9 @@ Now let's start creating an AWS WAF to give us additional protection:
 	
 	![screenshot](images/sql-condition.png)
 
+1. Click **Next** to advance to the **Create rules** page 
+
+
 ### Module 6C: Create WAF rules
 
 
@@ -149,7 +153,8 @@ Now let's start creating an AWS WAF to give us additional protection:
 		*  `match at least one of the filters in the size constraint condition `
 		*  `LargeBodyMatch`  -- the name of the condition we created for large request body in 6B 
 
-
+	* Then click **Create** 
+	
 	![screenshot](images/large-body-rule.png)
 	
 1. Next, we create the rule for SQL injection. 
@@ -224,7 +229,9 @@ You have now added a WAF to our API gateway stage!
 
 	You should see your requests getting blocked with a **403 Forbidden** response
 
-1. The WAF console gives you metrics and sample requests that are allowed/denied by the WAF rules. You can find this information by going to the WAF console, under **Web ACLs**, select the AWS region and then the WAF we just created: 
+1. The WAF console gives you metrics and sample requests that are allowed/denied by the WAF rules. You can find this information by going to the WAF console, under **Web ACLs**, select the AWS region and then the WAF we just created. 
+
+	**Note:** It can take a few minutes before the metrics and sample requests start showing up in the WAF console.
 
 	![screenshot](images/request-sample.png)
 
