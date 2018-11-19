@@ -350,7 +350,7 @@ To make authenticated requests using the admin client credentiails we just creat
 	* **Name**: `admin`
 	
 	* **Grant Type**: `Client Credentials`
-	* **Access Token URL**: Remember the cognito domain we created in [module 1A](#1A)? use that and append `/oauth/token` to the end
+	* **Access Token URL**: Remember the cognito domain we created in [module 1A](#1A)? use that and append `/oauth2/token` to the end
 
 		> The full URL should look like `https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token`
 	
