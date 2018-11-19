@@ -383,7 +383,7 @@ Now we have a set of client credentials for the partner company you just registe
 
 	1. Left click on the **Customize_Unicorns** collection and **edit**
 	1. Go to **Authorization** tab, pick Oauth2.0
-	1. Use the same Cognito token url (hint: Cognito domain + `/oauth/token`)
+	1. Use the same Cognito token url (hint: Cognito domain + `/oauth2/token`)
 	1. Use the Client ID generated from the **POST /partner** API you just created from step [module 1E](#1E)
 
 		> Tip: if you forget the client ID/secret, you can also retrieve it from the Cognito User pool console under **App clients**
