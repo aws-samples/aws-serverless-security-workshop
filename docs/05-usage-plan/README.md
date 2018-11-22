@@ -23,15 +23,35 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 
 	![add stage to Usage plan](images/5A-add-stage-to-plan.png)
 
-1. We currently don't have any API keys set up. In this step, click **Create API Key and add to Usage Plan** to create an API key for the partner company we created earlier in Module 1
 
+1. We currently don't have any API keys set up. 	In this step, click **Create API Key and add to Usage Plan** to create an API key for the partner company 
+
+	<details>
+	<summary><strong> If you have not done module 1, expand for instructions here </strong></summary>
+
+	* For Name, pick any name e.g.  `cherry company`. 
+	* For API Key, select **Auto Generate**
+	* Click **Save**
+
+
+	<img src="images/5A-auto-generate-API-key.png" />
+	</details> 
+	
+	<details>
+	<summary><strong> If you have done module 1, expand for instructions here </strong></summary>
+	
 	For our application, we are going to reuse the value of the ClientID of the customer as the value for the API Key, to keep down the number of random strings that customers have to remember. 
-
+	
 	* For Name, use the company name you created in **Module 1: Auth**. 
 	* For API Key, select **Custom** so we can import the value
 	* In the inputbox that comes up, use the same value as the ClientID of the company (if you forgot it, you can retrieve it from the Cognito console and look under **App clients** tab
+	* Click **Save**
 	
 	![](images/5A-create-API-key.png)
+
+	</details> 
+
+
 	
 1. After the API key has been created, click **Done**. 
 
@@ -40,6 +60,11 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 ## Module 5B: Update API Gateway to enforce API keys
 
 Now, we need to modify our API gateway so requests must have an API key present.
+
+	
+<details>
+<summary><strong> If you have done module 1, expand for instructions here </strong></summary>
+
 
 1. In the API swagger definition in `template.yaml`, add the below lines to add an additional type of AWS security: 
 
@@ -60,6 +85,58 @@ Now, we need to modify our API gateway so requests must have an API key present.
 	to the `security` section in each API:
 
 	<img src="images/5B-add-API-key-to-swagger.png"/>
+
+</details>
+
+<details>
+<summary><strong> If you have not done module 1, expand for instructions here </strong></summary>
+
+
+1. In the API swagger definition in `template.yaml`, find the line:
+
+	```
+	### TODO: add authorizer
+	```
+	
+	add the following lines below that: 
+
+	```yaml
+	        securityDefinitions:
+	          ApiKey:
+	            type: apiKey
+	            name: x-api-key
+	            in: header
+	```
+
+	See screeenshot: 
+	<img src="images/5B-add-security-def-no-module-1.png"/>
+	
+	&#9888; **Caution: Ensure the `securityDefinitions` section you pasted is at the same indentation level as `info` and `paths`** &#9888;
+
+
+1. In the `paths` section of the Swagger template, change the occurrence of each of the below
+	
+	```yaml
+	#              security:
+	#                - CustomAuthorizer: []
+	
+	```
+
+	into
+	
+	```yaml
+	              security:
+	                - ApiKey: []
+	```
+	
+	See screeenshot: 
+	<img src="images/5D-api-source-authorizer-swagger-no-module-1.png" width="80%" />
+
+	&#9888; **Caution: Ensure all 9 APIs are updated** &#9888;
+	
+</details>
+
+Now, deploy the changes and verify: 
 
 1. Validate the template in the terminal:
 
@@ -86,11 +163,16 @@ Now, we need to modify our API gateway so requests must have an API key present.
 
 	Try sending an request using Postman like you did before. You should see the request fail with a **403 Forbidden** status code and a `{"message": "Forbidden"}` response. 
 	
-	> If the response is **401 Unauthorized**, most likely your access token is expired. Use Postman to request a new access token and try again.
+	> If the response is **401 Unauthorized** and if you have completed module 1, most likely your access token is expired. Use Postman to request a new access token and try again.
 
 1. You can add the API key request header by going to the **Header** tab, and put in 
 	* `x-api-key` for the header key
-	* The API Key (same as Client ID) that we added to the usage plan in module 5B 
+	* The value for the API Key that we added to the usage plan in module 5B:
+		* If you have done module 1: this should be same as the Cognito app Client ID
+		* If you have not done module 1: you can find the auto-generated API key value by going to the **API Keys** tab in the API gateway console --> click on the API key you created in module 5B --> click **Show** next to **API Key**	
+
+
+			<img src="images/5C-find-api-key.png" /> 
 
 	You should now see the request go through
 	
@@ -99,7 +181,10 @@ Now, we need to modify our API gateway so requests must have an API key present.
 
 ## Module 5D (Optional): Use the Lambda authorizer to provide the API key
 
-To make the API consumer's life easier, instead of forcing them to add a separate `x-api-key` header to the request they are making, we can make API Gateway take the API Key from the lambda authorizer. Read more about the two sources of API keys supported by API gateway [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-key-source.html)
+
+&#9888; **Caution: This optional module assumes you have completed Module 1** &#9888;
+
+If you have already completed module 1: to make the API consumer's life easier, instead of forcing them to add a separate `x-api-key` header to the request they are making, we can make API Gateway take the API Key from the lambda authorizer. Read more about the two sources of API keys supported by API gateway [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-key-source.html)
 
 To make this work:
 
@@ -135,6 +220,8 @@ To make this work:
 
 
 ## Module 5E (Optional): Test throttling behavior with postman
+
+&#9888; **Caution: This optional module assumes you have completed Module 1 and Module 5D! If you have not done those two, you would need to add the x-api-key header to each of the API in the collection first!** &#9888;
 
 You can use postman to send multiple API requests in sequence. 
 
