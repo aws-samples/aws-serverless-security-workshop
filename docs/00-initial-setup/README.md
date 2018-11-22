@@ -449,7 +449,5 @@ We will use [**Postman**](https://www.getpostman.com/) for the rest of the works
 
 
 ## Next step
-To start securing the serverless application you just deployed, click below to go to module 1:  
-
-<a href="../01-add-authentication/"><img src="../images/moduel1.png" alt="module 1" height="100"></a>
+To start securing the serverless application you just deployed, return to the workshop [landing page](../../README.md) to pick a module to work on! 
 
