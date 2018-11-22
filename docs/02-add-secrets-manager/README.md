@@ -54,6 +54,9 @@ In `template.yaml`, look for the block below that defines policies for Secrets M
 
 ```
 
+
+&#9888; **Note: ENSURE YOU REPLACE ALL 3 OCCURRENCES**!  &#9888;  
+
 Also, note that in the **Globals** section we are referencing the name of the secret
 
 ```
