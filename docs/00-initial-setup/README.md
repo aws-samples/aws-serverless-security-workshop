@@ -7,7 +7,7 @@ In this set up module, you will deploy a simple serverless application, which yo
 
 
 
-##Prerequisites
+## Prerequisites
 
 ### AWS Account
 In order to complete this workshop, you'll need an AWS account and access to create and manage the AWS resources that are used in this workshop, including Cloud9, Cognito, API Gateway, Lambda, RDS, WAF, Secrets Manager, and IAM policies and roles.
