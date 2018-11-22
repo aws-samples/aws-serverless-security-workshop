@@ -169,7 +169,10 @@ Now, deploy the changes and verify:
 
 ## Module 5D (Optional): Use the Lambda authorizer to provide the API key
 
-To make the API consumer's life easier, instead of forcing them to add a separate `x-api-key` header to the request they are making, we can make API Gateway take the API Key from the lambda authorizer. Read more about the two sources of API keys supported by API gateway [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-key-source.html)
+
+&#9888; **Caution: This optional module assumes you have completed Module 1** &#9888;
+
+If you have already completed module 1: to make the API consumer's life easier, instead of forcing them to add a separate `x-api-key` header to the request they are making, we can make API Gateway take the API Key from the lambda authorizer. Read more about the two sources of API keys supported by API gateway [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-key-source.html)
 
 To make this work:
 
@@ -205,6 +208,8 @@ To make this work:
 
 
 ## Module 5E (Optional): Test throttling behavior with postman
+
+&#9888; **Caution: This optional module assumes you have completed Module 1 and Module 5D! If you have not done those two, you can skip this module!** &#9888;
 
 You can use postman to send multiple API requests in sequence. 
 
