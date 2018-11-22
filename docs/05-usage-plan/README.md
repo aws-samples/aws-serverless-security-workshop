@@ -171,6 +171,9 @@ Now, deploy the changes and verify:
 		* If you have done module 1: this should be same as the Cognito app Client ID
 		* If you have not done module 1: you can find the auto-generated API key value by going to the **API Keys** tab in the API gateway console --> click on the API key you created in module 5B --> click **Show** next to **API Key**	
 
+
+			<img src="images/5C-find-api-key.png" /> 
+
 	You should now see the request go through
 	
 	<img src="images/5C-explicit-API-key.png" /> 
@@ -218,7 +221,7 @@ To make this work:
 
 ## Module 5E (Optional): Test throttling behavior with postman
 
-&#9888; **Caution: This optional module assumes you have completed Module 1 and Module 5D! If you have not done those two, you can skip this module!** &#9888;
+&#9888; **Caution: This optional module assumes you have completed Module 1 and Module 5D! If you have not done those two, you would need to add the x-api-key header to each of the API in the collection first!** &#9888;
 
 You can use postman to send multiple API requests in sequence. 
 
