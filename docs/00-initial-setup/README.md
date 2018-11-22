@@ -287,28 +287,33 @@ After doing this, it's time to test your API locally using SAM Local.
 
 1. You should see a folder tree with the name *Local Functions (1)*. 
 1. Select **UnicornPartsFunction** under the `src` folder
-1. Once you have selected, above the tree, top of the panel, you should see a play button with a Drop down. Within that dropdown, select **Run APIGateway Local**  
+1. Once you have selected the function, click on the dropdown on the panel on the top, and select **Run APIGateway Local**  
 
 	<img src="images/0D-run-apigateway-local.png" width="40%" />
 
-
 1. Then, click on the play icon. You will get a new panel to test the API locally. 
+
 1. In the **Path** parameter of this new panel, you should see it filled as `/socks`. If not, pick any of the unicorn parts (e.g `/socks`, `/glasses`, `/capes`, `/horns`) and click **Run**.
 
+	> The first time you test the API locally, it could take up to 1-2 minutes to fully initialize due to Docker being setup with a Docker image being pulled down. 
+
 	
-You should be able to get a result similar to this:
+	You should be able to get a `200 OK` response with values back for the body part you queried. 
 	
-![Local Queries](images/0E-sam-local-result.png)
+	Example screenshot:
+	
+	![Local Queries](images/0E-sam-local-result.png)
 	
 
-This indicates that the application run successfully within your Cloud9 environment (locally). Now it's time to deploy your Serverless application!
+	This indicates that the application run successfully within your Cloud9 environment (locally). Now it's time to deploy your Serverless application!
 
 ## Module-0E: Deploy and test your Serverless application in the cloud
 
+1. Retrieve the name of the S3 bucket the CloudFormation stack has created earlier:
 
-1. Go to [CloudFormation console](https://console.aws.amazon.com/cloudformation/home).
-1. Select `Secure-Serverless` stack.
-1. In the Output Module, take note of **DeploymentS3Bucket**
+	* In a separate browser tab, go to the CloudFormation console at `https://console.aws.amazon.com/cloudformation/home`
+	* Select `Secure-Serverless` stack.
+	* In the **Output** tab, take note of **DeploymentS3Bucket**
 
 	![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
 
@@ -410,16 +415,37 @@ We will use [**Postman**](https://www.getpostman.com/) for the rest of the works
 	
 		<img src="images/0F-import-postman.png" width="50%" />
 	
-1. You should now see a collection called `Customize_Unicorns` imported in postman
-1. We need to set the `base_url` variable by creating a environment in postman. See documentation from Postman on [managing environments](https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments) if you want to learn more:
-	1. Click the “Manage Environments” icon in the upper right corner of the Postman app.
+1. You should now see a collection called `Customize_Unicorns` imported in postman on the left hand side
+
+	<img src="images/0F-postman-after-import.png" width="60%" />
+
+
+1. We need to set the `base_url` variable by creating a environment in postman.
+	1. Click the &#9881; icon (“Manage Environments”) in the upper right corner of the Postman app.
+
+		<img src="images/0F-postman-manage-env.png" width="90%" />
+
+	
 	1. Create a new environment by clicking the **Add** button.
 	1. Enter an environment name, e.g. `dev`
-	1. Add an variable `base_url` and use the base API endpoint we deployed earlier (ensure the leave out the trailing `/`). See example screenshot below 
+	1. Add an variable `base_url` and use the base API endpoint we deployed earlier.
+	
+		<span style="color:red; font-weight:bold; ">Ensure the leave out the trailing `/`!!!</span><br/>
+		<span style="color:red; font-weight:bold; ">Ensure the leave out the trailing `/`!!!</span><br/>
+		<span style="color:red; font-weight:bold; ">Ensure the leave out the trailing `/`!!!</span><br/>
+
+	 See example screenshot below 
 	
 		![set up postman environment variable](images/0F-postman-environment.png)
+	
+	> See documentation from Postman on [managing environments](https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments) if you want to learn more.
+1. Click **Add** to create the `dev` environment and exit out the Manage Environments by clicking the **X**
 1. Select `dev` on the environment drop down menu. 
-1. Now, you are ready to test the API using postman. Select an API in the  `Customize_Unicorns` and test sending an request
+
+	<img src="images/0F-select-dev-env.png" width="90%" />
+
+
+1. Now, you are ready to test the API using postman. In the left sidebar, click on the `Customize_Unicorns` collection, expand the `List customization options` folder. Select an API in the folder and test sending an request by clicking on the **Send** button
 
 	![Postman Get request](images/0F-postman-test-get.png)
 
