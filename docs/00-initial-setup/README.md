@@ -423,20 +423,18 @@ We will use [**Postman**](https://www.getpostman.com/) for the rest of the works
 1. We need to set the `base_url` variable by creating a environment in postman.
 	1. Click the &#9881; icon (“Manage Environments”) in the upper right corner of the Postman app.
 
-		<img src="images/0F-postman-manage-env.png" width="90%" />
+	   <img src="images/0F-postman-manage-env.png" width="90%" />
 
 	
 	1. Create a new environment by clicking the **Add** button.
 	1. Enter an environment name, e.g. `dev`
-	1. Add an variable `base_url` and use the base API endpoint we deployed earlier.
-	
-		<span style="color:red; font-weight:bold; ">Ensure the leave out the trailing `/`!!!</span><br/>
-		<span style="color:red; font-weight:bold; ">Ensure the leave out the trailing `/`!!!</span><br/>
-		<span style="color:red; font-weight:bold; ">Ensure the leave out the trailing `/`!!!</span><br/>
+	1. Add an variable `base_url` and use the base API endpoint we deployed earlier.	
 
-	 See example screenshot below 
-	
-		![set up postman environment variable](images/0F-postman-environment.png)
+	   &#9888; **Ensure the leave out the trailing `/`!**  &#9888;
+
+	   See example screenshot below 
+
+	   <img src="images/0F-postman-environment.png" width="70%" />
 	
 	> See documentation from Postman on [managing environments](https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments) if you want to learn more.
 1. Click **Add** to create the `dev` environment and exit out the Manage Environments by clicking the **X**
