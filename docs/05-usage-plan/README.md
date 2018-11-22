@@ -29,6 +29,12 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 	<details>
 	<summary><strong> If you have not done module 1, expand for instructions here </strong></summary>
 
+	* For Name, pick any name e.g.  `cherry company`. 
+	* For API Key, select **Auto Generate**
+	* Click **Save**
+
+
+	<img src="images/5A-auto-generate-API-key.png" />
 	</details> 
 	
 	<details>
@@ -39,6 +45,7 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 	* For Name, use the company name you created in **Module 1: Auth**. 
 	* For API Key, select **Custom** so we can import the value
 	* In the inputbox that comes up, use the same value as the ClientID of the company (if you forgot it, you can retrieve it from the Cognito console and look under **App clients** tab
+	* Click **Save**
 	
 	![](images/5A-create-API-key.png)
 
@@ -156,11 +163,13 @@ Now, deploy the changes and verify:
 
 	Try sending an request using Postman like you did before. You should see the request fail with a **403 Forbidden** status code and a `{"message": "Forbidden"}` response. 
 	
-	> If the response is **401 Unauthorized**, most likely your access token is expired. Use Postman to request a new access token and try again.
+	> If the response is **401 Unauthorized** and if you have completed module 1, most likely your access token is expired. Use Postman to request a new access token and try again.
 
 1. You can add the API key request header by going to the **Header** tab, and put in 
 	* `x-api-key` for the header key
-	* The API Key (same as Client ID) that we added to the usage plan in module 5B 
+	* The value for the API Key that we added to the usage plan in module 5B:
+		* If you have done module 1: this should be same as the Cognito app Client ID
+		* If you have not done module 1: you can find the auto-generated API key value by going to the **API Keys** tab in the API gateway console --> click on the API key you created in module 5B --> click **Show** next to **API Key**	
 
 	You should now see the request go through
 	
