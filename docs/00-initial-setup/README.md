@@ -5,6 +5,25 @@ In this set up module, you will deploy a simple serverless application, which yo
 ![base-architecture](images/00-base-architecture.png)
 
 
+
+
+##Prerequisites
+
+### AWS Account
+In order to complete this workshop, you'll need an AWS account and access to create and manage the AWS resources that are used in this workshop, including Cloud9, Cognito, API Gateway, Lambda, RDS, WAF, Secrets Manager, and IAM policies and roles.
+
+The code and instructions in this workshop assume only one participant is using a given AWS account at a time. If you attempt sharing an account with another participant, you may encounter naming conflicts for certain resources. You can work around this by using distinct Regions, but the instructions do not provide details on the changes required to make this work.
+
+Please make sure not to use a production AWS environment or account for this workshop. It is recommended to instead use a development account which provides full access to the necessary services so that you do not run into permissions issues.
+
+
+
+
+### Region Selection
+Use a single region for the entirety of this workshop. This workshop supports three regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the Auth workshop activities.
+
+
+
 ## Module-0A: Create a VPC and Cloud9 environment required for this workshop
 
 A VPC is required for our workshop so we can:
@@ -23,15 +42,20 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 	US West (Oregon) | <span style="font-family:'Courier';">us-west-2</span> | [![Launch setup resource in us-west-2](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 	US East (N. Virginia) | <span style="font-family:'Courier';">us-east-1</span> | [![Launch setup resource in us-east-1](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 
-1. In the **Specify Details** page:
+1. 	Click **Next**
+1. In the **Step 2: Specify stack details** page:
 	* name you stack ***`Secure-Serverless`***
 	* for the database password, use ***`Corp123!`***
 	and click **Next**
-1. in the **Options** page, accept the default configurations and click **Next**
+1. In the **Step 3:Configure stack options** page, accept the default configurations and click **Next**
 1. Review the configuration and click **Create**
 1. While you are waiting for the completion of the CloudFormation stack creation, check if you have **PostMan** installed on your laptop. If not, download and install it at: [https://www.getpostman.com](https://www.getpostman.com), we will need to use it later. 
 
-1. Once the CloudFormation creation completes, go to the Outputs tab and copy the **AuroraEndpoint**. You will need it to connect to the Aurora database in the next step: 
+1. It will take a few minutes for the Stack to create. Choose the **Stack Info** tab to go to the overall stack status page and wait until the stack is fully launched and shows a status of *CREATE_COMPLETE*. Click the refresh icon periodically to see progress update.
+
+	> Note: When you launch the stack, CloudFormation deploys a nested CloudFormation stack to launch the Cloud9 resources. You can safely ignore that template which is prefixed with "aws-cloud9-Secure-Serverless-".
+
+1. Once the CloudFormation creation completes, go to the **Outputs** tab and copy the **AuroraEndpoint** to a text editor. You will need it to connect to the Aurora database in the next step: 
 
 	![cloudformation output](images/0a-cloudformation-output-with-aurora-endpoint.png)
 
@@ -59,12 +83,13 @@ Because your Cloud9 instance and the Aurora database is in the same VPC, you can
 
 First go to your **Cloud9** Environment.
 
-1. Go to the Cloud9 console and click on ***Your environments***
+1. Go to the Cloud9 console (click on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
+1. Click on ***Your environments***
 1. Under the *Secure-Serverless-Cloud9* environment, click on ***Open IDE***
 	
 	![Cloud9 Open IDE](images/0C-open-ide.png)
 
-1. We need to get the content of this workshop in this environment so clone this repository using the terminal:
+1. We need to get the content of this workshop in this environment so clone this repository using the terminal (bottom of the page):
 
 	`git clone https://github.com/aws-samples/aws-serverless-security-workshop.git`
 
@@ -164,21 +189,21 @@ It's time to initiate your database.
 
 1. After that, you can use the command `exit` to drop the mysql connection.
 
-## Module-0C: Review the starting code for the serverless application
+## Module-0C: The starting code for the serverless application
 
 The code for the lambda functions resides within the path `src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
 	
 `cd src/app && npm install`
 	
-This folder has a few files. Review the content of the below files: 
+The `src/app` folder has a few files: 
 	
 - **unicornParts.js**: Main file for the lambda function that lists unicorn customization options.  
 - **customizeUnicorn.js**: Main file for the lambda function that handles the create/describe/delete operations for a unicorn customization configuration.
 - **dbUtils.js**: This file contains all the database/query logic of the application. It also contains all the connection requirements in plain text (that's suspicious!)
-- **httpUtils.js**: This file contains the http response logic from your application.
 
 In addition, these additional files reside in the folder. No need to review them closely at this point:
 
+- **httpUtils.js**: This file contains the http response logic from your application.
 - **managePartners.js**: Main file for the lambda function that handles the logic to register a new partner company. We will go into details on this one in Module 1. 
 - **package.json**: Nodejs project manifest, including listing dependencies of the code 
 
@@ -249,18 +274,23 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
 ## Module-0D: Run your serverless application locally with SAM Local
 
-After reviewing the code, under **dbUtils.js**, replace the *host* with the Aurora endpoint. 
+After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. 
 
-![DB endpoint in code](images/0D-db-endpoint-in-code.png)
+
+<img src="images/0D-db-endpoint-in-code.png" width="70%" />
 
 After doing this, it's time to test your API locally using SAM Local. 
 
 1. On the **right panel**, click on **AWS Resources**. 
+
+	<img src="images/0D-aws-resource-bar.png" width="80%" />
+
 1. You should see a folder tree with the name *Local Functions (1)*. 
 1. Select **UnicornPartsFunction** under the `src` folder
 1. Once you have selected, above the tree, top of the panel, you should see a play button with a Drop down. Within that dropdown, select **Run APIGateway Local**  
 
-	![Run API Gateway Local](images/0D-run-apigateway-local.png)
+	<img src="images/0D-run-apigateway-local.png" width="40%" />
+
 
 1. Then, click on the play icon. You will get a new panel to test the API locally. 
 1. In the **Path** parameter of this new panel, you should see it filled as `/socks`. If not, pick any of the unicorn parts (e.g `/socks`, `/glasses`, `/capes`, `/horns`) and click **Run**.
