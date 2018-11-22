@@ -81,6 +81,8 @@ INSERT INTO Capes (NAME,PRICE) VALUES
     ("Branded on White", 3.00),
     ("Branded on Rainbow", 4.00);
 
+INSERT INTO Companies (NAME) VALUES ("Placeholder company");
+
 
 /*
 
@@ -88,7 +90,4 @@ INSERT INTO Custom_Unicorns (NAME, COMPANY, IMAGEURL, SOCK, HORN, GLASSES, CAPE)
 
 SELECT * FROM Custom_Unicorns;
 
-
-drop table Companies;
-drop table Custom_Unicorns;
 */
