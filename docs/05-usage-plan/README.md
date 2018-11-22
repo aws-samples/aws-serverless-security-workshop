@@ -23,15 +23,28 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 
 	![add stage to Usage plan](images/5A-add-stage-to-plan.png)
 
-1. We currently don't have any API keys set up. In this step, click **Create API Key and add to Usage Plan** to create an API key for the partner company we created earlier in Module 1
 
+1. We currently don't have any API keys set up. 	In this step, click **Create API Key and add to Usage Plan** to create an API key for the partner company 
+
+	<details>
+	<summary><strong> If you have not done module 1, expand for instructions here </strong></summary>
+
+	</details> 
+	
+	<details>
+	<summary><strong> If you have done module 1, expand for instructions here </strong></summary>
+	
 	For our application, we are going to reuse the value of the ClientID of the customer as the value for the API Key, to keep down the number of random strings that customers have to remember. 
-
+	
 	* For Name, use the company name you created in **Module 1: Auth**. 
 	* For API Key, select **Custom** so we can import the value
 	* In the inputbox that comes up, use the same value as the ClientID of the company (if you forgot it, you can retrieve it from the Cognito console and look under **App clients** tab
 	
 	![](images/5A-create-API-key.png)
+
+	</details> 
+
+
 	
 1. After the API key has been created, click **Done**. 
 
@@ -40,6 +53,11 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 ## Module 5B: Update API Gateway to enforce API keys
 
 Now, we need to modify our API gateway so requests must have an API key present.
+
+	
+<details>
+<summary><strong> If you have done module 1, expand for instructions here </strong></summary>
+
 
 1. In the API swagger definition in `template.yaml`, add the below lines to add an additional type of AWS security: 
 
@@ -60,6 +78,58 @@ Now, we need to modify our API gateway so requests must have an API key present.
 	to the `security` section in each API:
 
 	<img src="images/5B-add-API-key-to-swagger.png"/>
+
+</details>
+
+<details>
+<summary><strong> If you have not done module 1, expand for instructions here </strong></summary>
+
+
+1. In the API swagger definition in `template.yaml`, find the line:
+
+	```
+	### TODO: add authorizer
+	```
+	
+	add the following lines below that: 
+
+	```yaml
+	        securityDefinitions:
+	          ApiKey:
+	            type: apiKey
+	            name: x-api-key
+	            in: header
+	```
+
+	See screeenshot: 
+	<img src="images/5B-add-security-def-no-module-1.png"/>
+	
+	&#9888; **Caution: Ensure the `securityDefinitions` section you pasted is at the same indentation level as `info` and `paths`** &#9888;
+
+
+1. In the `paths` section of the Swagger template, change the occurrence of each of the below
+	
+	```yaml
+	#              security:
+	#                - CustomAuthorizer: []
+	
+	```
+
+	into
+	
+	```yaml
+	              security:
+	                - ApiKey: []
+	```
+	
+	See screeenshot: 
+	<img src="images/5D-api-source-authorizer-swagger-no-module-1.png" width="80%" />
+
+	&#9888; **Caution: Ensure all 9 APIs are updated** &#9888;
+	
+</details>
+
+Now, deploy the changes and verify: 
 
 1. Validate the template in the terminal:
 
