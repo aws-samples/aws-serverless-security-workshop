@@ -29,6 +29,10 @@ By leveraging input validation on API Gateway, you can enforce required paramete
 
 If you haven't completed **Module 6: WAF**, your serverless API is currently vulnerable to SQL injection attacks. This optional module shows how you can perform the attack. 
 
+<details>
+<summary><strong>Click to expand for optional step instructions </strong></summary>
+
+
 If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting:  
 
 ```
@@ -40,6 +44,9 @@ If you look at our lambda function code right now, no input validation is being 
 
 we can easily embed SQL statements in the body of the request to get executed. For example, in the body of the POST customizations/ API, try using the below:
 
+<details>
+<summary><strong> If you have done module 1, use sample input here </strong></summary>
+	
 ```
 {  
    "name":"Orange-themed unicorn",
@@ -50,6 +57,26 @@ we can easily embed SQL statements in the body of the request to get executed. F
    "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00"
 }
 ```
+	
+</details>
+
+<details>
+<summary><strong>If you have not done module 1, use sample input here </strong></summary>
+	
+```
+{  
+   "name":"Orange-themed unicorn",
+   "imageUrl":"https://en.wikipedia.org/wiki/Orange_(fruit)#/media/File:Orange-Whole-%26-Split.jpg",
+   "sock":"1",
+   "horn":"2",
+   "glasses":"3",
+   "cape":"2); INSERT INTO Socks (NAME,PRICE) VALUES ('Bad color', 10000.00",
+   "company":"1"
+}
+```
+	
+</details>
+
 
 ![](images/3A-injection.png)
 
@@ -59,6 +86,7 @@ If you look at the SQL injection statement we just performed, it's adding a bad 
 
 ![](images/3A-after-injection.png)
 
+</details>
 
 ## Module 3A: Create a model for your Customizations
 
@@ -132,21 +160,21 @@ Now, follow these steps:
 Once we have created our model, we need to apply it to our customizations/post method.
 
 1. Within the API Gateway Console, click on CustomizeUnicorns, **Resources**
-2. Click under /customizations --> **POST** method
+1. Click under /customizations --> **POST** method
 
 	![Customizations ](images/06_customizations.png)
 1. Click on **Method Request**
-2. Under **Request Validator**, click on the pencil to edit it. Select **Validate Body**. Then, click on the tick to confirm the change.
-3. Under **Request Body**, click on **Add model** with the following values:
+1. Under **Request Validator**, click on the pencil to edit it. Select **Validate Body**. Then, click on the tick to confirm the change.
+1. Under **Request Body**, click on **Add model** with the following values:
 	- Content type: `application/json`
 	- Model name: `CustomizationPost`
-4. Click to the tick to confirm.
+1. Click to the tick to confirm.
 
 	![Method Execution](images/06_method_execution.png)
 	
-On step number 2 you might have notice that we can also validate QueryStrings and body + query  strings. This is really useful when our application uses both at the same time and we want to have complex validations. If you want to find more information, [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html) is our documentation about this.
+	> On step number 2 you might have noticed that we can also validate query parameters and request headers in addition to request body. This is really useful when our application uses both at the same time and we want to have complex validations. If you want to find more information, [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html) is our documentation about this.
 
-Now it's time to deploy and test! Go to the Actions menu and click on **Deploy API**. Select `dev` as the *Deployment stage* and confirm by clicking **Deploy**.
+	1. Now it's time to deploy and test! Go to the **Actions** menu and click on **Deploy API**. Select `dev` as the **Deployment stage** and confirm by clicking **Deploy**.
 
 ## Module 3B: Test your Validation
 
@@ -161,7 +189,7 @@ Here are some example request bodies that fail:
 	```javascript
 	{  
 	   "name":"Cherry-themed unicorn",
-	   "imageUrl":"htt://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
+	   "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
 	   "glasses": "3",
 	   "cape": "4"
 	}
@@ -204,7 +232,10 @@ You should get a 400 Bad Request response:
 
 ### Correct parameters
 
-Testing the API with right parameters:
+Testing the **POST /customizations** API with right parameters:
+
+<details>
+<summary><strong> If you have done module 1, use sample input here </strong></summary>
 
 ```javascript
 {  
@@ -216,6 +247,23 @@ Testing the API with right parameters:
    "cape": "4"
 }
 ```
+</details> 
+
+<details>
+<summary><strong> If you have not done module 1, use sample input here </strong></summary>
+
+```javascript
+{  
+   "name":"Cherry-themed unicorn",
+   "imageUrl":"https://en.wikipedia.org/wiki/Cherry#/media/File:Cherry_Stella444.jpg",
+   "sock": "1",
+   "horn": "2",
+   "glasses": "3",
+   "cape": "4",
+   "company" : "1"
+}
+```
+</details> 
 
 
 The result should be:
@@ -240,7 +288,7 @@ To gain further protection, you should consider using the below in addition to t
 There is, at least, one more method that needs to be validated. Build your own json schema for that method and apply the same steps mentioned before and you should be able to validate these methods as well!
 
 <details>
-<summary><strong>In case you need some help, here is the model to be used:</strong></summary>
+<summary><strong>Hint: In case you need some help, here is the model to be used:</strong></summary>
 
 ```json
 {
