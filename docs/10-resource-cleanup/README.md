@@ -4,7 +4,7 @@ This page provides instructions for cleaning up the resources created during the
 
 ## Resource Cleanup Instructions
 
-1. Delete Cognito User pool domain that you created in **Module 1: Auth**
+1. Delete Cognito User pool domain that you created if you created one in **Module 1: Auth**
 
 	<details>
 	<summary><strong>Click here to expand for detailed instructions </strong></summary><p>
@@ -57,6 +57,19 @@ This page provides instructions for cleaning up the resources created during the
 	
 	</details>
 
+1. Empty the deployment s3 bucket:
+	
+	<details>
+	<summary><strong>Click here to expand for detailed instructions </strong></summary><p>
+	1. Go to the [S3 Console](https://console.aws.amazon.com/s3/home)
+	1. Search for bucket starting with `secure-serverless-deploymentss3bucket`
+	1. Click on the checkmark for the bucket and click on the **Empty** button
+
+		![](images/empty-s3-bucket.png)
+	
+	1. Type in the bucket name to confirm the empty operation 
+	</details>
+	
 1. Delete the `Secure-Serverless` resource setup CloudFormation stack
 
 6. CloudWatch Logs
