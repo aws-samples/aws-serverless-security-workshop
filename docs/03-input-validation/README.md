@@ -33,7 +33,7 @@ If you haven't completed **Module 6: WAF**, your serverless API is currently vul
 <summary><strong>Click to expand for optional step instructions </strong></summary>
 
 
-If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting:  
+If you look at our lambda function code right now, no input validation is being performed, and with the below line specified as part of our mysql client setting (under `/src/app/dbUtils.js`):  
 
 ```
                 multipleStatements: true
@@ -178,7 +178,7 @@ Once we have created our model, we need to apply it to our customizations/post m
 
 ## Module 3B: Test your Validation
 
-Use postman, you can try making requests to the **POST /customizations** API using invalid parameters and see the input validation kick in: 
+Use postman, you can try making requests to the **POST /customizations** API using invalid parameters and see the input validation kick in (if you get an unauthorize error message, could be caused by the expiration time of the Authentication token. You can easily refresh rthis token following these steps from module [01](../01-add-authentication/README.md#1E): 
 
 ### Wrong parameters = Invalid request:
 

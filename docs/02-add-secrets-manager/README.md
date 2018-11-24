@@ -71,7 +71,7 @@ Globals:
 
 ## Module 2C: Modify your code to use the secret
 
-Once you have have created the secret, you will have to modify the application code to use Secrets Manager. Go to the file `dbUtils.js`. Here is where the connection information is stored.
+Once you have have created the secret, you will have to modify the application code to use Secrets Manager. Go to the file `src/app/dbUtils.js`. Here is where the connection information is stored.
 
 At the beginning of the file, add the following lines to create the required variables to use AWS Secrets Manager. You can add them just after the line `const PARTNER_COMPANY_TABLE = "Companies";`.
 
@@ -133,6 +133,7 @@ This method returns a [promise](http://google.com) resolving with the JSON param
             });
 
 ```
+<PLACEHOLDER - IMAGE OF HOW DB CONFIG SHOULD LOOK LIKE AFTER CHANGING>
 
 If you read the code closely, you will see that is gathering the secrets from AWS Secrets Manager service and use them to resolve the promise with the values returned by the service.
 
@@ -153,7 +154,7 @@ Now it's time to deploy again and test the application:
 	```
 
 
-1. Test the API using postman
+1. Test the API using postman. You can test it with whatever method in the API such as `/socks`, `/horns`...
 
 ## Extra credit
 
