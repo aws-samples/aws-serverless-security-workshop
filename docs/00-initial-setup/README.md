@@ -451,5 +451,5 @@ We will use [**Postman**](https://www.getpostman.com/) for the rest of the works
 
 
 ## Next step
-To start securing the serverless application you just deployed, return to the workshop [landing page](../../README.md) to pick a module.
+To start securing the serverless application you just deployed, return to the workshop [landing page](../../README.md) to pick a module to work on! 
 
