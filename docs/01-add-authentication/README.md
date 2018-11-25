@@ -158,7 +158,12 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 	* Based on the claims parsed from the JWT token, generate a response policy that specifies API resources and actions the caller is permitted to access
 	
 
-1. Install nodejs dependencies by running `npm install` in the `src/authorizer` folder.
+1. Install nodejs dependencies in the `src/authorizer` folder:
+
+	```
+	cd ~/environment/aws-serverless-security-workshop/src/authorizer
+	npm install
+	```
 
 1. Add the authorizer lambda to the **Resources** section of `template.yaml`:
 
@@ -182,7 +187,7 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 	```
 
 
-1. API gateway require an IAM role to invoke the custom authorizer. Add it to the SAM template: 
+1. API gateway require an IAM role to invoke the custom authorizer. Add it to the SAM template as another **Resource** object: 
 
 	```
 	  ApiGatewayAuthorizerRole:
@@ -294,7 +299,7 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 	              responses: {}
 				...
 	```
-
+1. Save the `template.yaml` file
 1. Now we need to validate the template.
 
 	First, ensure we are back in the `src` folder in the terminal
@@ -320,7 +325,7 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 	
 	otherwise, fix the syntax error before continuing to next step
 
-1.  Deploy the updates by running:
+1.  Deploy the updates by running the same commands we used in module 0 to deploy the application:
 
 	```
 	 aws cloudformation package --output-template-file packaged.yaml --template-file template.yaml --s3-bucket $BUCKET --s3-prefix securityworkshop --region $REGION &&  aws cloudformation deploy --template-file packaged.yaml --stack-name CustomizeUnicorns --region $REGION --capabilities CAPABILITY_IAM --parameter-overrides InitResourceStack=Secure-Serverless
