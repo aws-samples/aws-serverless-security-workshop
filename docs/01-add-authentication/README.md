@@ -331,7 +331,7 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 	 aws cloudformation package --output-template-file packaged.yaml --template-file template.yaml --s3-bucket $BUCKET --s3-prefix securityworkshop --region $REGION &&  aws cloudformation deploy --template-file packaged.yaml --stack-name CustomizeUnicorns --region $REGION --capabilities CAPABILITY_IAM --parameter-overrides InitResourceStack=Secure-Serverless
 	```
 
-1. After the SAM template has finished updating, go to the API Gateway console and click into the API we just updated. Under **Resources**, choose any method in the API, and you should see **Auth: CustomAuthorizer** under **Method Request**:
+1. After the SAM template has finished updating, go to the [API Gateway console](https://console.aws.amazon.com/apigateway) and click into the API we just updated. Under **Resources**, choose any method in the API, and you should see **Auth: CustomAuthorizer** under **Method Request**:
 
 	![verify API gateway authorizer](images/1C-verify-API-authorizer.png)
 
