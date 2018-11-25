@@ -389,7 +389,7 @@ Now we have a set of client credentials for the partner company you just registe
 
 	1. Right click on the **Customize_Unicorns** collection and **edit**
 
-		> Ensure to right click on the overarching collection rather than the subfolders. Doing so will set the default authorization header for any API in the collection, unless overridden by the sub-folders (as we just did in module 1E)
+		> Ensure to right click on the overarching **Customize_Unicorns** collection rather than any of the subfolders. Doing so will set the default authorization header to use for any API in the collection, unless overridden by the sub-folders (as we just did in module 1E)
 		
 	1. Go to **Authorization** tab, pick Oauth2.0
 	1. Use the same Cognito token url (hint: Cognito domain + `/oauth2/token`)
