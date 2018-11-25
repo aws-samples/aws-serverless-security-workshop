@@ -133,7 +133,9 @@ This method returns a [promise](http://google.com) resolving with the JSON param
             });
 
 ```
-<PLACEHOLDER - IMAGE OF HOW DB CONFIG SHOULD LOOK LIKE AFTER CHANGING>
+Here is an example of how the method should look after the changes.
+
+![dbConfig.jsChanged](images/06-dbConfig-changed.png)
 
 If you read the code closely, you will see that is gathering the secrets from AWS Secrets Manager service and use them to resolve the promise with the values returned by the service.
 
