@@ -35,7 +35,7 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 
 1. Select the desired region. Since we are going to use services like Aurora or Cloud9, please choose one of these following and click the corresponding **Launch Stack** link
 
-	&#128161;  &#9888; **When clicking on any link in this instruction, hold the ⌘ (mac) or Ctrl (Windows) so the links open in a new tab** &#9888; &#128161;
+	&#128161; **When clicking on any link in this instruction, hold the ⌘ (mac) or Ctrl (Windows) so the links open in a new tab** &#128161;
 
 	Region| Code | Launch
 	------|------|-------
