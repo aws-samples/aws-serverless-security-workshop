@@ -372,7 +372,7 @@ To make authenticated requests using the admin client credentials we just create
 
 1. Back to the Edit Folder window, click **update**
 
-1. Now, go to the **POST /partner** API in the **Manage Partner** Folder in the left hand toolbar
+1. Now, go to the **POST Create Partner** API in the **Manage Partner** Folder in the left hand toolbar
 
 1. In the **Body** tab, fill in the name of the partner company to register, and click **Send**. You should get in the response the client ID and secret for the company you registered. 
 
