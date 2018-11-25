@@ -335,7 +335,7 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 
 	![verify API gateway authorizer](images/1C-verify-API-authorizer.png)
 
-1. Now go back to Postman and test sending API requests. You should now get **401 Unauthorized** errors from the APIs now 
+1. Now go back to Postman and test sending API requests (any API in the collection). You should now get **401 Unauthorized** errors from the APIs now.
 
 	> Make sure you didn't miss any APIs! 
 
