@@ -378,7 +378,7 @@ To make authenticated requests using the admin client credentials we just create
 
 	![](images/1E-register-partner-success.png)
 	
-1. Note down the `ClientId` and `ClientSecret` from the output. This is the client credentials "Cherry Corp" will use to customize unicorns! 
+1. Note down the `ClientId` and `ClientSecret` from the output in your text editor. This is the client credentials "Cherry Corp" will use to customize unicorns! 
 
 ### <a name="1F"></a>Module 1F: Use the partner company client credentials to customize unicorns
 
@@ -387,7 +387,10 @@ Now we have a set of client credentials for the partner company you just registe
 
 1. Request an access token from the new company client credentials you just generated. (You will notice this is very similar steps as you did in [module 1E](#1E)!
 
-	1. Left click on the **Customize_Unicorns** collection and **edit**
+	1. Right click on the **Customize_Unicorns** collection and **edit**
+
+		> Ensure to right click on the overarching collection rather than the subfolders. Doing so will set the default authorization header for any API in the collection, unless overridden by the sub-folders (as we just did in module 1E)
+		
 	1. Go to **Authorization** tab, pick Oauth2.0
 	1. Use the same Cognito token url (hint: Cognito domain + `/oauth2/token`)
 	1. Use the Client ID generated from the **POST /partner** API you just created from step [module 1E](#1E)
