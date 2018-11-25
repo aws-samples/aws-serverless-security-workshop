@@ -219,6 +219,8 @@ You have now added a WAF to our API gateway stage!
 	
 	You should see your requests getting blocked with a **403 Forbidden** response
 	
+	&#128161; **Note:** It may take a minute for WAF changes to propagate. If your test request went through successfully, retry a few times until you start receiving 403 errors as WAF kick in effect.  &#128161;
+	
 1. Next, let's try a request with a SQL injection attack in the request URI for a **GET /customizations/{id}** request
 
 	In Postman, choose the **GET Custom_Unicorn** request and replace the URL with: 
