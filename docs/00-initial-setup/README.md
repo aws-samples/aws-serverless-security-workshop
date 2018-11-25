@@ -33,7 +33,9 @@ A VPC is required for our workshop so we can:
 
 Follow the steps below to create the set up resources (VPC, Cloud9 environment, etc.)
 
-1. Select the desired region. Since we are going to use services like Aurora or Cloud9, please choose one of these following and Click the corresponding **Launch Stack** link
+1. Select the desired region. Since we are going to use services like Aurora or Cloud9, please choose one of these following and click the corresponding **Launch Stack** link
+
+	&#128161;  &#9888; **When clicking on any link in this instruction, hold the ⌘ (mac) or Ctrl (Windows) so the links open in a new tab** &#9888; &#128161;
 
 	Region| Code | Launch
 	------|------|-------
@@ -48,14 +50,14 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 	* for the database password, use ***`Corp123!`***
 	and click **Next**
 1. In the **Step 3:Configure stack options** page, accept the default configurations and click **Next**
-1. Review the configuration and click **Create**
+1. Review the configuration and click **Create stack**
 1. While you are waiting for the completion of the CloudFormation stack creation, check if you have **PostMan** installed on your laptop. If not, download and install it at: [https://www.getpostman.com](https://www.getpostman.com), we will need to use it later. 
 
 1. It will take a few minutes for the Stack to create. Choose the **Stack Info** tab to go to the overall stack status page and wait until the stack is fully launched and shows a status of *CREATE_COMPLETE*. Click the refresh icon periodically to see progress update.
 
 	> Note: When you launch the stack, CloudFormation deploys a nested CloudFormation stack to launch the Cloud9 resources. You can safely ignore that template which is prefixed with "aws-cloud9-Secure-Serverless-".
 
-1. Once the CloudFormation creation completes, go to the **Outputs** tab and copy the **AuroraEndpoint** to a text editor. You will need it to connect to the Aurora database in the next step: 
+1. Once the CloudFormation creation completes, go to the **Outputs** tab and copy the **AuroraEndpoint** to a text editor. You will need it to connect to the Aurora database in the next step. (**Keeping this browser tab open throughout this workshop is also highly recommended**)
 
 	![cloudformation output](images/0a-cloudformation-output-with-aurora-endpoint.png)
 
@@ -83,7 +85,7 @@ Because your Cloud9 instance and the Aurora database is in the same VPC, you can
 
 First go to your **Cloud9** Environment.
 
-1. Go to the Cloud9 console (click on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
+1. Go to the Cloud9 console [link](https://console.aws.amazon.com/cloud9/home) (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
 1. Click on ***Your environments***
 1. Under the *Secure-Serverless-Cloud9* environment, click on ***Open IDE***
 	
@@ -274,7 +276,7 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
 ## Module-0D: Run your serverless application locally with SAM Local
 
-After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. 
+After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. Then save the file (⌘+s for Mac or Ctrl+s for Windows or File -> Save)
 
 
 <img src="images/0D-db-endpoint-in-code.png" width="70%" />
@@ -311,8 +313,8 @@ After doing this, it's time to test your API locally using SAM Local.
 
 1. Retrieve the name of the S3 bucket the CloudFormation stack has created earlier:
 
-	* In a separate browser tab, go to the CloudFormation console at `https://console.aws.amazon.com/cloudformation/home`
-	* Select `Secure-Serverless` stack.
+	* If you still have the browser tab with the CloudFormation console open, go to the tab. Otherwise, in a separate browser tab, go to the CloudFormation console at [https://console.aws.amazon.com/cloudformation/home](https://console.aws.amazon.com/cloudformation/home) and select the `Secure-Serverless` stack.
+
 	* In the **Output** tab, take note of **DeploymentS3Bucket**
 
 	![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
@@ -449,5 +451,5 @@ We will use [**Postman**](https://www.getpostman.com/) for the rest of the works
 
 
 ## Next step
-To start securing the serverless application you just deployed, return to the workshop [landing page](../../README.md) to pick a module to work on! 
+To start securing the serverless application you just deployed, return to the workshop [landing page](../../README.md) to pick a module.
 
