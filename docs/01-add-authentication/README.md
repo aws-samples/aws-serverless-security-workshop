@@ -130,6 +130,8 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 
 ![lambda authorizer](images/1C-custom-auth-workflow.png)
 
+1. Switch back to the browser tab with your Cloud9 IDE environment or reopen it from the [Cloud9 console](https://console.aws.amazon.com/cloud9/home)
+
 1. In the serverless API we have deployed, the backend logic has an identifier for 3rd party companies (The primary key of the `Companies` MySQL table and a foreign key constraint for the `Custom_Unicorns` table.) When the lambda function inspect the access token, it can parse out the OAuth ClientID from it. To be able to tell the backend lambda which company is making the request, we need a lookup table that maps the ClientID to the company IDs in the backend database. In this case, we chose to use a separate DynamoDB table to store this mapping to separate the auth functionality from the backend system:
  
 	![id mapping diagram](images/1C-id-mapping-diagram.png)
