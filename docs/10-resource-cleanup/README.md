@@ -62,6 +62,7 @@ This page provides instructions for cleaning up the resources created during the
 	<details>
 	<summary><strong>Click here to expand for detailed instructions </strong></summary><p>
 
+
 	1. Go to the [S3 Console](https://console.aws.amazon.com/s3/home)
 	1. Search for bucket starting with `secure-serverless-deploymentss3bucket`
 	1. Click on the checkmark for the bucket and click on the **Empty** button
