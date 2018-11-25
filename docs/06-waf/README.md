@@ -199,7 +199,7 @@ You have now added a WAF to our API gateway stage!
 
 1. First, send some valid requests using Postman to make sure well-behaving requests are getting through. 
 
-1. Next, we can easily test the large request body rule by sending a few **POST /customizations** requests with a giant request body. 
+1. Next, we can easily test the large request body rule by sending a few **POST /customizations** requests with a giant request body. If you don't receive an error immediately after applying WAF, you might need to wait a minute to for these changes to propagate.
 
 	In Postman, choose the **POST create Custom_Unicorn** request and replace the request body with: 
 
