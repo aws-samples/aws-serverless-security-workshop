@@ -60,8 +60,10 @@ Quick links to submodules:
 
 1. Note down the domain name (In the format of `https://<your-custom-name>.auth.<aws-region>.amazoncognito.com`), you will need this later. 
 
-	**Tip**: You can copy the full domain name by going to the **App Integration** tab. 
+	**Tip 1**: You can copy the full domain name by going to the **App Integration** tab. 
 	
+	**Tip 2**: You can copy the full domain name into a text editor on your laptop or create a new file in the cloud9 IDE environment to use as scratch pad for storing such values. 
+
 
 
 ### <a name="1B"></a>Module 1B: Create the authorization scopes in the Cognito User Pool
