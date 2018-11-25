@@ -27,8 +27,8 @@ Quick links to submodules:
 
 * [**Module 1A**](#1A): Configure Cognito User Pool with a hosted domain
 * [**Module 1B**](#1B): Create the authorization scopes in the Cognito User Pool
-* [**Module 1C**](#1C): Deploy Custom Authorizer lambda
-* [**Module 1D**](#1D): Create client credentials for internal admin account
+* [**Module 1C**](#1C): Create client credentials for internal admin account 
+* [**Module 1D**](#1D): Deploy Custom Authorizer lambda
 * [**Module 1E**](#1E): Use the admin client to register new partner companies
 * [**Module 1F**](#1F): Use the partner company client credentials to customize unicorns
 
@@ -91,9 +91,39 @@ To achieve this:
 	
 	![add custom scope](images/cognito-add-custom-scope.png)
 
+### <a name="1C"></a> Module 1C: Create client credentials for internal admin account
+
+Each new company that signs up to customize unicorns will need to be provisioned a set of client credentials (client ID and client secret) they can use with their request. This means we would need a process to create and distribute these client credentials.  
+
+In real life, you would probably want to do this in a web developer portal. The partner companies sign in with some user name and password to the web portal, then they can request a set of client credentials to use to make programmatic requests with. However, due to limited time for the workshop, we will just simplify this by having a **POST /partner** API that you as the admin working for Wild Rydes can use to sign up partner companies. 
+
+So now, let's get you a set of admin credentials with the `WildRydes/ManagePartners` OAuth scope, so you can start signing up other companies! 
 
 
-### <a name="1C"></a> Module 1C: Deploy Custom Authorizer lambda
+1. In the Cognito console, go to the **App Clients** tab under **General Settings**
+
+1. Click **Add an app client**
+
+1. Use `Admin` for app client name
+
+	![add admin](images/cognito-add-admin.png)
+
+1. Click **Create app client**
+
+1. This generates a **App client id** and **App client secret** for the admin app client. Click on **Show Details** to see both values, copy them down for later use.
+
+	![admin client ID](images/1D-admin-clientID.png)
+
+
+1. Go to **App client settings** tab under **App integration**
+
+1. For the Admin client we just crated, enable the **Client credentials** Oauth Flow and select the Custom Scopes for **WildRydes/ManagePartners**, and click **Save changes**
+
+	![add admin](images/1D-cognito-admin-oauth-scope.png)
+	
+
+
+### <a name="1D"></a> Module 1D: Deploy Custom Authorizer lambda
 We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html) for API Gateway. As you can see in the below diagram, a lambda function is needed to inspect the access token in the request, and determine the identity and the corresponding access policy of the caller. 
 
 ![lambda authorizer](images/1C-custom-auth-workflow.png)
@@ -300,45 +330,12 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 
 	> Make sure you didn't miss any APIs! 
 
-### <a name="1D"></a> Module 1D: Create client credentials for internal admin account
-
-Now we have configured our API so only authenticated requests can get through to our protected resources. Our next step is getting some credentials to make authenticated requests with! 
-
-Each new company that signs up to customize unicorns will need to be provisioned a set of client credentials (client ID and client secret) they can use with their request. This means we would need a process to create and distribute these client credentials.  
-
-In real life, you would probably want to do this in a web developer portal. The partner companies sign in with some user name and password to the web portal, then they can request a set of client credentials to use to make programmatic requests with. However, due to limited time for the workshop, we will just simplify this by having a **POST /partner** API that you as the admin working for Wild Rydes can use to sign up partner companies. 
-
-So now, let's get you a set of admin credentials with the `WildRydes/ManagePartners` OAuth scope, so you can start signing up other companies! 
-
-
-1. Go to the [Cognito management console](https://console.aws.amazon.com/cognito/home)
-
-1. Go to the **App Clients** tab under **General Settings**
-
-1. Click **Add an app client**
-
-1. Use `Admin` for app client name
-
-	![add admin](images/cognito-add-admin.png)
-
-1. Click **Create app client**
-
-1. This generates a **App client id** and **App client secret** for the admin app client. Click on **Show Details** to see both values, copy them down for later use.
-
-	![admin client ID](images/1D-admin-clientID.png)
-
-
-1. Go to **App client settings** tab under **App integration**
-
-1. For the Admin client we just crated, enable the **Client credentials** Oauth Flow and select the Custom Scopes for **WildRydes/ManagePartners**, and click **Save changes**
-
-	![add admin](images/1D-cognito-admin-oauth-scope.png)
-	
 
 ### <a name="1E"></a>Module 1E: Use the admin client to register new partner companies
 
+Now we have configured our API so only authenticated requests can get through to our protected resources. Our next step is getting some credentials to make authenticated requests with! 
 
-To make authenticated requests using the admin client credentiails we just created in Module 1D, we can use PostMan:
+To make authenticated requests using the admin client credentials we just created in Module 1C, we can use PostMan:
 
 1. In Postman, right click on the **Manage Partner** folder and click **edit**
 1. In the Edit Folder window that pops up, go to **Authorization** tab, and change the Auth **Type** to `OAuth 2.0`, then click **Get New Access Token** 
