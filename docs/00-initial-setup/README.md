@@ -364,7 +364,7 @@ After doing this, it's time to test your API locally using SAM Local.
 	e.g.
 	![get endpoint secreenshot](images/0E-get-endpoint-output.png)
 	
-	Alternatively, you can go to the CloudFormation Console, find the `CustomizeUnicorns` stack and look in the Output Module
+	Alternatively, you can go to the [CloudFormation Console](https://console.aws.amazon.com/cloudformation/home), find the `CustomizeUnicorns` stack and look in the **Output** tab
 
 1. You can test in your browser (or `curl`) for the following APIs. Remember to append the API path (e.g. `/socks`) to the endpoint
 
@@ -432,7 +432,7 @@ We will use [**Postman**](https://www.getpostman.com/) for the rest of the works
 	1. Enter an environment name, e.g. `dev`
 	1. Add an variable `base_url` and use the base API endpoint we deployed earlier.	
 
-	   &#9888; **Ensure the leave out the trailing `/`!**  &#9888;
+	   &#9888; **Ensure to leave out the trailing `/`!**  &#9888;
 
 	   See example screenshot below 
 
