@@ -112,9 +112,14 @@ First go to your **Cloud9** Environment.
 
 	`git clone https://github.com/aws-samples/aws-serverless-security-workshop.git`
 
-1. Go into the folder of the repo using `cd aws-serverless-security-workshop/`
 
 It's time to initiate your database. 
+
+1. Go into the folder of the repo:
+
+ 	```
+ 	cd aws-serverless-security-workshop/
+ 	```
 
 1. Connect to your cluster with the following command. Replace the endpoint with the one you copied before (don't lose it yet, you still need it later).
 
