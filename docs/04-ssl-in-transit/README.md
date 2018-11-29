@@ -20,7 +20,6 @@ The resolve should be like this:
 			    user: "admin",
 			    password: "Corp123!",
 			    database: "unicorn_customization",
-			    ssl: "Amazon RDS",
 			    multipleStatements: true
 			});
 ```
