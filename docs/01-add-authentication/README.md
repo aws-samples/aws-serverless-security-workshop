@@ -20,6 +20,7 @@ In this module, you will use **Amazon Cognito** to act as the **Authorization se
 
 ![high level architecture](images/10-high-level-architecture-w-auth.png)
 
+> Once you decide to do this module, you won't be able to use Cloud9 Local testing as we haven't configured the correct permissions to test locally this functionality.
 
 ## Module 1 instructions
 
