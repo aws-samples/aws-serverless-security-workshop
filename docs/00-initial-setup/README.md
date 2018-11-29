@@ -14,13 +14,13 @@ In order to complete this workshop, you'll need an AWS account and access to cre
 
 The code and instructions in this workshop assume only one participant is using a given AWS account at a time. If you attempt sharing an account with another participant, you may encounter naming conflicts for certain resources. You can work around this by using distinct Regions, but the instructions do not provide details on the changes required to make this work.
 
-Please make sure not to use a production AWS environment or account for this workshop. It is recommended to instead use a development account which provides full access to the necessary services so that you do not run into permissions issues.
+Please make sure not to use a production AWS environment or account for this workshop. It is recommended to instead use a **development account** which provides **full access** to the necessary services so that you do not run into permissions issues.
 
 
 
 
 ### Region Selection
-Use a single region for the entirety of this workshop. This workshop supports three regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the Auth workshop activities.
+Use a single region for the entirety of this workshop. This workshop supports two regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the Auth workshop activities.
 
 
 
@@ -40,7 +40,6 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 	Region| Code | Launch
 	------|------|-------
 	EU (Ireland) | <span style="font-family:'Courier';">eu-west-1</span> | [![Launch setup resource in eu-west-1](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
-	US East (Ohio) | <span style="font-family:'Courier';">us-east-2</span> | [![Launch setup resource in us-east-2](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 	US West (Oregon) | <span style="font-family:'Courier';">us-west-2</span> | [![Launch setup resource in us-west-2](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 	US East (N. Virginia) | <span style="font-family:'Courier';">us-east-1</span> | [![Launch setup resource in us-east-1](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 
@@ -49,6 +48,9 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 	* name you stack ***`Secure-Serverless`***
 	* for the database password, use ***`Corp123!`***
 	and click **Next**
+	
+		> Note: you can specify a different password here if you prefer. However, if you do, you would later need to change the lambda function code in module-0D to use the password you specified. `src/app/dbUtils.js`
+	
 1. In the **Step 3:Configure stack options** page, accept the default configurations and click **Next**
 1. Review the configuration and click **Create stack**
 1. While you are waiting for the completion of the CloudFormation stack creation, check if you have **PostMan** installed on your laptop. If not, download and install it at: [https://www.getpostman.com](https://www.getpostman.com), we will need to use it later. 
@@ -86,12 +88,27 @@ Because your Cloud9 instance and the Aurora database is in the same VPC, you can
 First go to your **Cloud9** Environment.
 
 1. Go to the Cloud9 console [link](https://console.aws.amazon.com/cloud9/home) (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
-1. Click on ***Your environments***
+
+1. Click on ***Your environments*** (you may need to expand the left sidebar) 
+
+	<img src="images/0B-cloud9-environments.png" width="80%" />
+
 1. Under the *Secure-Serverless-Cloud9* environment, click on ***Open IDE***
 	
 	![Cloud9 Open IDE](images/0C-open-ide.png)
 
-1. We need to get the content of this workshop in this environment so clone this repository using the terminal (bottom of the page):
+	If you have trouble opening cloud9, ensure you are using:
+	
+	* Either  **Chrome** or **Firefox** browser 
+	* Refer to the troubleshooting guide [**here**](https://docs.aws.amazon.com/cloud9/latest/user-guide/troubleshooting.html#troubleshooting-env-loading) to ensure third-party cookies is enabled 
+
+1. You should now see an integrated development environment (IDE) environment as shown below. AWS Cloud9 is a cloud-based IDE that lets you write, run, and debug your code with just a browser. You can run shell commands in the terminal section just like you would on your local computers
+
+	![](images/0B-cloud9-start.png)
+
+	Keep your AWS Cloud9 IDE opened in a tab throughout this workshop as you'll be using it for most all activities.
+
+1. We need to get the content of this workshop in this environment. In the Cloud9 terminal window, run the following command to clone this repository (bottom of the page):
 
 	`git clone https://github.com/aws-samples/aws-serverless-security-workshop.git`
 

@@ -10,7 +10,7 @@ AWS X-Ray gives you visibility into the data flow of your microservices architec
 ## Module 8A: Enable X-Ray for Lambda function
 
 
-In the `template.yaml`, find the [**Globals**](https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst) section, which contains settings that all resources in the SAM template share unless explicitly overwritten. 
+In the Cloud9 IDE environment, go to the SAM template (`template.yaml`), find the [**Globals**](https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst) section, which contains settings that all resources in the SAM template share unless explicitly overwritten. 
 
 ```
 Globals:
@@ -54,7 +54,7 @@ The Lambda authorizer you added in [**Module 1: Auth**](../01-add-authentication
 	
 	And replace it with:
 	
-	```
+	```javascript
 	const AWSXRay = require('aws-xray-sdk-core');
 	const AWS = AWSXRay.captureAWS(require('aws-sdk'));
 	```
@@ -88,7 +88,7 @@ If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you
 	
 	And replace it with:
 	
-	```
+	```javascript
 	const AWSXRay = require('aws-xray-sdk-core');
 	const AWS = AWSXRay.captureAWS(require('aws-sdk'));
 	```
