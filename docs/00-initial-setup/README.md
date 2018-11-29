@@ -49,7 +49,7 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 	* for the database password, use ***`Corp123!`***
 	and click **Next**
 	
-		> Note: you can specify a different password here if you prefer. However, if you do, you would later need to change the lambda function code in module-0D to use the password you specified. `src/app/dbUtils.js`
+		> Note: you can specify a different password here if you prefer. However, the password must be at least 8 character long.  And if you do this, you would later need to change the lambda function code in module-0D to use the password you specified in the `src/app/dbUtils.js` file.
 	
 1. In the **Step 3:Configure stack options** page, accept the default configurations and click **Next**
 1. Review the configuration and click **Create stack**
