@@ -6,6 +6,8 @@ From an operational perspective, when deploying your code between different stag
 
 During this section we will use AWS Secrets Manager to handle our database credentials for us. Besides keeping your database safe even if people get access to read your code, AWS Secrets Manager also integrates with RDS and will automatically handle password rotations. 
 
+> Once you decide to do this module, you won't be able to use Cloud9 Local testing as we haven't configured the correct permissions to test locally this functionality.
+
 ## Module 2A: Create a secret in AWS Secrets Manager
 
 First thing we need to do is create a secret in Secrets Manager.
