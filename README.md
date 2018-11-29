@@ -18,6 +18,11 @@ However, this simple serverless application is not very secure, and we need your
 
 By following different modules covering various aspects of security, you will help improve the security of the simple serverless application. 
 
+## Presentation Slides
+You can find the presentation slides in the `slides` branch of this git repo, under the `presentation/` folder
+
+## Workshop Modules
+
 **Note**: The workshop is designed so you don't have to complete all the modules in order, with the exception of module 0: <span style="color:red;font-weight:bold"> You must start with module 0 before you work on other modules!</span>
 
 Click on the link to module 0 below to get started deploying the simple serverless application that you will spend the rest of the workshop securing! 
