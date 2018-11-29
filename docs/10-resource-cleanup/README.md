@@ -46,6 +46,24 @@ This page provides instructions for cleaning up the resources created during the
 
 1. Delete the AWS WAF if you created one in **Module 6: WAF**
 
+	<details>
+	<summary><strong>Click here to expand for detailed instructions </strong></summary><p>
+	
+	1. Go to the [WAF Console](https://console.aws.amazon.com/waf/home)
+	1. In the navigation pane, choose **Web ACLs**.
+	1. Choose the `ProtectUnicorns` web ACL you created in the module 6
+	1. On the **Rules** tab in the right pane, choose Edit web ACL.
+	1. Remove all rules from the web ACL by choosing the **x** at the right of the row for each rule. This doesn't delete the rules from AWS WAF, it just removes the rules from this web ACL.
+	1. Choose **Update**
+	1. Dissasociate the API gateway from the WAF by going to the section **AWS resources using this web ACL** in the **Rules** tab and clicking the  **x** at the right of the API gateway stage
+	1. On the **Web ACLs** page, confirm that the web ACL that you want to delete is selected, and then choose **Delete**.
+ 	1. In the navigation pane, choose **Rules**. 
+	1. Go to each of the 3 rules we created, edit the rule to disassociate all the conditions for each rule
+	1. Delete the rules
+	1. Delete the 3 conditions we created in the workshop
+	</details>
+
+
 1. Delete `CustomizeUnicorns` CloudFormation stack
 
 	<details>
