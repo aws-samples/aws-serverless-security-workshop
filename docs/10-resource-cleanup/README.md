@@ -92,5 +92,7 @@ This page provides instructions for cleaning up the resources created during the
 	
 1. Delete the `Secure-Serverless` resource setup CloudFormation stack
 
-6. CloudWatch Logs
+1. CloudWatch Logs
 AWS Lambda automatically creates a new log group per function in Amazon CloudWatch Logs and writes logs to it when your function is invoked. You should delete the log group for the lambda functions. (You can search for log groups starting with `/aws/lambda/CustomizeUnicorn` prefix. 
+
+1. Delete the RDS snapshot of the aurora database in the RDS console
