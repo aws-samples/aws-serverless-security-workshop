@@ -1,6 +1,6 @@
 # Module 1: Add Authentication and Authorization
 
-As you have probably noticed, the serverless app we just deployed is now to anyone in the world to access. Attackers can submit any number of unicorn customizations and we have no way of knowing who really made the request. 
+As you have probably noticed, the serverless app we just deployed is now open to anyone in the world to access. Attackers can submit any number of unicorn customizations and we have no way of knowing who really made the request. 
 
 To lock down access to the API to only trusted partners, we must add authentication and authorization to the API. 
 
