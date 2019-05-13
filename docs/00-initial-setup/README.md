@@ -345,7 +345,7 @@ After doing this, it's time to test your API locally using SAM Local.
 1. In the terminal, set the bash variables:
 
 	```
-	REGION=<fill in the region you used to deploy the initial setup resrouces>
+	REGION=<fill in the region you used to deploy the initial setup resources>
 	BUCKET=<use the DeploymentS3Bucket from the CloudFormation output>
 	```
 	
