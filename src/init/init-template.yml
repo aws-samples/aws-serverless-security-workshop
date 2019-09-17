@@ -209,7 +209,13 @@ Resources:
       MasterUsername: admin
       MasterUserPassword: !Ref DbPassword
       Engine: aurora
+      EngineMode: serverless
       DBSubnetGroupName: !Ref AuroraSubnetGroup
+      ScalingConfiguration:
+        AutoPause: true
+        MaxCapacity: 4
+        MinCapacity: 1
+        SecondsUntilAutoPause: 900 # 15 min
       VpcSecurityGroupIds:
         - !Ref AuroraSecurityGroup 
 
