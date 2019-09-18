@@ -66,9 +66,9 @@ If you have completed **Module 3: Input validation on API Gateway**, your API no
 
 Now let's start creating an AWS WAF to give us additional protection: 
 
-1. Go to the [AWS WAF Console](https://console.aws.amazon.com/waf/home)
+1. Go to the [AWS WAF Console](https://console.aws.amazon.com/wafv2/home#/wafhome)
 
-1. Click on **Create web ACL**
+1. Click on **Configure web ACL**
 
 1. In Step 1 of the ACL creation wizard, fill in:
 
@@ -257,8 +257,8 @@ There are a lot more other types of protection you can enable, based on the type
 
 Check out the below to learn about other type of rules: 
 
-* AWS WAF Security Automations: [https://aws.amazon.com/answers/security/aws-waf-security-automations](https://aws.amazon.com/answers/security/aws-waf-security-automations/)
-* Managed WAF Rules from AWS Marketplace: [https://aws.amazon.com/mp/security/WAFManagedRules](https://aws.amazon.com/mp/security/WAFManagedRules/)
+* AWS WAF Security Automations: [https://aws.amazon.com/solutions/aws-waf-security-automations/](https://aws.amazon.com/solutions/aws-waf-security-automations/)
+* Managed WAF Rules from AWS Marketplace: [https://aws.amazon.com/marketplace/solutions/security/waf-managed-rules](https://aws.amazon.com/marketplace/solutions/security/waf-managed-rules)
 
 ## Next Step 
 
