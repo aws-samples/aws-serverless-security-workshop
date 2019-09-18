@@ -119,7 +119,7 @@ If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you
 
 ## Module 8D: Enable X-Ray on API Gateway
 
-1. Go to [API Gateway Console](https://.console.aws.amazon.com/apigateway/home), and go to the `CustomizeUnicorns` API
+1. Go to [API Gateway Console](https://console.aws.amazon.com/apigateway/home), and go to the `CustomizeUnicorns` API
 
 1. Go to the **Stages** tab, click on the `dev` stage
 
