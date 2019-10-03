@@ -39,7 +39,7 @@ Here's an overview of the modules in this workshop and how they map to different
 	 </th>
     <th width="60%">
     	<span style="font-weight:bold">Code 🏰</span> <br> 
-    	<a href="docs/02-add-secrets-manager/"><img src="docs/images/module2.png" alt="module 2" height="90" width="140" width="150" width="185"></a>
+    	<a href="docs/02-manage-secrets/"><img src="docs/images/module2.png" alt="module 2" height="90" width="140" width="150" width="185"></a>
     	<a href="docs/03-input-validation/"><img src="docs/images/module3.png" alt="module 3" height="90" width="140" width="150" width="185"></a>
     	<a href="docs/07-dependency-vulnerability/"><img src="docs/images/module7.png" alt="module 3" height="90" width="140" width="150" width="185" ></a>
     </th>
