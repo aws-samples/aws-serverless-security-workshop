@@ -31,6 +31,40 @@ A VPC is required for our workshop so we can:
 * Leverage a Cloud9 environment as our IDE (integrated development environment)
 * Use an RDS Aurora MySQL database as the backend database for our serverless application. 
 
+A CloudFormation setup has been prepared to spin up these resources:
+
+* A **VPC** with 4 subnets, 2 private and 2 public. 
+* A **Cloud9** environment where you will be developing and launching the rest of the workshop resources from.
+* A **MySQL Aurora RDS database** (the primary DB instance may reside in either of the 2 private subnets)
+
+![initial resources diagram](images/0C-diagram-with-aurora.png)
+
+
+In addition, it also creates the below resources
+
+* A **S3 bucket** you will later use for packaging and uploading lambda function code 
+* A **Security Group** that will be used by the lambda functions
+
+Choose the option and click it to follow instructions according to your situation: 
+
+<details>
+<summary><strong> Option 1: If you are using AWS Event Engine </strong></summary><p>
+If you are using AWS Event Engine, an AWS CloudFormation stack should be automatically created for you.
+ 
+1. In the Event engine dashboard, click on **AWS Console**  
+1. Click on **Open Console** or use the **Copy Link** button and open the copied URL in **Chrome** or **Firefox**
+1. Type in ***CloudFormation*** in the **Find Services** search bar to go to the CloudFormation console
+1. You should see 2 stacks that have been created:
+   * one named something like `mod-3269ecbd5edf43ac` This is the main stack containing the setup resources.
+   * one named something like `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`
+1. Select the main CloudFormation stack (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
+
+</details>
+
+<details>
+<summary><strong> Option 2: If you are working in your own AWS account</strong></summary><p>
+
+
 Follow the steps below to create the set up resources (VPC, Cloud9 environment, etc.)
 
 1. Select the desired region. Since we are going to use services like Aurora or Cloud9, please choose one of these following and click the corresponding **Launch Stack** link
@@ -63,19 +97,9 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 
 	![cloudformation output](images/0a-cloudformation-output-with-aurora-endpoint.png)
 
-This CloudFormation stack spins up the below resources:
-
-* A **VPC** with 4 subnets, 2 private and 2 public. 
-* A **Cloud9** environment where you will be developing and launching the rest of the workshop resources from.
-* A **MySQL Aurora RDS database** (the primary DB instance may reside in either of the 2 private subnets)
-
-![initial resources diagram](images/0C-diagram-with-aurora.png)
+</details>
 
 
-In addition, it also creates the below resources
-
-* A **S3 bucket** you will later use for packaging and uploading lambda function code 
-* A **Security Group** that will be used by the lambda functions
 
 
 ## Module-0B: Prepare your database
