@@ -20,7 +20,7 @@ Please make sure not to use a production AWS environment or account for this wor
 
 
 ### Region Selection
-Use a single region for the entirety of this workshop. This workshop supports two regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the Auth workshop activities.
+Use a single region for the entirety of this workshop. This workshop supports two regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the workshop activities.
 
 
 
