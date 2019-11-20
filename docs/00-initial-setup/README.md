@@ -134,7 +134,7 @@ As part of the above step, an [Cloud9 IDE instance](https://aws.amazon.com/cloud
 
     ![](images/0B-clone-repo.png)
 
-:bulb: Keep an open scratch pad in Cloud9 for notes on resource IDs, etc. that you will need for future steps: 
+:bulb:**Tip**  Keep an open scratch pad in Cloud9 for notes on resource IDs, etc. that you will need for future steps: 
 
 1.  Create a new file in Cloud9  
 
