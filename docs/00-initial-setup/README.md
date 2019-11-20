@@ -348,6 +348,12 @@ In addition to the lambda code, the configurations for Lambda function and the R
    
    <img src="images/0D-db-endpoint-in-code.png" width="70%" />
 
+   :bulb: when you have unsaved changes in a file, cloud9 will show a grey dot next to the file name:
+   
+   <img src="images/0E-unsaved.png" width="50%" />
+   
+   When you successfully save the changes, the dot will turn green and then disappear.
+
    After doing this, it's time to test your API locally using SAM Local. 
 
 1. On the **right panel**, click on **AWS Resources**. 
