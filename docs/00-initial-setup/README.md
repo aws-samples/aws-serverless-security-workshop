@@ -5,9 +5,14 @@ In this set up module, you will deploy a simple serverless application, which yo
 ![base-architecture](images/00-base-architecture.png)
 
 
-
-
 ## Prerequisites
+
+If you are using AWS Event Engine to complete this workshop, the prerequisites is already met and you can move on to next step. 
+
+If you not not using AWS Event Engine, expand below to see prerequisites: 
+
+<details>
+<summary><strong> Prerequisites if you are not using AWS Event Engine </strong></summary><p>
 
 ### AWS Account
 In order to complete this workshop, you'll need an AWS account and access to create and manage the AWS resources that are used in this workshop, including Cloud9, Cognito, API Gateway, Lambda, RDS, WAF, Secrets Manager, and IAM policies and roles.
@@ -17,12 +22,10 @@ The code and instructions in this workshop assume only one participant is using 
 Please make sure not to use a production AWS environment or account for this workshop. It is recommended to instead use a **development account** which provides **full access** to the necessary services so that you do not run into permissions issues.
 
 
-
-
 ### Region Selection
 Use a single region for the entirety of this workshop. This workshop supports two regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the workshop activities.
 
-
+</details>
 
 ## Module-0A: Create a VPC and Cloud9 environment required for this workshop
 
@@ -45,7 +48,7 @@ In addition, it also creates the below resources
 * A **S3 bucket** you will later use for packaging and uploading lambda function code 
 * A **Security Group** that will be used by the lambda functions
 
-Choose the option and click it to follow instructions according to your situation: 
+**Choose and click on the option below according to your situation and follow its instructions:**
 
 <details>
 <summary><strong> Option 1: If you are using AWS Event Engine </strong></summary><p>
@@ -56,7 +59,7 @@ If you are using AWS Event Engine, an AWS CloudFormation stack should be automat
 1. Type in ***CloudFormation*** in the **Find Services** search bar to go to the CloudFormation console
 1. You should see 2 stacks that have been created:
    * one named something like `mod-3269ecbd5edf43ac` This is the main stack containing the setup resources.
-   * one named something like `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`
+   * one with name similar to `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`. This is a nested stack responsible for creating the Cloud9 environment.
 1. Select the main CloudFormation stack (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
 
 </details>
@@ -65,7 +68,7 @@ If you are using AWS Event Engine, an AWS CloudFormation stack should be automat
 <summary><strong> Option 2: If you are working in your own AWS account</strong></summary><p>
 
 
-Follow the steps below to create the set up resources (VPC, Cloud9 environment, etc.)
+If you are working in your own AWS account, follow the steps below to launch a CloudFormation template that will set up initial resources for you
 
 1. Select the desired region. Since we are going to use services like Aurora or Cloud9, please choose one of these following and click the corresponding **Launch Stack** link
 
@@ -359,7 +362,7 @@ After doing this, it's time to test your API locally using SAM Local.
 
 1. Retrieve the name of the S3 bucket the CloudFormation stack has created earlier:
 
-	* If you still have the browser tab with the CloudFormation console open, go to the tab. Otherwise, in a separate browser tab, go to the CloudFormation console at [https://console.aws.amazon.com/cloudformation/home](https://console.aws.amazon.com/cloudformation/home) and select the `Secure-Serverless` stack.
+	* If you still have the browser tab with the CloudFormation console open, go to the tab. Otherwise, in a separate browser tab, go to the CloudFormation console at [https://console.aws.amazon.com/cloudformation/home](https://console.aws.amazon.com/cloudformation/home) and select the `Secure-Serverless` stack (If you are using AWS Event Engine, the stack with name starting with `mod-`)
 
 	* In the **Output** tab, take note of **DeploymentS3Bucket**
 
