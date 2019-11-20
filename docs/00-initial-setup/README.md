@@ -134,13 +134,13 @@ As part of the above step, an [Cloud9 IDE instance](https://aws.amazon.com/cloud
 
     ![](images/0B-clone-repo.png)
 
-:bulb:**Tip**  Keep an open scratch pad in Cloud9 for notes on resource IDs, etc. that you will need for future steps: 
+:bulb:**Tip:**  Keep an open scratch pad in Cloud9 for notes on resource IDs, etc. that you will need for future steps: 
 
 1.  Create a new file in Cloud9  
 
     ![](images/0B-create-scratch.png)
 
-1.  Copy/paste the resource IDs from the browser tab with the CloudFormation console open, under **Outputs**, and save it as `scratch.txt`
+1.  Copy/paste the resource IDs from the browser tab with the CloudFormation console open, copy the content under **Outputs**, and save it as `scratch.txt`
 
     ![](images/0B-copy-past-scratch.png)
     
@@ -153,11 +153,13 @@ Because your Cloud9 instance and the Aurora database is in the same VPC, you can
 
 To initialize your database:
 
-1. Go into the folder of the repo:
+1. In the cloud9 terminal window, go into the folder of the repo:
 
  	```
  	cd aws-serverless-security-workshop/
  	```
+
+    ![](images/0C-cloud9-cd.png)
 
 1. Connect to your cluster with the following command. Replace the Aurora endpoint with the one you copied before.
 
@@ -251,7 +253,7 @@ To initialize your database:
 
 1. After that, you can use the command `exit` to drop the mysql connection.
 
-## Module-0C: The starting code for the serverless application
+## Module-0D: The starting code for the serverless application
 
 The code for the lambda functions resides within the path `src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
 	
@@ -334,7 +336,7 @@ In addition to the lambda code, the configurations for Lambda function and the R
   </tr>
 </table>
 
-## Module-0D: Run your serverless application locally with SAM Local
+## Module-0E: Run your serverless application locally with SAM Local
 
 After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. Then save the file (⌘+s for Mac or Ctrl+s for Windows or File -> Save)
 
@@ -369,7 +371,7 @@ After doing this, it's time to test your API locally using SAM Local.
 
 	This indicates that the application run successfully within your Cloud9 environment (locally). Now it's time to deploy your Serverless application!
 
-## Module-0E: Deploy and test your Serverless application in the cloud
+## Module-0F: Deploy and test your Serverless application in the cloud
 
 1. Retrieve the name of the S3 bucket the CloudFormation stack has created earlier:
 
@@ -461,7 +463,7 @@ After doing this, it's time to test your API locally using SAM Local.
 	![test api in browser](images/0E-test-browser.png)
 
 	
-## Module-0F: Set up Postman to test the API 
+## Module-0G: Set up Postman to test the API 
 
 
 We will use [**Postman**](https://www.getpostman.com/) for the rest of the workshop for testing API requests. 
