@@ -161,7 +161,7 @@ To initialize your database:
 
     ![](images/0C-cloud9-cd.png)
 
-1. Connect to your cluster with the following command. Replace the Aurora endpoint with the one you copied before.
+1. Connect to your cluster with the following command. Replace the Aurora endpoint with the one you copied into your scratch pad.
 
 	`mysql -h <YOUR-AURORA-SERVERLESS-ENDPOINT> -u admin -p`
 
@@ -255,7 +255,7 @@ To initialize your database:
 
 ## Module-0D: The starting code for the serverless application
 
-The code for the lambda functions resides within the path `src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
+The code for the lambda functions resides within the path `aws-serverless-security-workshop/src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
 	
 `cd src/app && npm install`
 	
@@ -264,6 +264,12 @@ The `src/app` folder has a few files:
 - **unicornParts.js**: Main file for the lambda function that lists unicorn customization options.  
 - **customizeUnicorn.js**: Main file for the lambda function that handles the create/describe/delete operations for a unicorn customization configuration.
 - **dbUtils.js**: This file contains all the database/query logic of the application. It also contains all the connection requirements in plain text (that's suspicious!)
+
+Review them by navigating the file explorer sidebar in Cloud9:
+
+![](images/0D-review-code.png)
+
+
 
 In addition, these additional files reside in the folder. No need to review them closely at this point:
 
@@ -338,12 +344,11 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
 ## Module-0E: Run your serverless application locally with SAM Local
 
-After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. Then save the file (⌘+s for Mac or Ctrl+s for Windows or File -> Save)
+1. After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. Then save the file (⌘+s for Mac or Ctrl+s for Windows or File -> Save)
+   
+   <img src="images/0D-db-endpoint-in-code.png" width="70%" />
 
-
-<img src="images/0D-db-endpoint-in-code.png" width="70%" />
-
-After doing this, it's time to test your API locally using SAM Local. 
+   After doing this, it's time to test your API locally using SAM Local. 
 
 1. On the **right panel**, click on **AWS Resources**. 
 
