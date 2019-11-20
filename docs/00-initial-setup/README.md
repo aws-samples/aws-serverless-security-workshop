@@ -103,18 +103,11 @@ If you are working in your own AWS account, follow the steps below to launch a C
 </details>
 
 
+## Module-0B: Access Cloud9
 
-
-## Module-0B: Prepare your database
-
-We need to create some tables and insert some initial values to the Aurora database. We launched the Aurora database in private subnet following security best practices so the database is not reachable directly from the Internet. 
-
-Because your Cloud9 instance and the Aurora database is in the same VPC, you can administer the database from the Cloud9 instance (The security group of the database the have been configured to allow the traffic):
-
-
-First go to your **Cloud9** Environment.
-
-1. Go to the Cloud9 console [link](https://console.aws.amazon.com/cloud9/home) (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
+As part of the above step, an [Cloud 9 IDE instance](https://aws.amazon.com/cloud9/) is created. All of the coding and commands in this workshop should be run inside the Cloud 9 IDE environment. 
+ 
+1. Open a new browser tab and go to the [Cloud9 console](https://console.aws.amazon.com/cloud9/home) (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
 
 1. Click on ***Your environments*** (you may need to expand the left sidebar) 
 
@@ -139,8 +132,26 @@ First go to your **Cloud9** Environment.
 
 	`git clone https://github.com/aws-samples/aws-serverless-security-workshop.git`
 
+    ![](images/0B-clone-repo.png)
 
-It's time to initiate your database. 
+:bulb: Keep an open scratch pad in Cloud9 for notes on resource IDs, etc. that you will need for future steps: 
+
+1.  Create a new file in Cloud9  
+
+    ![](images/0B-create-scratch.png)
+
+1.  Copy/paste the resource IDs from the browser tab with the CloudFormation console open, under **Outputs**, and save it as `scratch.txt`
+
+    ![](images/0B-copy-past-scratch.png)
+    
+
+## Module-0C: Prepare your database
+
+We need to create some tables and insert some initial values to the Aurora database. In Module-0A, a Aurora database is setup in private subnet so the database is not reachable directly from the Internet. 
+
+Because your Cloud9 instance and the Aurora database is in the same VPC, you can administer the database from the Cloud9 instance (The security group of the database the have been configured to allow the traffic):
+
+To initialize your database:
 
 1. Go into the folder of the repo:
 
@@ -148,11 +159,11 @@ It's time to initiate your database.
  	cd aws-serverless-security-workshop/
  	```
 
-1. Connect to your cluster with the following command. Replace the endpoint with the one you copied before (don't lose it yet, you still need it later).
+1. Connect to your cluster with the following command. Replace the Aurora endpoint with the one you copied before.
 
 	`mysql -h <YOUR-AURORA-SERVERLESS-ENDPOINT> -u admin -p`
 
-	You should be prompted with a password. Use *`Corp123!`* (the one you specified before).
+	You should be prompted with a password. Use *`Corp123!`* (If during Module-0A, you customized the password to something else, use the one you specified).
 
 1. Within the mysql command prompt (`mysql> `), enter the following command: 
 
