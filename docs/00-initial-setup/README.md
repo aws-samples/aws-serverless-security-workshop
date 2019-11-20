@@ -380,17 +380,18 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
 1. Retrieve the name of the S3 bucket the CloudFormation stack has created earlier:
 
-	* If you still have the browser tab with the CloudFormation console open, go to the tab. Otherwise, in a separate browser tab, go to the CloudFormation console at [https://console.aws.amazon.com/cloudformation/home](https://console.aws.amazon.com/cloudformation/home) and select the `Secure-Serverless` stack (If you are using AWS Event Engine, the stack with name starting with `mod-`)
+	* If you copied the CloudFormation output content in the cloud9 scratch pad, find the value of **DeploymentS3Bucket**
+	
+	  ![CloudFormation output](images/0F-copy-bucket.png)
+	
+	* Otherwise, find the value of **DeploymentS3Bucket** from the Cloudformation console **Output** tab 
 
-	* In the **Output** tab, take note of **DeploymentS3Bucket**
-
-	![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
-
+	  ![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
 
 1. In the terminal, set the bash variables:
 
 	```
-	REGION=<fill in the region you used to deploy the initial setup resources>
+	REGION=`ec2-metadata -z | awk '{print $2}' | sed 's/[a-z]$//'`
 	BUCKET=<use the DeploymentS3Bucket from the CloudFormation output>
 	```
 	
