@@ -56,11 +56,11 @@ If you are using AWS Event Engine, an AWS CloudFormation stack should be automat
  
 1. In the Event engine dashboard, click on **AWS Console**  
 1. Click on **Open Console** or use the **Copy Link** button and open the copied URL in **Chrome** or **Firefox**
-1. Type in ***CloudFormation*** in the **Find Services** search bar to go to the CloudFormation console
+1. Type in `CloudFormation` in the **Find Services** search bar to go to the CloudFormation console
 1. You should see 2 stacks that have been created:
-   * one named something like `mod-3269ecbd5edf43ac` This is the main stack containing the setup resources.
+   * one named something like `mod-3269ecbd5edf43ac` This is the ***main setup stack*** containing the setup resources.
    * one with name similar to `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`. This is a nested stack responsible for creating the Cloud9 environment.
-1. Select the main CloudFormation stack (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
+1. Select the ***main setup stack*** (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
 
 </details>
 
