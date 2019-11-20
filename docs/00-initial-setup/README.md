@@ -105,9 +105,9 @@ If you are working in your own AWS account, follow the steps below to launch a C
 
 ## Module-0B: Access Cloud9
 
-As part of the above step, an [Cloud 9 IDE instance](https://aws.amazon.com/cloud9/) is created. All of the coding and commands in this workshop should be run inside the Cloud 9 IDE environment. 
+As part of the above step, an [Cloud9 IDE instance](https://aws.amazon.com/cloud9/) is created. All of the coding and commands in this workshop should be run inside the Cloud9 IDE environment. 
  
-1. Open a new browser tab and go to the [Cloud9 console](https://console.aws.amazon.com/cloud9/home) (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
+1. Open a new browser tab and go to the Cloud9 console: `https://console.aws.amazon.com/cloud9/home` (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
 
 1. Click on ***Your environments*** (you may need to expand the left sidebar) 
 
