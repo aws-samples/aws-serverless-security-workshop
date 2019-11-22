@@ -7,7 +7,7 @@ In this set up module, you will deploy a simple serverless application, which yo
 
 ## Prerequisites
 
-If you are using AWS Event Engine to complete this workshop, the prerequisites is already met and you can move on to next step. 
+If you are completing this workshop at an AWS-sponsored event where an AWS account is provided for you, you will be using **AWS Event Engine**. In this case, the prerequisites is already met and you can move on to next step. 
 
 If you not not using AWS Event Engine, expand below to see prerequisites: 
 
@@ -51,6 +51,7 @@ In addition, it also creates the below resources
 
 **Choose and click on the option below according to your situation and follow its instructions:**
 
+If you are completing this workshop at an AWS-sponsored event where an AWS account is provided for you, you will be using **AWS Event Engine**. Choose **Option 1** below. Otherwise, choose **Option 2**. 
 <details>
 <summary><strong> Option 1: If you are using AWS Event Engine </strong></summary><p>
 If you are using AWS Event Engine, an AWS CloudFormation stack should be automatically created for you.
