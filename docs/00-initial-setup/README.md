@@ -9,25 +9,6 @@ In this set up module, you will deploy a simple serverless application, which yo
 
 If you are using AWS Event Engine to complete this workshop, the prerequisites is already met and you can move on to next step. 
 
-<details>
-<summary><strong> Prerequisites if you are not using AWS Event Engine </strong></summary><p>
-
-1. Go to [https://dashboard.eventengine.run](https://dashboard.eventengine.run)
-1. In the next screen, put in the hash code you received from the event organizer, and click **Proceed**
-
-   ![event-engine-login](images/00-event-engine-login.png)
-
-1. Log into the the AWS console in the event engine account by clicking on **AWS Console**
-
-   ![](images/00-event-engine-console-login.png)
-
-1. Click on **Open AWS Console**
-    
-    ![](images/00-event-engine-console-login-2.png)
-   
-</details>
-
-
 If you not not using AWS Event Engine, expand below to see prerequisites: 
 
 <details>
@@ -74,8 +55,20 @@ In addition, it also creates the below resources
 <summary><strong> Option 1: If you are using AWS Event Engine </strong></summary><p>
 If you are using AWS Event Engine, an AWS CloudFormation stack should be automatically created for you.
  
-1. In the Event engine dashboard, click on **AWS Console**  
-1. Click on **Open Console** or use the **Copy Link** button and open the copied URL in **Chrome** or **Firefox**
+ 
+1. Go to [https://dashboard.eventengine.run](https://dashboard.eventengine.run)
+1. In the next screen, put in the hash code you received from the event organizer, and click **Proceed**
+
+   ![event-engine-login](images/00-event-engine-login.png)
+
+1. Log into the the AWS console in the event engine account by clicking on **AWS Console**
+
+   ![](images/00-event-engine-console-login.png)
+
+1. Click on **Open AWS Console** or use the **Copy Login Link** button and open the copied URL in **Chrome** or **Firefox**
+    
+    ![](images/00-event-engine-console-login-2.png)
+    
 1. Type in `CloudFormation` in the **Find Services** search bar to go to the CloudFormation console
 1. You should see 2 stacks that have been created:
    * one named something like `mod-3269ecbd5edf43ac` This is the ***main setup stack*** containing the setup resources.
