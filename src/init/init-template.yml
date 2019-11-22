@@ -205,6 +205,7 @@ Resources:
   AuroraDBCluster:
     Type: AWS::RDS::DBCluster
     DependsOn: AuroraSubnetGroup
+    DeletionPolicy: Delete
     Properties:
       MasterUsername: admin
       MasterUserPassword: !Ref DbPassword
@@ -216,7 +217,7 @@ Resources:
 Outputs:
 
   AuroraEndpoint:
-    Description: VPC subnet group for aurora database
+    Description: Aurora endpoint for aurora database
     Value: !GetAtt AuroraDBCluster.Endpoint.Address
 
   DeploymentS3Bucket:
