@@ -14,6 +14,7 @@ If you not not using AWS Event Engine, expand below to see prerequisites:
 <details>
 <summary><strong> Prerequisites if you are not using AWS Event Engine </strong></summary><p>
 
+
 ### AWS Account
 In order to complete this workshop, you'll need an AWS account and access to create and manage the AWS resources that are used in this workshop, including Cloud9, Cognito, API Gateway, Lambda, RDS, WAF, Secrets Manager, and IAM policies and roles.
 
@@ -54,14 +55,28 @@ In addition, it also creates the below resources
 <summary><strong> Option 1: If you are using AWS Event Engine </strong></summary><p>
 If you are using AWS Event Engine, an AWS CloudFormation stack should be automatically created for you.
  
-1. In the Event engine dashboard, click on **AWS Console**  
-1. Click on **Open Console** or use the **Copy Link** button and open the copied URL in **Chrome** or **Firefox**
+ 
+1. Go to [https://dashboard.eventengine.run](https://dashboard.eventengine.run)
+1. In the next screen, put in the hash code you received from the event organizer, and click **Proceed**
+
+   ![event-engine-login](images/00-event-engine-login.png)
+
+1. Log into the the AWS console in the event engine account by clicking on **AWS Console**
+
+   ![](images/00-event-engine-console-login.png)
+
+1. Click on **Open AWS Console** or use the **Copy Login Link** button and open the copied URL in **Chrome** or **Firefox**
+    
+    ![](images/00-event-engine-console-login-2.png)
+    
 1. Type in `CloudFormation` in the **Find Services** search bar to go to the CloudFormation console
 1. You should see 2 stacks that have been created:
    * one named something like `mod-3269ecbd5edf43ac` This is the ***main setup stack*** containing the setup resources.
    * one with name similar to `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`. This is a nested stack responsible for creating the Cloud9 environment.
 1. Select the ***main setup stack*** (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
 
+    ![](images/00-ee-cloudformation.png)
+    
 </details>
 
 <details>
