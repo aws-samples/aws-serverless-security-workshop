@@ -73,7 +73,7 @@ Globals:
 
 ## Module 2C: Modify your code to use the secret
 
-Once you have have created the secret, you will have to modify the application code to use Secrets Manager. Go to the file `src/app/dbUtils.js`. Here is where the connection information is stored.
+Once you have created the secret, you will have to modify the application code to use Secrets Manager. Go to the file `src/app/dbUtils.js`. Here is where the connection information is stored.
 
 At the beginning of the file, add the following lines to create the required variables to use AWS Secrets Manager. You can add them just after the line `const PARTNER_COMPANY_TABLE = "Companies";`.
 
