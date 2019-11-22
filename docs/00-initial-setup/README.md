@@ -9,10 +9,30 @@ In this set up module, you will deploy a simple serverless application, which yo
 
 If you are using AWS Event Engine to complete this workshop, the prerequisites is already met and you can move on to next step. 
 
+<details>
+<summary><strong> Prerequisites if you are not using AWS Event Engine </strong></summary><p>
+
+1. Go to [https://dashboard.eventengine.run](https://dashboard.eventengine.run)
+1. In the next screen, put in the hash code you received from the event organizer, and click **Proceed**
+
+   ![event-engine-login](images/00-event-engine-login.png)
+
+1. Log into the the AWS console in the event engine account by clicking on **AWS Console**
+
+   ![](images/00-event-engine-console-login.png)
+
+1. Click on **Open AWS Console**
+    
+    ![](images/00-event-engine-console-login-2.png)
+   
+</details>
+
+
 If you not not using AWS Event Engine, expand below to see prerequisites: 
 
 <details>
 <summary><strong> Prerequisites if you are not using AWS Event Engine </strong></summary><p>
+
 
 ### AWS Account
 In order to complete this workshop, you'll need an AWS account and access to create and manage the AWS resources that are used in this workshop, including Cloud9, Cognito, API Gateway, Lambda, RDS, WAF, Secrets Manager, and IAM policies and roles.
