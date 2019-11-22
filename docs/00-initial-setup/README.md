@@ -5,9 +5,14 @@ In this set up module, you will deploy a simple serverless application, which yo
 ![base-architecture](images/00-base-architecture.png)
 
 
-
-
 ## Prerequisites
+
+If you are using AWS Event Engine to complete this workshop, the prerequisites is already met and you can move on to next step. 
+
+If you not not using AWS Event Engine, expand below to see prerequisites: 
+
+<details>
+<summary><strong> Prerequisites if you are not using AWS Event Engine </strong></summary><p>
 
 ### AWS Account
 In order to complete this workshop, you'll need an AWS account and access to create and manage the AWS resources that are used in this workshop, including Cloud9, Cognito, API Gateway, Lambda, RDS, WAF, Secrets Manager, and IAM policies and roles.
@@ -17,12 +22,10 @@ The code and instructions in this workshop assume only one participant is using 
 Please make sure not to use a production AWS environment or account for this workshop. It is recommended to instead use a **development account** which provides **full access** to the necessary services so that you do not run into permissions issues.
 
 
-
-
 ### Region Selection
 Use a single region for the entirety of this workshop. This workshop supports two regions in North America and 1 region in Europe. Choose one region from the launch stack links below and continue to use that region for all of the workshop activities.
 
-
+</details>
 
 ## Module-0A: Create a VPC and Cloud9 environment required for this workshop
 
@@ -31,7 +34,41 @@ A VPC is required for our workshop so we can:
 * Leverage a Cloud9 environment as our IDE (integrated development environment)
 * Use an RDS Aurora MySQL database as the backend database for our serverless application. 
 
-Follow the steps below to create the set up resources (VPC, Cloud9 environment, etc.)
+A CloudFormation setup has been prepared to spin up these resources:
+
+* A **VPC** with 4 subnets, 2 private and 2 public. 
+* A **Cloud9** environment where you will be developing and launching the rest of the workshop resources from.
+* A **MySQL Aurora RDS database** (the primary DB instance may reside in either of the 2 private subnets)
+
+![initial resources diagram](images/0C-diagram-with-aurora.png)
+
+
+In addition, it also creates the below resources
+
+* A **S3 bucket** you will later use for packaging and uploading lambda function code 
+* A **Security Group** that will be used by the lambda functions
+
+**Choose and click on the option below according to your situation and follow its instructions:**
+
+<details>
+<summary><strong> Option 1: If you are using AWS Event Engine </strong></summary><p>
+If you are using AWS Event Engine, an AWS CloudFormation stack should be automatically created for you.
+ 
+1. In the Event engine dashboard, click on **AWS Console**  
+1. Click on **Open Console** or use the **Copy Link** button and open the copied URL in **Chrome** or **Firefox**
+1. Type in `CloudFormation` in the **Find Services** search bar to go to the CloudFormation console
+1. You should see 2 stacks that have been created:
+   * one named something like `mod-3269ecbd5edf43ac` This is the ***main setup stack*** containing the setup resources.
+   * one with name similar to `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`. This is a nested stack responsible for creating the Cloud9 environment.
+1. Select the ***main setup stack*** (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
+
+</details>
+
+<details>
+<summary><strong> Option 2: If you are working in your own AWS account</strong></summary><p>
+
+
+If you are working in your own AWS account, follow the steps below to launch a CloudFormation template that will set up initial resources for you
 
 1. Select the desired region. Since we are going to use services like Aurora or Cloud9, please choose one of these following and click the corresponding **Launch Stack** link
 
@@ -63,31 +100,14 @@ Follow the steps below to create the set up resources (VPC, Cloud9 environment, 
 
 	![cloudformation output](images/0a-cloudformation-output-with-aurora-endpoint.png)
 
-This CloudFormation stack spins up the below resources:
-
-* A **VPC** with 4 subnets, 2 private and 2 public. 
-* A **Cloud9** environment where you will be developing and launching the rest of the workshop resources from.
-* A **MySQL Aurora RDS database** (the primary DB instance may reside in either of the 2 private subnets)
-
-![initial resources diagram](images/0C-diagram-with-aurora.png)
+</details>
 
 
-In addition, it also creates the below resources
+## Module-0B: Access Cloud9
 
-* A **S3 bucket** you will later use for packaging and uploading lambda function code 
-* A **Security Group** that will be used by the lambda functions
-
-
-## Module-0B: Prepare your database
-
-We need to create some tables and insert some initial values to the Aurora database. We launched the Aurora database in private subnet following security best practices so the database is not reachable directly from the Internet. 
-
-Because your Cloud9 instance and the Aurora database is in the same VPC, you can administer the database from the Cloud9 instance (The security group of the database the have been configured to allow the traffic):
-
-
-First go to your **Cloud9** Environment.
-
-1. Go to the Cloud9 console [link](https://console.aws.amazon.com/cloud9/home) (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
+As part of the above step, an [Cloud9 IDE instance](https://aws.amazon.com/cloud9/) is created. All of the coding and commands in this workshop should be run inside the Cloud9 IDE environment. 
+ 
+1. Open a new browser tab and go to the Cloud9 console: `https://console.aws.amazon.com/cloud9/home` (You can also find the Cloud9 console in the AWS console by clicking on **Services** in the navigation bar on the top, and search for `cloud9` and enter)
 
 1. Click on ***Your environments*** (you may need to expand the left sidebar) 
 
@@ -112,20 +132,40 @@ First go to your **Cloud9** Environment.
 
 	`git clone https://github.com/aws-samples/aws-serverless-security-workshop.git`
 
+    ![](images/0B-clone-repo.png)
 
-It's time to initiate your database. 
+:bulb:**Tip:**  Keep an open scratch pad in Cloud9 for notes on resource IDs, etc. that you will need for future steps: 
 
-1. Go into the folder of the repo:
+1.  Create a new file in Cloud9  
+
+    ![](images/0B-create-scratch.png)
+
+1.  Copy/paste the resource IDs from the browser tab with the CloudFormation console open, copy the content under **Outputs**, and save it as `scratch.txt`
+
+    ![](images/0B-copy-past-scratch.png)
+    
+
+## Module-0C: Prepare your database
+
+We need to create some tables and insert some initial values to the Aurora database. In Module-0A, a Aurora database is setup in private subnet so the database is not reachable directly from the Internet. 
+
+Because your Cloud9 instance and the Aurora database is in the same VPC, you can administer the database from the Cloud9 instance (The security group of the database the have been configured to allow the traffic):
+
+To initialize your database:
+
+1. In the cloud9 terminal window, go into the folder of the repo:
 
  	```
  	cd aws-serverless-security-workshop/
  	```
 
-1. Connect to your cluster with the following command. Replace the endpoint with the one you copied before (don't lose it yet, you still need it later).
+    ![](images/0C-cloud9-cd.png)
+
+1. Connect to your cluster with the following command. Replace the Aurora endpoint with the one you copied into your scratch pad.
 
 	`mysql -h <YOUR-AURORA-SERVERLESS-ENDPOINT> -u admin -p`
 
-	You should be prompted with a password. Use *`Corp123!`* (the one you specified before).
+	You should be prompted with a password. Use *`Corp123!`* (If during Module-0A, you customized the password to something else, use the one you specified).
 
 1. Within the mysql command prompt (`mysql> `), enter the following command: 
 
@@ -213,9 +253,9 @@ It's time to initiate your database.
 
 1. After that, you can use the command `exit` to drop the mysql connection.
 
-## Module-0C: The starting code for the serverless application
+## Module-0D: The starting code for the serverless application
 
-The code for the lambda functions resides within the path `src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
+The code for the lambda functions resides within the path `aws-serverless-security-workshop/src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
 	
 `cd src/app && npm install`
 	
@@ -224,6 +264,12 @@ The `src/app` folder has a few files:
 - **unicornParts.js**: Main file for the lambda function that lists unicorn customization options.  
 - **customizeUnicorn.js**: Main file for the lambda function that handles the create/describe/delete operations for a unicorn customization configuration.
 - **dbUtils.js**: This file contains all the database/query logic of the application. It also contains all the connection requirements in plain text (that's suspicious!)
+
+Review them by navigating the file explorer sidebar in Cloud9:
+
+![](images/0D-review-code.png)
+
+
 
 In addition, these additional files reside in the folder. No need to review them closely at this point:
 
@@ -296,14 +342,19 @@ In addition to the lambda code, the configurations for Lambda function and the R
   </tr>
 </table>
 
-## Module-0D: Run your serverless application locally with SAM Local
+## Module-0E: Run your serverless application locally with SAM Local
 
-After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. Then save the file (⌘+s for Mac or Ctrl+s for Windows or File -> Save)
+1. After reviewing the code, under **src/app/dbUtils.js**, replace the *host* with the Aurora endpoint. Then save the file (⌘+s for Mac or Ctrl+s for Windows or File -> Save)
+   
+   <img src="images/0D-db-endpoint-in-code.png" width="70%" />
 
+   :bulb: when you have unsaved changes in a file, cloud9 will show a grey dot next to the file name:
+   
+   <img src="images/0E-unsaved.png" width="50%" />
+   
+   When you successfully save the changes, the dot will turn green and then disappear.
 
-<img src="images/0D-db-endpoint-in-code.png" width="70%" />
-
-After doing this, it's time to test your API locally using SAM Local. 
+   After doing this, it's time to test your API locally using SAM Local. 
 
 1. On the **right panel**, click on **AWS Resources**. 
 
@@ -331,21 +382,22 @@ After doing this, it's time to test your API locally using SAM Local.
 
 	This indicates that the application run successfully within your Cloud9 environment (locally). Now it's time to deploy your Serverless application!
 
-## Module-0E: Deploy and test your Serverless application in the cloud
+## Module-0F: Deploy and test your Serverless application in the cloud
 
 1. Retrieve the name of the S3 bucket the CloudFormation stack has created earlier:
 
-	* If you still have the browser tab with the CloudFormation console open, go to the tab. Otherwise, in a separate browser tab, go to the CloudFormation console at [https://console.aws.amazon.com/cloudformation/home](https://console.aws.amazon.com/cloudformation/home) and select the `Secure-Serverless` stack.
+	* If you copied the CloudFormation output content in the cloud9 scratch pad, find the value of **DeploymentS3Bucket**
+	
+	  ![CloudFormation output](images/0F-copy-bucket.png)
+	
+	* Otherwise, find the value of **DeploymentS3Bucket** from the Cloudformation console **Output** tab 
 
-	* In the **Output** tab, take note of **DeploymentS3Bucket**
-
-	![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
-
+	  ![CloudFormation output](images/0D-cloudformation-output-w-bucket-highlight.png)
 
 1. In the terminal, set the bash variables:
 
 	```
-	REGION=<fill in the region you used to deploy the initial setup resources>
+	REGION=`ec2-metadata -z | awk '{print $2}' | sed 's/[a-z]$//'`
 	BUCKET=<use the DeploymentS3Bucket from the CloudFormation output>
 	```
 	
@@ -423,7 +475,7 @@ After doing this, it's time to test your API locally using SAM Local.
 	![test api in browser](images/0E-test-browser.png)
 
 	
-## Module-0F: Set up Postman to test the API 
+## Module-0G: Set up Postman to test the API 
 
 
 We will use [**Postman**](https://www.getpostman.com/) for the rest of the workshop for testing API requests. 
