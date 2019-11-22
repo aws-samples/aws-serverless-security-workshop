@@ -75,6 +75,8 @@ If you are using AWS Event Engine, an AWS CloudFormation stack should be automat
    * one with name similar to `aws-cloud9-Secure-Serverless-Cloud9-<alphanumeric-letters>`. This is a nested stack responsible for creating the Cloud9 environment.
 1. Select the ***main setup stack*** (name starting with `mod-`), go to the **Outputs** tab. Keep this browser tab open as you go through rest of the workshop. 
 
+    ![](images/00-ee-cloudformation.png)
+    
 </details>
 
 <details>
