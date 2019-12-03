@@ -16,7 +16,7 @@ The resolve should be like this:
 ```javascript
 			resolve({
 			    ssl: "Amazon RDS",
-			    host: "xxxxxxxxxxxx.cluster-co70iacvvr8l.eu-west-1.rds.amazonaws.com",
+			    host: host,
 			    user: "admin",
 			    password: "Corp123!",
 			    database: "unicorn_customization",
