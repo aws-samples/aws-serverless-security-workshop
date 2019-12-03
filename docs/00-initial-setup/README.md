@@ -276,7 +276,9 @@ The code for the lambda functions resides within the path `aws-serverless-securi
 `cd src/app && npm install`
 	
 > Note: If you see this warning
-> ![](images/0D-vulnerability.png)	
+> 
+> <img src="images/0D-vulnerability.png" width="65%"/>
+> 
 > Don't worry. We will be addressing the dependency vulnerability in [**module 7**](../07-dependency-vulnerability/README.md) :) 
 	
 The `src/app` folder has a few files: 
