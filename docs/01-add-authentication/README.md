@@ -36,7 +36,7 @@ Quick links to submodules:
 
 ### <a name="1A"></a>Module 1A: Create a Cognito User Pool and hosted domain
 
-**[Amazon Cognito](https://aws.amazon.com/cognito)** provides a managed service for simplifying identity management for your apps. In order to 
+**[Amazon Cognito](https://aws.amazon.com/cognito)** provides a managed service for simplifying identity management for your apps. To enable our clients to authenticate against Cognito, we need to configure a Cognito user pool and an associated domain name. 
 
 1. As a preparation for this module, we have already provisioned a Cognito User Pool. Review it under the **Resources** section of `template.yaml`:
 
