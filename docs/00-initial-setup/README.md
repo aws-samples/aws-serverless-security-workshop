@@ -275,16 +275,20 @@ The code for the lambda functions resides within the path `aws-serverless-securi
 	
 `cd src/app && npm install`
 	
+> Note: If you see this warning
+> ![](images/0D-vulnerability.png)	
+> Don't worry. We will be addressing the dependency vulnerability in [**module 7**](../07-dependency-vulnerability/README.md) :) 
+	
 The `src/app` folder has a few files: 
 	
 - **unicornParts.js**: Main file for the lambda function that lists unicorn customization options.  
 - **customizeUnicorn.js**: Main file for the lambda function that handles the create/describe/delete operations for a unicorn customization configuration.
 - **dbUtils.js**: This file contains all the database/query logic of the application. It also contains all the connection requirements in plain text (that's suspicious!)
 
+
 Review them by navigating the file explorer sidebar in Cloud9:
 
 ![](images/0D-review-code.png)
-
 
 
 In addition, these additional files reside in the folder. No need to review them closely at this point:
