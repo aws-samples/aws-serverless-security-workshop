@@ -87,6 +87,10 @@ GRANT USAGE ON *.* TO 'encrypted_user'@'%' REQUIRE SSL;
 
 For more information on SSL connections with MySQL, go to the [MySQL documentation](https://dev.mysql.com/doc/refman/5.6/en/secure-connections.html)\.
 
+To find the MySQL version of the Aurora database, go to the RDS console and find the **Engine version** under **Configuration** tab of the database cluster:
+
+![](images/check-engine-version.png)
+
 ## Next step 
 You have now further secured your data by enabling encryption in transit for your database connection! 
 
