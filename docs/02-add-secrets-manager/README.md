@@ -39,12 +39,16 @@ First thing we need to do is create a secret in Secrets Manager.
 1. Finally, click *Store*.
 
 > Be careful if you are using Firefox or Chrome extensions when performing these steps! Some extensions like *LastPass* might change the values entered before.
+> 
+> You can review and verify the values after you create the secret by clicking **Retrieve secret value**
+> 
+> ![](images/2A-verify-secret.png)
 
 ## Module 2B: Add permission to Lambda function to read from secrets manager
 
 We need to modify the execution policy on the lambda functions, so they areallowed to make API calls to Secrets Manager. 
 
-In `template.yaml`, look for the block below that defines policies for Secrets Manager (**You should find a total 3 occurrences**) and uncomment them. 
+In `src/template.yaml`, look for the block below that defines policies for Secrets Manager (**You should find a total 3 occurrences**) and uncomment them. 
 
 ```yaml
 #        - Version: '2012-10-17'
