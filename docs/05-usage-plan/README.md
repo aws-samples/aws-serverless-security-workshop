@@ -19,7 +19,13 @@ To tally the number of requests based on the caller, API Gateway uses API Keys t
 	
 	Click **Next**
 	
-1. Associate the API we created previously with the usage plan. Pick `dev` stage. And click the checkmark to confirm. Then click **Next**
+1. Associate the API we created previously with the usage plan. Pick `dev` stage. 
+
+	![add stage to Usage plan](images/add-apig-stage.png)
+	
+	> The warning sign is expected because we haven't yet configured the API to require API Keys. This will be done in a later steps.
+
+1. Click the checkmark to confirm. Then click **Next**
 
 	![add stage to Usage plan](images/5A-add-stage-to-plan.png)
 
@@ -69,10 +75,10 @@ Now, we need to modify our API gateway so requests must have an API key present.
 1. In the API swagger definition in `template.yaml`, add the below lines to add an additional type of AWS security: 
 
 	```yaml
-	      ApiKey:
-            type: apiKey
-            name: x-api-key
-            in: header
+		      ApiKey:
+	            type: apiKey
+	            name: x-api-key
+	            in: header
 	```
 	
 	<img src="images/5B-add-security-def.png"/>
@@ -80,7 +86,7 @@ Now, we need to modify our API gateway so requests must have an API key present.
 1. Next, for the APIs in the Swagger template for customizing unicorns and listing customization options (leave out the `/partners` APIs for now), add the below 
 
 	```yaml
-         		- ApiKey: []
+	         		- ApiKey: []
 	```
 	to the `security` section in each API:
 
