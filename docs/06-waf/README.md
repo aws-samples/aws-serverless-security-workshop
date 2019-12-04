@@ -44,7 +44,10 @@ If you have completed **Module 3: Input validation on API Gateway**, your API no
 	use unicorn_customization;
 	show tables;
 	```
-
+	See screenshot: 
+	
+	![screenshot](images/recreate-table.png)
+	
 1. Rerun the DB initialization script to recreate the `Custom_Unicorns` table:
 
 	```
@@ -52,11 +55,12 @@ If you have completed **Module 3: Input validation on API Gateway**, your API no
 	source init/db/queries.sql;
 	```
 	
-	See screenshot: 
+	> You should see the output includes this error message: 
+	>```ERROR 1062 (23000): Duplicate entry 'Placeholder company' for key 'NAME'```
+	> This is expected because we didn't want to overwrite the `company` table. You can ignore the error message 
 	
-	![screenshot](images/recreate-table.png)
-
-1. List the tables again to verify the `Custom_Unicorns` table is recreated. 
+	
+6. List the tables again to verify the `Custom_Unicorns` table is recreated. 
 
 	```
 	show tables;
