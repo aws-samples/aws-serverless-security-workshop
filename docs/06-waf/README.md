@@ -33,6 +33,8 @@ If you have completed **Module 3: Input validation on API Gateway**, your API no
 	 cd ~/environment/aws-serverless-security-workshop/src
 	 mysql -h <replace-with-your-aurora-cluster-endpoint> -u admin -p
 	```
+	
+	If you have gone through Module 4 and set the DB to require the `admin` user to use  
 
 	type in the DB password (if you have gone through **Module 2: Secrets Manager**, your DB password may have been rotated by Secrets Manager. You can retrieve the new password by going to the Secrets Manager and click on the **Retrieve secret value** button 
 
@@ -68,8 +70,15 @@ Now let's start creating an AWS WAF to give us additional protection:
 
 1. Go to the [AWS WAF Console](https://console.aws.amazon.com/wafv2/home#/wafhome)
 
-1. Click on **Configure web ACL**
+1. The AWS WAF console has recently released a new version: see [Introducing AWS Managed Rules for AWS WAF
+](https://aws.amazon.com/about-aws/whats-new/2019/11/introducing-aws-managed-rules-for-aws-waf/). However, this workshop has not been yet adapted to the new version. Therefore, we will be using the classic version of the WAF console. You can use the **Switch to AWS WAF Classic** button to switch to classic:
 
+	![](images/switch-waf-classic.png)
+
+1. Click on **Configure web ACL** on the WAF Classic console
+
+	![](images/classifc-waf-opening.png)
+	
 1. In Step 1 of the ACL creation wizard, fill in:
 
 	* **Web ACL Name**: `ProtectUnicorn`
