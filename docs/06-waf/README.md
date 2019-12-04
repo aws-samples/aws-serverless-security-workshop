@@ -79,7 +79,7 @@ Now let's start creating an AWS WAF to give us additional protection:
 
 	![](images/switch-waf-classic.png)
 
-1. Click on **Configure web ACL** on the WAF Classic console
+1. Click on **Create web ACL** on the WAF Classic console
 
 	![](images/classifc-waf-opening.png)
 	
