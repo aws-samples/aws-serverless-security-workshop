@@ -179,7 +179,6 @@ Now let's start creating an AWS WAF to give us additional protection:
 		* 	`does`
 		*  `match at least one of the filters in the SQL injection match condition `
 		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL injection in 6B 
-	*  Click **Add condition** 
 	*  Then click **Create**
 
 	![screenshot](images/sql-rule.png)
