@@ -454,11 +454,14 @@ In addition to the lambda code, the configurations for Lambda function and the R
 	To do it from commandline:
 
 	```
-	aws cloudformation describe-stacks --region $REGION --stack-name CustomizeUnicorns --query "Stacks[0].Outputs[0].OutputValue"
+	aws cloudformation describe-stacks --region $REGION --stack-name CustomizeUnicorns --query "Stacks[0].Outputs[0].OutputValue --output text"
 	```
 
 	e.g.
-	![get endpoint secreenshot](images/0E-get-endpoint-output.png)
+```
+$ aws cloudformation describe-stacks --region $REGION --stack-name CustomizeUnicorns --query "Stacks[0].Outputs[0].OutputValue" --output text
+https://rs86gmk5bf.execute-api.us-west-2.amazonaws.com/dev/
+```
 	
 	Alternatively, you can go to the [CloudFormation Console](https://console.aws.amazon.com/cloudformation/home), find the `CustomizeUnicorns` stack and look in the **Output** tab
 
