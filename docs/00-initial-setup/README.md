@@ -273,7 +273,10 @@ To initialize your database:
 
 The code for the lambda functions resides within the path `aws-serverless-security-workshop/src/app`. The first thing you need to do is install node dependencies by navigating to this folder and using the following command: 
 	
-`cd src/app && npm install`
+```sh
+$ cd ~/environment/aws-serverless-security-workshop/src/app
+$ npm install
+```
 	
 > Note: If you see this warning
 > 
