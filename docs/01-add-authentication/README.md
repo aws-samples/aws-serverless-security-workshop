@@ -173,7 +173,7 @@ We need to configure a [**Lambda authorizer**](https://docs.aws.amazon.com/apiga
 	    Type: AWS::Serverless::Function
 	    Properties:
 	      CodeUri: authorizer/
-	      Runtime: nodejs8.10
+	      Runtime: nodejs10.x
 	      Handler: index.handler
 	      Policies:
 	        Statement:
