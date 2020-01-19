@@ -457,7 +457,7 @@ In addition to the lambda code, the configurations for Lambda function and the R
 	To do it from commandline:
 
 	```
-	aws cloudformation describe-stacks --region $REGION --stack-name CustomizeUnicorns --query "Stacks[0].Outputs[0].OutputValue --output text"
+	aws cloudformation describe-stacks --region $REGION --stack-name CustomizeUnicorns --query "Stacks[0].Outputs[0].OutputValue" --output text
 	```
 
 	e.g.
