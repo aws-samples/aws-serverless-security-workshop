@@ -1,5 +1,11 @@
 # Serverless Security Workshop
 
+
+> **WARNING**: The purpose of the workshop is to provide a starter API which **does NOT follow many security best practices** on purpose. The tutorial modules guide you to identify security gaps in the starter app, and implement security measures on it.  
+>
+> Furthermore, the modules **do not cover ALL** the security measures that may be applied. After completing all modules, we recommend you to explore additional protections. See the **Extra Credit** section for more details.   
+
+
 In this workshop, you will learn techniques to secure a serverless application built with AWS Lambda, Amazon API Gateway and RDS Aurora. We will cover AWS services and features you can leverage to improve the security of a serverless applications in 5 domains: 
 
 1. identity & access management
@@ -60,6 +66,12 @@ Here's an overview of the modules in this workshop and how they map to different
 	</td>
     </tr>
 </table>
+
+## Extra credit
+
+Due to time constraints, the modules do not cover all the security best practices that we should apply to our API. What other security measures can you identify that our app setup is missing? 
+
+To learn more about securing serverless applications, refer to resources  such as the security pillar of [Serverless Application Lens](https://d1.awsstatic.com/whitepapers/architecture/AWS-Serverless-Applications-Lens.pdf) and [AWS Cloud Security center](https://aws.amazon.com/security/)
 
 ## Resource cleanup
 
