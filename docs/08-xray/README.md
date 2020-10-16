@@ -4,7 +4,7 @@
 
 AWS X-Ray gives you visibility into the data flow of your microservices architecture and a map of how your application’s underlying components are connected. It's a great tool to troubleshoot performance and debug errors. However, given the ephemeral nature of the infrastructure in a serverless application, this visibility into your application is also critical for the purpose of security:
 
-* It helps you understand the "norm" of the data flow, interdependencies, and performance characteristics of your distributed serverless components. Knowing that is a prerequisite of recognoizing when things are not normal. 
+* It helps you understand the "norm" of the data flow, interdependencies, and performance characteristics of your distributed serverless components. Knowing that is a prerequisite of recognizing when things are not normal. 
 * During an security incident or post analysis, X-Ray can give you insights into what your code is doing at runtime, what downstream dependency it's making calls to, where the code is spending its time
  
 ## Module 8A: Enable X-Ray for Lambda function
@@ -31,7 +31,7 @@ Globals:
 
 ## Module 8B: Capturing AWS SDK requests with XRay
 
-When our applications makes calls to AWS services such as Secrets Manager, DynamoDB, S3 etc., the X-Ray SDK can help tracks the calls downstream and record the request timing, status, etc. about the AWS Service call. 
+When our applications make calls to AWS services such as Secrets Manager, DynamoDB, S3 etc., the X-Ray SDK can help tracks the calls downstream and record the request timing, status, etc. about the AWS Service call. 
 
 To enable this, you can instrument all AWS SDK clients by wrapping your `aws-sdk` require statement in a call to `AWSXRay.captureAWS`
 	
@@ -139,7 +139,7 @@ If you have gone through [**Module 2: Secrets**](../02-add-secrets-manager), you
 
 	![enable xray in api gateway](images/8E-traces.png)
 
-1. Explore the individual traces by clicking into individual rquests
+1. Explore the individual traces by clicking into individual requests
 
 	![enable xray in api gateway](images/8E-single-traces.png)
 
