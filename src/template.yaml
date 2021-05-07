@@ -36,7 +36,7 @@ Resources:
     Properties:
       CodeUri: app/
       Handler: managePartners.lambda_handler
-      Runtime: nodejs10.x
+      Runtime: nodejs14.x
       Policies:
         - VPCAccessPolicy: {}
         - Version: '2012-10-17'
@@ -82,7 +82,7 @@ Resources:
     Properties:
       CodeUri: app/
       Handler: customizeUnicorn.lambda_handler
-      Runtime: nodejs10.x
+      Runtime: nodejs14.x
       Policies:
         - VPCAccessPolicy: {}
 #        - Version: '2012-10-17'
@@ -132,7 +132,7 @@ Resources:
     Properties:
       CodeUri: app/
       Handler: unicornParts.lambda_handler
-      Runtime: nodejs10.x
+      Runtime: nodejs14.x
       Policies:
         - VPCAccessPolicy: {}
 #        - Version: '2012-10-17'
