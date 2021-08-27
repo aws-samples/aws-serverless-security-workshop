@@ -381,11 +381,18 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
    After doing this, it's time to test your API locally using SAM Local. 
 
-1. On the **right panel**, click on **AWS Resources**. 
+1. On the **top right**, click on the cog.
+	<img src="images/0D-aws-preferences.png" width="80%" />
+1. In the **Preferences Menu**, open **AWS settings**
 
+	<img src="images/0D-aws-settings.png" width="80%" />
+1. Untoggle the AWS Toolkit
+	<img src="images/0D-aws-toolkit.png" width="80%" />
+
+1. On the **right panel**, click on **AWS Resources**. 
 	<img src="images/0D-aws-resource-bar.png" width="80%" />
 
-1. You should see a folder tree with the name *Local Functions (1)*. 
+1. You should now see a folder tree with the name *Local Functions (1)*. 
 1. Select **UnicornPartsFunction** under the `src` folder
 1. Once you have selected the function, click on the dropdown on the panel on the top, and select **Run APIGateway Local**  
 
