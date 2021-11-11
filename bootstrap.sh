@@ -80,6 +80,7 @@ function main() {
     setstackname
     setcfoutput
     setclustername
+    setregion
     deployapp
     getapiurl
     
