@@ -75,6 +75,7 @@ Resources:
         Variables:
           USER_POOL_ID: !Ref CognitoUserPool
           PARTNER_DDB_TABLE: !Ref PartnerDDBTable
+          NODE_OPTIONS: --tls-min-v1.0
 
 
   CustomizeUnicornFunction:
@@ -126,6 +127,9 @@ Resources:
             Method: delete
             RestApiId:
               Ref: UnicornApi
+      Environment:
+        Variables:
+          NODE_OPTIONS: --tls-min-v1.0
 
   UnicornPartsFunction:
     Type: AWS::Serverless::Function
@@ -176,6 +180,9 @@ Resources:
             Method: get
             RestApiId:
               Ref: UnicornApi
+      Environment:
+        Variables:
+          NODE_OPTIONS: --tls-min-v1.0
 
   UnicornApi:
     Type: AWS::Serverless::Api
