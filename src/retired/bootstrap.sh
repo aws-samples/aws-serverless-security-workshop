@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Cloud9 Bootstrap Script
-# updated 12/6/2022 
+#
 # Tested on Amazon Linux 2
-# Checks for AWS Event or Cloudformation setup
+#
 # 1. Installs JQ
 # 2. Creates Environment Variables
 # 3. NPM Installs and Deploys Application
@@ -20,7 +20,6 @@ function _logger() {
     echo -e "$(date) ${YELLOW}[*] $@ ${NC}"
 }
 
-
 function install_utility_tools() {
     _logger "[+] Installing jq"
     sudo yum install -y jq
@@ -28,15 +27,8 @@ function install_utility_tools() {
 
 function setstackname() {
     _logger "[+] Setting StackName"
-    export stack_name=$(aws cloudformation list-stacks --query 'StackSummaries[].StackName'| grep 'mod\|"Secure-Serverless"' | sed 's/"//g') 
-    
-    if [ "$stack_name" = "" ];
-        then
-            echo "Stack Set missing.  Check out running the stack set in the instructions."
-            exit 0
-        else
-            echo $stack_name
-    fi
+    export stack_name=$(aws cloudformation list-stacks --query 'StackSummaries[].StackName'| grep mod | sed 's/"//g')
+    echo $stack_name
 }
 
 
@@ -51,20 +43,7 @@ function setregion() {
     echo  "REGION=$(curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >>/home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
 }
 
-function checkfile(){
-        #check for file
-    export FILE=/home/ec2-user/environment/aws-serverless-security-workshop/src/app/dbUtils.js
-    if [ -f $FILE ];
-    then
-        echo "Files cloned from Git!"
-    else
-        echo "Missing files. Please be sure to clone the file from Git: git clone https://github.com/aws-samples/aws-serverless-security-workshop.git"
-        exit 0
-    fi
-}
-
 function setcfoutput() {
-    
     # load outputs to env vars
     _logger "[+] get Cloudformation outputs and set variables"
     for output in $(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[].OutputKey' --output text)
@@ -98,7 +77,6 @@ function getapiurl(){
 
 function main() {
     install_utility_tools
-    checkfile
     setstackname
     setcfoutput
     setclustername
