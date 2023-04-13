@@ -199,7 +199,7 @@ Resources:
     Type: AWS::RDS::DBInstance
     Properties:
       DBInstanceClass: db.t2.small
-      Engine: aurora
+      Engine: aurora-mysql
       DBClusterIdentifier: !Ref AuroraDBCluster
 
   AuroraDBCluster:
@@ -209,7 +209,7 @@ Resources:
     Properties:
       MasterUsername: admin
       MasterUserPassword: !Ref DbPassword
-      Engine: aurora
+      Engine: aurora-mysql
       DBSubnetGroupName: !Ref AuroraSubnetGroup
       VpcSecurityGroupIds:
         - !Ref AuroraSecurityGroup 
