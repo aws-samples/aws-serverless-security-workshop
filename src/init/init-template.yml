@@ -198,7 +198,7 @@ Resources:
   AuroraDBInstance:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceClass: db.t2.small
+      DBInstanceClass: db.t3.small
       Engine: aurora-mysql
       DBClusterIdentifier: !Ref AuroraDBCluster
 
