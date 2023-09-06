@@ -28,7 +28,7 @@ function install_utility_tools() {
 
 function setstackname() {
     _logger "[+] Setting StackName"
-    export stack_name=$(aws cloudformation list-stacks --query 'StackSummaries[].StackName'| grep 'mod\|"Secure-Serverless"' | sed 's/"//g') 
+    export stack_name=$(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE --query 'StackSummaries[].StackName'| grep 'mod\|"Secure-Serverless"' | sed 's/[",\,]//g') `
     
     if [ "$stack_name" = "" ];
         then
