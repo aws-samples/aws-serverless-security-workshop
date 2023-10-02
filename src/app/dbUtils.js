@@ -7,7 +7,7 @@ const PARTNER_COMPANY_TABLE = "Companies";
 * Host
 */
 
-const host = "secure-serverless-auroradbcluster-fvuwdtxqajoj.cluster-cnel0fjdbozj.us-east-1.rds.amazonaws.com"
+const host = "secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com"
 
 class Database {
 
