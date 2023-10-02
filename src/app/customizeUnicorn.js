@@ -1,6 +1,6 @@
 var dbUtil = require("./dbUtils.js");
 var httpUtil = require("./httpUtil.js");
-var permissions = require("./permissions.js");
+// var permissions = require("./permissions.js");
 
 exports.lambda_handler = async function (event, context, callback) {
     console.log("received input event: \n" + JSON.stringify(event, null, 2));
@@ -28,8 +28,8 @@ exports.lambda_handler = async function (event, context, callback) {
         // individual customization
         if (id) {
             try {
-                const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
-                if (isAllowed) {
+                // const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
+                // if (isAllowed) {
                     const unicornData = await dbUtil.getCustomUnicorn(id, company)
                     
                     
@@ -51,11 +51,11 @@ exports.lambda_handler = async function (event, context, callback) {
                             return;
                         }
                     }
-                } //permissions.isAuthorized
-                else {
-                    callback(null, httpUtil.returnFail("Unauthorized"));
-                    return;
-                }
+                // } //permissions.isAuthorized
+                // else {
+                //     callback(null, httpUtil.returnFail("Unauthorized"));
+                //     return;
+                // }
             }
             catch(e){
                 console.error(e);
@@ -68,15 +68,15 @@ exports.lambda_handler = async function (event, context, callback) {
             
             try {
                 // console.log("Listing AVP policies to get unicornIds for this partner");
-                const policies = await permissions.listPolicies(principalId)
-                var unicornIds = []
+                // const policies = await permissions.listPolicies(principalId)
+                // var unicornIds = []
                 
-                if ('policies' in policies && policies['policies'].length > 0) {
-                    policies['policies'].forEach((policy) => unicornIds.push(policy['resource']['entityId']));
-                }
+                // if ('policies' in policies && policies['policies'].length > 0) {
+                //     policies['policies'].forEach((policy) => unicornIds.push(policy['resource']['entityId']));
+                // }
                 
-                var results = await dbUtil.listCustomUnicorn(company, unicornIds)
-                // var results = await dbUtil.listCustomUnicorn(company)
+                // var results = await dbUtil.listCustomUnicorn(company, unicornIds)
+                var results = await dbUtil.listCustomUnicorn(company)
 
                 console.log("successfully retrieved " + results.length + " custom unicorns.");
 
@@ -119,8 +119,8 @@ exports.lambda_handler = async function (event, context, callback) {
             console.log("successfully inserted custom unicorn.");
 
             // create an AVP policy
-            console.log("creating AVP policy for the unicorn.");
-            await permissions.createTemplateLinkedPolicy(principalId, db_results['customUnicornId'])
+            // console.log("creating AVP policy for the unicorn.");
+            // await permissions.createTemplateLinkedPolicy(principalId, db_results['customUnicornId'])
 
             callback(null, httpUtil.returnOK(db_results));
         }
@@ -133,19 +133,19 @@ exports.lambda_handler = async function (event, context, callback) {
     } else if (event.httpMethod === "DELETE") {
         try {
             // check if allowed to delete
-            const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
-            if (isAllowed) {
+            // const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
+            // if (isAllowed) {
                 const results = await dbUtil.deleteCustomUnicorn(id, company)
         
                 console.log("successfully deleted custom unicorn " + results);
-                await permissions.deletePolicy(principalId, resource)
+                // await permissions.deletePolicy(principalId, resource)
                 callback(null, httpUtil.returnOK(results));
                 return;
-            }
-            else {
-                callback(null, httpUtil.returnFail("Unauthorized"));
-                return;
-            }
+            // }
+            // else {
+            //     callback(null, httpUtil.returnFail("Unauthorized"));
+            //     return;
+            // }
         } catch(e) {
             console.error(e);
             callback(null, httpUtil.returnFail("Error deleting unicorn customization"));
