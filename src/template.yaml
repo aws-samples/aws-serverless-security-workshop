@@ -89,6 +89,13 @@ Resources:
 #          Statement:
 #            - Effect: Allow
 #              Action:
+#                - "verifiedpermissions:IsAuthorized"
+#                - "verifiedpermissions:CreatePolicy"
+#                - "verifiedpermissions:ListPolicies"
+#                - "verifiedpermissions:DeletePolicy"
+#              Resource: "*"
+#            - Effect: Allow
+#              Action:
 #                - "secretsmanager:GetSecretValue"
 #              Resource: "*"
       VpcConfig:

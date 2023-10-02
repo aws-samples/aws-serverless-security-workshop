@@ -7,7 +7,7 @@ const PARTNER_COMPANY_TABLE = "Companies";
 * Host
 */
 
-const host = "secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com"
+const host = "secure-serverless-auroradbcluster-fvuwdtxqajoj.cluster-cnel0fjdbozj.us-east-1.rds.amazonaws.com"
 
 class Database {
 
@@ -101,11 +101,13 @@ module.exports = {
             });
     },
 
-    listCustomUnicorn: function (company) {
+    listCustomUnicorn: function (company, unicornIds=[]) {
         var query = "SELECT * FROM " + CUSTOM_UNICORN_TABLE;
-        console.log("query for compa" + company)
         if (company !== null && company !== undefined && company !== "") {
             query += " WHERE COMPANY = " + company;
+        }
+        if (unicornIds.length > 0) {
+            query += " AND ID IN (" + unicornIds.join(",") + ")";
         }
         console.log("query for DB: " + query);
         return executeDBquery(query);
