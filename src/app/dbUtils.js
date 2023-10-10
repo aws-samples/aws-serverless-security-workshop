@@ -67,6 +67,17 @@ function executeDBquery(query) {
 }
 
 module.exports = {
+    countBodyPartOptions: function (bodyPart) {
+        const query = "SELECT count(*) FROM " + bodyPart;
+        console.log("query for DB: " + query);
+        return executeDBquery(query).then(results => {
+            console.log(JSON.stringify(results));
+            let count = results[0]["count(*)"];
+            console.log(bodyPart + " count: " + count);
+            return [bodyPart,count];
+        });
+    },
+
     listBodyPartOptions: function (bodyPart) {
         const query = "SELECT * FROM " + bodyPart;
         console.log("query for DB: " + query);
@@ -101,14 +112,12 @@ module.exports = {
             });
     },
 
-    listCustomUnicorn: function (company, unicornIds=[]) {
+    listCustomUnicorn: function (company) {
         var query = "SELECT * FROM " + CUSTOM_UNICORN_TABLE;
+        console.log("query for compa" + company)
         if (company !== null && company !== undefined && company !== "") {
             query += " WHERE COMPANY = " + company;
         }
-        // if (unicornIds.length > 0) {
-        //     query += " AND ID IN (" + unicornIds.join(",") + ")";
-        // }
         console.log("query for DB: " + query);
         return executeDBquery(query);
     },
