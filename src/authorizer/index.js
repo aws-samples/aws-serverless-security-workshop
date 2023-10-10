@@ -115,7 +115,9 @@ function ValidateToken(pems, event, context, callback) {
             //Valid token. Generate the API Gateway policy for the user
             //Always generate the policy on value of 'sub' claim and not for 'username' because username is reassignable
             //sub is UUID for a user which is never reassigned to another user.
-            var principalId = payload.username;
+            
+            // construct principaId from sub and cognito user pool ID
+            var principalId = payload.iss.split('/').slice(-1) + '|' + payload.sub;
 
             //Get AWS AccountId and API Options
             var apiOptions = {};

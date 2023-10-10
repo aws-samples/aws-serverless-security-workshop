@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aws-sdk": "^2.1467.0",
     "babel-core": "*",
     "babel-plugin-transform-flow-strip-types": "*",
     "babel-preset-es2017": "*",
