@@ -38,7 +38,7 @@ Resources:
       Handler: managePartners.lambda_handler
       Runtime: nodejs16.x
       Policies:
-        - VPCAccessPolicy: { }
+        - VPCAccessPolicy: {}
         - Version: '2012-10-17'
           Statement:
             - Effect: Allow
@@ -51,12 +51,12 @@ Resources:
               Action:
                 - "dynamodb:*"
               Resource: "*"
-      #        - Version: '2012-10-17'
-      #          Statement:
-      #            - Effect: Allow
-      #              Action:
-      #                - "secretsmanager:GetSecretValue"
-      #              Resource: "*"
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "secretsmanager:GetSecretValue"
+#              Resource: "*"
       VpcConfig:
         SecurityGroupIds:
           - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
@@ -84,22 +84,22 @@ Resources:
       Handler: customizeUnicorn.lambda_handler
       Runtime: nodejs16.x
       Policies:
-        - VPCAccessPolicy: { }
-      #        - Version: '2012-10-17'
-      #          Statement:
-      #            - Effect: Allow
-      #              Action:
-      #                - "verifiedpermissions:IsAuthorized"
-      #                - "verifiedpermissions:CreatePolicy"
-      #                - "verifiedpermissions:ListPolicies"
-      #                - "verifiedpermissions:DeletePolicy"
-      #              Resource: "*"
-      #        - Version: '2012-10-17'
-      #          Statement:
-      #            - Effect: Allow
-      #              Action:
-      #                - "secretsmanager:GetSecretValue"
-      #              Resource: "*"
+        - VPCAccessPolicy: {}
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "verifiedpermissions:IsAuthorized"
+#                - "verifiedpermissions:CreatePolicy"
+#                - "verifiedpermissions:ListPolicies"
+#                - "verifiedpermissions:DeletePolicy"
+#              Resource: "*"
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "secretsmanager:GetSecretValue"
+#              Resource: "*"
       VpcConfig:
         SecurityGroupIds:
           - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
@@ -143,13 +143,13 @@ Resources:
       Handler: unicornParts.lambda_handler
       Runtime: nodejs16.x
       Policies:
-        - VPCAccessPolicy: { }
-      #        - Version: '2012-10-17'
-      #          Statement:
-      #            - Effect: Allow
-      #              Action:
-      #                - "secretsmanager:GetSecretValue"
-      #              Resource: "*"
+        - VPCAccessPolicy: {}
+#        - Version: '2012-10-17'
+#          Statement:
+#            - Effect: Allow
+#              Action:
+#                - "secretsmanager:GetSecretValue"
+#              Resource: "*"
       VpcConfig:
         SecurityGroupIds:
           - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
@@ -185,7 +185,6 @@ Resources:
             Method: get
             RestApiId:
               Ref: UnicornApi
-
   #------Module 9: Lambda IAM modules starts
   CustomUnicornAnalyticsFunction:
     Type: AWS::Serverless::Function
@@ -265,92 +264,92 @@ Resources:
         paths:
           "/socks":
             get:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
-              responses: { }
+              responses: {}
           "/horns":
             get:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
-              responses: { }
+              responses: {}
           "/glasses":
             get:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
-              responses: { }
+              responses: {}
           "/capes":
             get:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
-              responses: { }
+              responses: {}
           "/customizations":
             get:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
-              responses: { }
+              responses: {}
             post:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
-              responses: { }
+              responses: {}
           "/customizations/{id}":
             get:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
-              responses: { }
+              responses: {}
             delete:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
-              responses: { }
+              responses: {}
           "/partners":
             post:
-              #              security:
-              #                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ManagePartnerFunction.Arn}/invocations
-              responses: { }
+              responses: {}
 
 
 Outputs:
