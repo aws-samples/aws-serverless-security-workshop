@@ -185,6 +185,69 @@ Resources:
             Method: get
             RestApiId:
               Ref: UnicornApi
+  #------Module 9: Lambda IAM modules starts
+  CustomUnicornAnalyticsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "CustomUnicornAnalyticsFunction"
+      CodeUri: app/
+      Handler: customUnicornAnalytics.lambda_handler
+      Runtime: nodejs16.x
+      Policies:
+        - AdministratorAccess # broad permission. Module9A shows scoped down permission
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
+        SubnetIds:
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet1"
+          - Fn::ImportValue: !Sub "${InitResourceStack}-PrivateSubnet2"
+      Tags:
+        application: customizeUnicorn
+      Environment:
+        Variables:
+          DEMAND_FORECAST_DDB_TABLE: !Ref DemandForecastDDBTable
+
+  DemandForecastScheduler:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: "DemandForecastAnalyticsScheduler"
+      FlexibleTimeWindow:
+        Mode: "OFF"
+      ScheduleExpression: "rate(2 minutes)"
+      Target:
+        Arn: !GetAtt CustomUnicornAnalyticsFunction.Arn
+        RoleArn: !GetAtt DemandForecastAnalyticsSchedulerRole.Arn
+
+  DemandForecastAnalyticsSchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - scheduler.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: CustomUnicornSchedulerLambdaRole
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'lambda:InvokeFunction'
+                Resource:
+                  - !GetAtt CustomUnicornAnalyticsFunction.Arn
+  DemandForecastDDBTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: RecordTimeStamp
+        Type: String
+      TableName: !Sub '${AWS::StackName}-CustomizationDemandAnalytics'
+  #---- Lambda IAM Module Ends -----
 
   UnicornApi:
     Type: AWS::Serverless::Api
