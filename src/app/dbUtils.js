@@ -112,12 +112,15 @@ module.exports = {
             });
     },
 
-    listCustomUnicorn: function (company) {
+    listCustomUnicorn: function (company, unicornIds=[]) {
         var query = "SELECT * FROM " + CUSTOM_UNICORN_TABLE;
         console.log("query for compa" + company)
         if (company !== null && company !== undefined && company !== "") {
             query += " WHERE COMPANY = " + company;
         }
+        // if (unicornIds.length > 0) {
+        //     query += " AND ID IN (" + unicornIds.join(",") + ")";
+        // }
         console.log("query for DB: " + query);
         return executeDBquery(query);
     },
