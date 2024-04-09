@@ -3,7 +3,11 @@ import mysql from 'mysql';
 const CUSTOM_UNICORN_TABLE = "Custom_Unicorns";
 const PARTNER_COMPANY_TABLE = "Companies";
 
-const host = "mod0-template-auroradbcluster-trsgs7cbvypn.cluster-cxs6mge8ofdr.us-east-1.rds.amazonaws.com";
+/*
+* Host
+*/
+
+const host = "secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com"
 
 class Database {
     query(sql, connection, args) {
