@@ -30,54 +30,6 @@ Resources:
         Name: ClientID
         Type: String
       TableName: !Sub '${AWS::StackName}-WildRydePartners'
-      
-
-#Custom Authorizer Function
-  CustomAuthorizerFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: authorizer/
-      Runtime: nodejs20.x
-      Handler: index.handler
-      Policies:
-        Statement:
-          - Effect: Allow
-            Action:
-              - "dynamodb:*"
-            Resource: "*"
-      Environment:
-        Variables:
-          USER_POOL_ID: !Ref CognitoUserPool
-          PARTNER_DDB_TABLE: !Ref PartnerDDBTable
-          
-
-#API Gateway AuthorizerRole 
-  ApiGatewayAuthorizerRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          -
-            Effect: "Allow"
-            Principal:
-              Service:
-                - "apigateway.amazonaws.com"
-            Action:
-              - sts:AssumeRole
-      Policies:
-        -
-          PolicyName: "InvokeAuthorizerFunction"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              -
-                Effect: "Allow"
-                Action:
-                  - lambda:InvokeAsync
-                  - lambda:InvokeFunction
-                Resource:
-                  Fn::Sub: ${CustomAuthorizerFunction.Arn}
 
   ManagePartnerFunction:
     Type: AWS::Serverless::Function
@@ -308,25 +260,12 @@ Resources:
             Ref: AWS::StackName
           description: Wild Ryde API for describing and managing unicorn customizations
           version: 1.0.0
-#Security Definitions
-        securityDefinitions:
-          CustomAuthorizer:
-            type: apiKey
-            name: Authorization
-            in: header
-            x-amazon-apigateway-authtype: custom
-            x-amazon-apigateway-authorizer:
-              type: token
-              authorizerUri:
-                Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomAuthorizerFunction.Arn}/invocations
-              authorizerCredentials:
-                Fn::Sub: ${ApiGatewayAuthorizerRole.Arn}
-              authorizerResultTtlInSeconds: 60
+        ### TODO: add authorizer
         paths:
           "/socks":
             get:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -335,8 +274,8 @@ Resources:
               responses: {}
           "/horns":
             get:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -345,8 +284,8 @@ Resources:
               responses: {}
           "/glasses":
             get:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -355,8 +294,8 @@ Resources:
               responses: {}
           "/capes":
             get:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -365,8 +304,8 @@ Resources:
               responses: {}
           "/customizations":
             get:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -374,8 +313,8 @@ Resources:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
               responses: {}
             post:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -384,8 +323,8 @@ Resources:
               responses: {}
           "/customizations/{id}":
             get:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -393,8 +332,8 @@ Resources:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
               responses: {}
             delete:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
@@ -403,8 +342,8 @@ Resources:
               responses: {}
           "/partners":
             post:
-              security:
-                - CustomAuthorizer: []
+#              security:
+#                - CustomAuthorizer: []
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
