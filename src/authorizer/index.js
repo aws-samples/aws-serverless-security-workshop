@@ -1,17 +1,16 @@
 console.log('Loading function');
 
-const jwt = require('jsonwebtoken');
-const request = require('request');
-const jwkToPem = require('jwk-to-pem');
+import jwt from 'jsonwebtoken';
+import request from 'request';
+import jwkToPem from 'jwk-to-pem';
 
 const userPoolId = process.env["USER_POOL_ID"];
 const region = process.env["AWS_REGION"]; //e.g. us-east-1
 const iss = 'https://cognito-idp.' + region + '.amazonaws.com/' + userPoolId;
 
-const AWS = require('aws-sdk');
-const ddbDocClient = new AWS.DynamoDB.DocumentClient({
-    region: process.env.AWS_REGION
-});
+import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb"; // ES Modules import
+
+const clientGetItem = new DynamoDBClient({});
 
 const companyDDBTable = process.env["PARTNER_DDB_TABLE"];
 const CUSTOMIZE_SCOPE = "WildRydes/CustomizeUnicorn";
@@ -21,7 +20,7 @@ const PARTNER_ADMIN_SCOPE = "WildRydes/ManagePartners";
 var pems;
 
 
-exports.handler = (event, context, callback) => {
+export const handler = (event, context, callback) => {
     console.log("received event:\n" + JSON.stringify(event, null, 2));
 
     //Download PEM for your UserPool if not already downloaded
@@ -31,6 +30,7 @@ exports.handler = (event, context, callback) => {
             url: iss + '/.well-known/jwks.json',
             json: true
         }, function (error, response, body) {
+            
             if (!error && response.statusCode === 200) {
                 pems = {};
                 var keys = body['keys'];
@@ -68,8 +68,7 @@ function ValidateToken(pems, event, context, callback) {
         token = parts.join(' ');
         if ('bearer' != schema) {
             console.log("Schema " + schema + " not supported");
-            context.fail("Unauthorized");
-            return;
+            return context.fail("Unauthorized");
         }
     }
 
@@ -77,22 +76,19 @@ function ValidateToken(pems, event, context, callback) {
     var decodedJwt = jwt.decode(token, {complete: true});
     if (!decodedJwt) {
         console.log("Not a valid JWT token");
-        context.fail("Unauthorized");
-        return;
+        return context.fail("Unauthorized");
     }
 
     //Fail if token is not from your UserPool
     if (decodedJwt.payload.iss != iss) {
         console.log("invalid issuer");
-        context.fail("Unauthorized");
-        return;
+        return context.fail("Unauthorized");
     }
 
     //Reject the jwt if it's not an 'Access Token'
     if (decodedJwt.payload.token_use != 'access') {
         console.log("Not an access token");
-        context.fail("Unauthorized");
-        return;
+        return context.fail("Unauthorized");
     }
 
     //Get the kid from the token and retrieve corresponding PEM
@@ -100,8 +96,7 @@ function ValidateToken(pems, event, context, callback) {
     var pem = pems[kid];
     if (!pem) {
         console.log('Invalid access token');
-        context.fail("Unauthorized");
-        return;
+        return context.fail("Unauthorized");
     }
 
     //Verify the signature of the JWT token to ensure it's really coming from your User Pool
@@ -163,14 +158,20 @@ function ValidateToken(pems, event, context, callback) {
                 // look up the backend ID for the company
                 var params = {
                     TableName: companyDDBTable,
-                    Key: {'ClientID': payload["client_id"]}
+                    Key: { 
+                        ClientID : { "S" : payload["client_id"] }
+                    }
                 };
 
-                ddbDocClient.get(params).promise().then(data => {
-                    console.log("DDB response:\n" + JSON.stringify(data));
-                    if (data["Item"] && "CompanyID" in data["Item"]) {
-                        authResponse.context = {
-                            CompanyID: data["Item"]["CompanyID"]
+                try {
+                    
+                    const command = new GetItemCommand(params);
+                    clientGetItem.send(command)
+                    .then(response => {
+                        console.log("DDB response:\n" + JSON.stringify(response));
+                        if (response["Item"] && "CompanyID" in response["Item"]) {
+                            authResponse.context = {
+                                CompanyID: response["Item"]["CompanyID"]["S"]
                         };
 
                         // Uncomment here to pass on the client ID as the api key in the auth response
@@ -184,12 +185,15 @@ function ValidateToken(pems, event, context, callback) {
                         context.fail("Unauthorized");
                         return;
                     }
-
-                }).catch(err => {
-                    console.error((err));
-                    callback("Error: Internal Error");
-                    return;
-                });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                }
+                catch(e) {
+                    console.log("TESTING TESTING: " + e);
+                    return callback("Error: Internal Error");
+                }
             } else {
                 console.log("did not find matching clientID");
                 context.fail("Unauthorized");

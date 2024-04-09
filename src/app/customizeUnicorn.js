@@ -1,15 +1,15 @@
-var dbUtil = require("./dbUtils.js");
-var httpUtil = require("./httpUtil.js");
+import dbUtil from "./dbUtils.js";
+import httpUtil from "./httpUtil.js";
 // var permissions = require("./permissions.js");
 
-exports.lambda_handler = async function (event, context, callback) {
+export async function lambda_handler(event, context) {
     console.log("received input event: \n" + JSON.stringify(event, null, 2));
 
     let id = (event.pathParameters || {}).id || false;
 
     if (id) {
-        id = decodeURI(id)
-        var resource = id
+        id = decodeURI(id);
+        var resource = id;
     }
 
     var company;
@@ -19,9 +19,9 @@ exports.lambda_handler = async function (event, context, callback) {
         company = event["requestContext"]["authorizer"]["CompanyID"];
     }
     
-    var principalId = event["requestContext"]["authorizer"]["principalId"]
-    var action = event["requestContext"]["resourcePath"]
-    var httpMethod = event["requestContext"]["httpMethod"]
+    var principalId = event["requestContext"]["authorizer"]["principalId"];
+    var action = event["requestContext"]["resourcePath"];
+    var httpMethod = event["requestContext"]["httpMethod"];
     
 
     if (event.httpMethod === "GET") {
@@ -30,25 +30,22 @@ exports.lambda_handler = async function (event, context, callback) {
             try {
                 // const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
                 // if (isAllowed) {
-                    const unicornData = await dbUtil.getCustomUnicorn(id, company)
+                    const unicornData = await dbUtil.getCustomUnicorn(id, company);
                     
                     
                     console.log("successfully retrieved: " + JSON.stringify(unicornData, null, 2));
             
                     if (unicornData.length == 0) {
-                        callback(null, httpUtil.returnNotFound("Unicorn customization " + id + " does not exist."));
-                        return;
+                        return httpUtil.returnNotFound("Unicorn customization " + id + " does not exist.");
                     }
                     else {
                         var resultRow = unicornData[0];
             
                         if (company !== undefined) {
-                            delete resultRow["COMPANY"]
-                            callback(null, httpUtil.returnOK(resultRow));
-                            return;
+                            delete resultRow["COMPANY"];
+                            return httpUtil.returnOK(resultRow);
                         } else {
-                            callback(null, httpUtil.returnOK(resultRow));
-                            return;
+                            return httpUtil.returnOK(resultRow);
                         }
                     }
                 // } //permissions.isAuthorized
@@ -59,9 +56,8 @@ exports.lambda_handler = async function (event, context, callback) {
             }
             catch(e){
                 console.error(e);
-                callback(null, httpUtil.returnFail("Error retrieving unicorn customization"));
-                return;
-            };
+                return httpUtil.returnFail("Error retrieving unicorn customization");
+            }
         }
         // LIST request
         else {
@@ -76,22 +72,20 @@ exports.lambda_handler = async function (event, context, callback) {
                 // }
                 
                 // var results = await dbUtil.listCustomUnicorn(company, unicornIds)
-                var results = await dbUtil.listCustomUnicorn(company)
+                var results = await dbUtil.listCustomUnicorn(company);
 
                 console.log("successfully retrieved " + results.length + " custom unicorns.");
 
                 results = results.map(item => {
                     delete item["COMPANY"];
-                    return item
+                    return item;
                 });
-                callback(null, httpUtil.returnOK(results));
-                return;
+                return httpUtil.returnOK(results);
                 
             } catch(e){
                 console.error(e);
-                callback(null, httpUtil.returnFail("Error retrieving unicorn customizations"));
-                return;
-            };
+                return httpUtil.returnFail("Error retrieving unicorn customizations");
+            }
         }
     // create unicorn customization
     } else if (event.httpMethod === "POST") {
@@ -105,8 +99,7 @@ exports.lambda_handler = async function (event, context, callback) {
         
         if (company === undefined) {
             console.log("no company specified");
-            callback(null, httpUtil.returnBadInput("Company not valid"));
-            return;
+            return httpUtil.returnBadInput("Company not valid");
         }
         
         const imageUrl = request['imageUrl'];
@@ -115,32 +108,30 @@ exports.lambda_handler = async function (event, context, callback) {
         const glasses = request['glasses'];
         const cape = request['cape'];
         try {
-            const db_results = await dbUtil.createCustomUnicorn(name, company, imageUrl, sock, horn, glasses, cape)
+            const db_results = await dbUtil.createCustomUnicorn(name, company, imageUrl, sock, horn, glasses, cape);
             console.log("successfully inserted custom unicorn.");
 
             // create an AVP policy
             // console.log("creating AVP policy for the unicorn.");
             // await permissions.createTemplateLinkedPolicy(principalId, db_results['customUnicornId'])
 
-            callback(null, httpUtil.returnOK(db_results));
+            return httpUtil.returnOK(db_results);
         }
         catch(e) {
             console.error(e);
-            callback(null, httpUtil.returnFail("Error creating unicorn"));
-            return;
-        };
+            return httpUtil.returnFail("Error creating unicorn");
+        }
     // delete unicorn customization
     } else if (event.httpMethod === "DELETE") {
         try {
             // check if allowed to delete
             // const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
             // if (isAllowed) {
-                const results = await dbUtil.deleteCustomUnicorn(id, company)
+                const results = await dbUtil.deleteCustomUnicorn(id, company);
         
                 console.log("successfully deleted custom unicorn " + results);
                 // await permissions.deletePolicy(principalId, resource)
-                callback(null, httpUtil.returnOK(results));
-                return;
+                return httpUtil.returnOK(results);
             // }
             // else {
             //     callback(null, httpUtil.returnFail("Unauthorized"));
@@ -148,13 +139,11 @@ exports.lambda_handler = async function (event, context, callback) {
             // }
         } catch(e) {
             console.error(e);
-            callback(null, httpUtil.returnFail("Error deleting unicorn customization"));
-            return;
-        };
+            return httpUtil.returnFail("Error deleting unicorn customization");
+        }
     } else {
         console.log("Error: unsupported HTTP method (" + event.httpMethod + ")");
-        callback(null, {statusCode: 501});
+        return {statusCode: 501};
     }
-
-}        
+};     
 

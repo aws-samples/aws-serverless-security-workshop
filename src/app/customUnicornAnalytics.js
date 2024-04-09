@@ -1,14 +1,12 @@
-const AWS = require('aws-sdk');
-const dbUtil = require("./dbUtils.js");
-const httpUtil = require("./httpUtil.js");
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb"; // ES Modules import
+import dbUtil from "./dbUtils.js";
+import httpUtil from "./httpUtil.js";
 const demandForecastDDBTable = process.env["DEMAND_FORECAST_DDB_TABLE"];
 
-const ddbDocClient = new AWS.DynamoDB.DocumentClient({
-    region: process.env.AWS_REGION
-});
+const ddbClient = new DynamoDBClient({ region: process.env.AWS_REGION });
 
 
-exports.lambda_handler = async(event) => {
+export const lambda_handler = async (event) => {
     try {
         const hornCount = await dbUtil.countBodyPartOptions("Horns");
         const sockCount = await dbUtil.countBodyPartOptions("Socks");
@@ -28,7 +26,8 @@ exports.lambda_handler = async(event) => {
                     'RecordTimeStamp':  recordTimeStamp
                 }
             }
-        return ddbDocClient.put(putItemParam).promise()
+            
+        return await ddbClient.send(new PutItemCommand(putItemParam));
     }
     catch (e) {
         console.error(e);

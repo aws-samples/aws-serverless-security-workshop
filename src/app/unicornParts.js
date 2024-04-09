@@ -1,8 +1,7 @@
-var dbUtil = require("./dbUtils.js");
-var httpUtil = require("./httpUtil");
+import dbUtil from "./dbUtils.js";
+import httpUtil from "./httpUtil.js";
 
-
-exports.lambda_handler = function (event, context, callback) {
+export const lambda_handler = async (event) => {
     console.log("received input event: \n" + JSON.stringify(event, null, 2));
     if (event['httpMethod'] == 'GET') {
 
@@ -29,8 +28,7 @@ exports.lambda_handler = function (event, context, callback) {
                 statusCode: 400,
                 body: "Unsupported body part"
             };
-            callback(null, response);
-            return;
+            return response;
         }
 
 
@@ -42,10 +40,10 @@ exports.lambda_handler = function (event, context, callback) {
                 body: JSON.stringify(horns)
             };
             console.log(response);
-            callback(null, response);
+            return response;
         }).catch(e => {
             console.error(e);
-            callback(null, httpUtil.returnFail("Error querying"));
+            return httpUtil.returnFail("Error querying");
         })
 
     } else {
@@ -53,7 +51,6 @@ exports.lambda_handler = function (event, context, callback) {
             statusCode: 400,
             body: "Unsupported method"
         };
-        callback(null, response);
-        return;
+        return response;
     }
 };

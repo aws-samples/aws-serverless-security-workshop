@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "aws-sdk": "^2.1467.0",
     "babel-core": "*",
     "babel-plugin-transform-flow-strip-types": "*",
     "babel-preset-es2017": "*",
@@ -9,6 +8,7 @@
   },
   "name": "customize-unicorn",
   "version": "1.0.0",
+  "type": "module",
   "description": "lambda functions that allows third party companies to customize unicorn to place ads",
   "main": "main.js",
   "devDependencies": {},
