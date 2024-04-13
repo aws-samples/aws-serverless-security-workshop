@@ -110,6 +110,9 @@ export const databaseFunctions = {
         if (company !== null && company !== undefined && company !== "") {
             query += ` WHERE COMPANY = ${company}`;
         }
+        //if (unicornIds.length > 0) {
+        //    query += " AND ID IN (" + unicornIds.join(",") + ")";
+        //}
         console.log("query for DB: " + query);
         return await executeDBquery(query);
     },

@@ -1,6 +1,6 @@
 import dbUtil from "./dbUtils.js";
 import httpUtil from "./httpUtil.js";
-// var permissions = require("./permissions.js");
+// import { permissions } from "./permissions.js";
 
 export async function lambda_handler(event, context) {
     console.log("received input event: \n" + JSON.stringify(event, null, 2));
@@ -28,8 +28,8 @@ export async function lambda_handler(event, context) {
         // individual customization
         if (id) {
             try {
-                // const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource)
-                // if (isAllowed) {
+                 // const isAllowed = await permissions.isAuthorized(principalId, action, httpMethod, resource);
+                 // if (isAllowed) {
                     const unicornData = await dbUtil.getCustomUnicorn(id, company);
                     
                     
@@ -48,11 +48,10 @@ export async function lambda_handler(event, context) {
                             return httpUtil.returnOK(resultRow);
                         }
                     }
-                // } //permissions.isAuthorized
-                // else {
-                //     callback(null, httpUtil.returnFail("Unauthorized"));
-                //     return;
-                // }
+                 // } //permissions.isAuthorized
+                 // else {
+                 //    return httpUtil.returnFail("Unauthorized");
+                 // }
             }
             catch(e){
                 console.error(e);
@@ -134,8 +133,7 @@ export async function lambda_handler(event, context) {
                 return httpUtil.returnOK(results);
             // }
             // else {
-            //     callback(null, httpUtil.returnFail("Unauthorized"));
-            //     return;
+            //     return httpUtil.returnFail("Unauthorized");
             // }
         } catch(e) {
             console.error(e);

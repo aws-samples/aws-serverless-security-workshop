@@ -103,7 +103,7 @@ export const permissions = {
     },
     
     deletePolicy: async function(principal, resource) {
-        const policies = await module.exports.listPolicies(principal, resource)
+        const policies = await this.listPolicies(principal, resource);
         var responseDeletePolicy = {}
         
         if ('policies' in policies && policies['policies'].length > 0) {
