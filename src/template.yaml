@@ -36,7 +36,7 @@ Resources:
     Properties:
       CodeUri: app/
       Handler: managePartners.lambda_handler
-      Runtime: nodejs16.x
+      Runtime: nodejs20.x
       Policies:
         - VPCAccessPolicy: {}
         - Version: '2012-10-17'
@@ -82,7 +82,7 @@ Resources:
     Properties:
       CodeUri: app/
       Handler: customizeUnicorn.lambda_handler
-      Runtime: nodejs16.x
+      Runtime: nodejs20.x
       Policies:
         - VPCAccessPolicy: {}
 #        - Version: '2012-10-17'
@@ -141,7 +141,7 @@ Resources:
     Properties:
       CodeUri: app/
       Handler: unicornParts.lambda_handler
-      Runtime: nodejs16.x
+      Runtime: nodejs20.x
       Policies:
         - VPCAccessPolicy: {}
 #        - Version: '2012-10-17'
@@ -192,7 +192,7 @@ Resources:
       FunctionName: "CustomUnicornAnalyticsFunction"
       CodeUri: app/
       Handler: customUnicornAnalytics.lambda_handler
-      Runtime: nodejs16.x
+      Runtime: nodejs20.x
       Policies:
         - AdministratorAccess # broad permission. Module9A shows scoped down permission
       VpcConfig:

@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+import mysql from 'mysql';
 
 const CUSTOM_UNICORN_TABLE = "Custom_Unicorns";
 const PARTNER_COMPANY_TABLE = "Companies";
@@ -10,21 +10,19 @@ const PARTNER_COMPANY_TABLE = "Companies";
 const host = "secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com"
 
 class Database {
-
     query(sql, connection, args) {
         return new Promise((resolve, reject) => {
             connection.query(sql, args, (errorQuerying, rows) => {
                 connection.end(errClosing => {
-                        if (errClosing) {
-                            console.log("error closing connection");
-                            console.error(errClosing);
-                        }
-                        if (errorQuerying) {
-                            return reject(errorQuerying);
-                        }
-                        resolve(rows);
+                    if (errClosing) {
+                        console.log("error closing connection");
+                        console.error(errClosing);
                     }
-                )
+                    if (errorQuerying) {
+                        return reject(errorQuerying);
+                    }
+                    resolve(rows);
+                });
             });
         });
     }
@@ -66,89 +64,81 @@ function executeDBquery(query) {
         .then(dbConn.query.bind(this, query));
 }
 
-module.exports = {
-    countBodyPartOptions: function (bodyPart) {
-        const query = "SELECT count(*) FROM " + bodyPart;
+export const databaseFunctions = {
+    countBodyPartOptions: async function (bodyPart) {
+        const query = `SELECT count(*) FROM ${bodyPart}`;
         console.log("query for DB: " + query);
-        return executeDBquery(query).then(results => {
-            console.log(JSON.stringify(results));
-            let count = results[0]["count(*)"];
-            console.log(bodyPart + " count: " + count);
-            return [bodyPart,count];
-        });
+        const results = await executeDBquery(query);
+        console.log(JSON.stringify(results));
+        let count = results[0]["count(*)"];
+        console.log(bodyPart + " count: " + count);
+        return [bodyPart, count];
     },
 
-    listBodyPartOptions: function (bodyPart) {
-        const query = "SELECT * FROM " + bodyPart;
+    listBodyPartOptions: async function (bodyPart) {
+        const query = `SELECT * FROM ${bodyPart}`;
         console.log("query for DB: " + query);
-        return executeDBquery(query);
+        return await executeDBquery(query);
     },
 
-
-    addPartnerCompany: function (companyName) {
-        const insertQuery = "INSERT INTO " + PARTNER_COMPANY_TABLE + " (NAME) VALUES ('" + companyName + "');";
+    addPartnerCompany: async function (companyName) {
+        const insertQuery = `INSERT INTO ${PARTNER_COMPANY_TABLE} (NAME) VALUES ('${companyName}')`;
         console.log("query for insert:" + insertQuery);
-
-        return executeDBquery(insertQuery).then(results => {
-            console.log(JSON.stringify(results, null, 2));
-            let insertId = results.insertId;
-            console.log("insert id: " + insertId);
-            return {"companyId": insertId};
-        })
+        const results = await executeDBquery(insertQuery);
+        console.log(JSON.stringify(results, null, 2));
+        let insertId = results.insertId;
+        console.log("insert id: " + insertId);
+        return { "companyId": insertId };
     },
 
-    createCustomUnicorn: function (name, company, imageUrl, sock, horn, glasses, cape) {
+    createCustomUnicorn: async function (name, company, imageUrl, sock, horn, glasses, cape) {
         const dbConn = new Database();
-        const insertQuery = "INSERT INTO " + CUSTOM_UNICORN_TABLE + " (NAME, COMPANY, IMAGEURL, SOCK, HORN, GLASSES, CAPE) VALUES ('" + name + "'," + company + ",'" + imageUrl + "'," + sock + "," + horn + "," + glasses + "," + cape + ");";
+        const insertQuery = `INSERT INTO ${CUSTOM_UNICORN_TABLE} (NAME, COMPANY, IMAGEURL, SOCK, HORN, GLASSES, CAPE) VALUES ('${name}',${company},'${imageUrl}',${sock},${horn},${glasses},${cape})`;
         console.log("query for insert:" + insertQuery);
-
-        return dbConn.getDbConfig()
+        const results = await dbConn.getDbConfig()
             .then(dbConn.connectToDb)
-            .then(dbConn.query.bind(this, insertQuery)).then(results => {
-                console.log(JSON.stringify(results, null, 2));
-                let insertId = results.insertId;
-                console.log("insert id: " + insertId);
-                return {"customUnicornId": insertId};
-            });
+            .then(dbConn.query.bind(this, insertQuery));
+        console.log(JSON.stringify(results, null, 2));
+        let insertId = results.insertId;
+        console.log("insert id: " + insertId);
+        return { "customUnicornId": insertId };
     },
 
-    listCustomUnicorn: function (company, unicornIds=[]) {
-        var query = "SELECT * FROM " + CUSTOM_UNICORN_TABLE;
+    listCustomUnicorn: async function (company, unicornIds = []) {
+        let query = `SELECT * FROM ${CUSTOM_UNICORN_TABLE}`;
         console.log("query for compa" + company)
         if (company !== null && company !== undefined && company !== "") {
-            query += " WHERE COMPANY = " + company;
+            query += ` WHERE COMPANY = ${company}`;
         }
-        // if (unicornIds.length > 0) {
-        //     query += " AND ID IN (" + unicornIds.join(",") + ")";
-        // }
+        //if (unicornIds.length > 0) {
+        //    query += " AND ID IN (" + unicornIds.join(",") + ")";
+        //}
         console.log("query for DB: " + query);
-        return executeDBquery(query);
+        return await executeDBquery(query);
     },
 
-    getCustomUnicorn: function (id, company) {
-        var query = "SELECT * FROM " + CUSTOM_UNICORN_TABLE + " WHERE ID = " + id;
+    getCustomUnicorn: async function (id, company) {
+        let query = `SELECT * FROM ${CUSTOM_UNICORN_TABLE} WHERE ID = ${id}`;
         if (company !== null && company !== undefined && company !== "") {
-            query += " AND COMPANY = " + company;
+            query += ` AND COMPANY = ${company}`;
         }
         console.log("query for DB: " + query);
-        return executeDBquery(query);
+        return await executeDBquery(query);
     },
 
-    deleteCustomUnicorn: function (id, company) {
-        var query = "DELETE FROM " + CUSTOM_UNICORN_TABLE + " WHERE ID = " + id;
+    deleteCustomUnicorn: async function (id, company) {
+        let query = `DELETE FROM ${CUSTOM_UNICORN_TABLE} WHERE ID = ${id}`;
         if (company !== null && company !== undefined && company !== "") {
-            query += " AND COMPANY = " + company;
+            query += ` AND COMPANY = ${company}`;
         }
         console.log("query for DB: " + query);
-        return executeDBquery(query).then(results => {
-            if (results.affectedRows == 1) {
-                return {"id": id};
-            } else {
-                return {};
-            }
-        });
+        const results = await executeDBquery(query);
+        if (results.affectedRows == 1) {
+            return { "id": id };
+        } else {
+            return {};
+        }
     }
-
 }
 
-
+export default databaseFunctions;

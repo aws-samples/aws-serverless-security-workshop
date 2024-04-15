@@ -1,5 +1,10 @@
-const AWS = require("aws-sdk")
-const client = new AWS.VerifiedPermissions()
+import { VerifiedPermissionsClient, IsAuthorizedCommand, CreatePolicyCommand, ListPoliciesCommand, DeletePolicyCommand } from "@aws-sdk/client-verifiedpermissions"; // ES Modules import
+
+const clientIsAuth = new VerifiedPermissionsClient({});
+const clientCreatePolicy = new VerifiedPermissionsClient({});
+const clientListPolicies = new VerifiedPermissionsClient({});
+const clientDeletePolicy = new VerifiedPermissionsClient({});
+
 const policyStoreId = process.env.AVP_POLICY_STORE_ID
 const policyTemplateId = process.env.AVP_POLICY_TEMPLATE_ID
 
@@ -9,7 +14,7 @@ const ACTIONS = {
     'DELETE:/customizations/{id}': 'DeleteUnicorn'
 }
 
-module.exports = {
+export const permissions = {
     
     isAuthorized: async function (principal, action, httpMethod, resource, entities = null) {
         action = ACTIONS[httpMethod + ':' + action] || "unknown_action"
@@ -30,7 +35,9 @@ module.exports = {
         }
         console.log('AVP params:' + JSON.stringify(params))
         
-        const response = await client.isAuthorized(params).promise()
+        const command = new IsAuthorizedCommand(params);
+        const response = await clientIsAuth.send(command);
+        
         console.log('AVP response:' + JSON.stringify(response))
         
         if (response['decision'] === 'ALLOW') {
@@ -55,12 +62,13 @@ module.exports = {
                 }
             },
             policyStoreId: policyStoreId
-        }
+        };
         
-        console.log('AVP params:' + JSON.stringify(params))
-        const response = client.createPolicy(params).promise()
-        console.log('AVP response:' + JSON.stringify(response))
-        return response
+        console.log('AVP params:' + JSON.stringify(params));
+        const commandCreatePol = new CreatePolicyCommand(params);
+        const responseCreatePol = await clientCreatePolicy.send(commandCreatePol);
+        console.log('AVP response:' + JSON.stringify(responseCreatePol));
+        return responseCreatePol;
     },
     
     listPolicies: async function (principal, resource = null) {
@@ -88,14 +96,15 @@ module.exports = {
         }
 
         console.log('AVP params:' + JSON.stringify(params))
-        const response = await client.listPolicies(params).promise()
-        console.log('AVP response:' + JSON.stringify(response))
-        return response
+        const commandListPol = new ListPoliciesCommand(params);
+        const responseListPol = await clientListPolicies.send(commandListPol);
+        console.log('AVP response:' + JSON.stringify(responseListPol))
+        return responseListPol
     },
     
     deletePolicy: async function(principal, resource) {
-        const policies = await module.exports.listPolicies(principal, resource)
-        var response = {}
+        const policies = await this.listPolicies(principal, resource);
+        var responseDeletePolicy = {}
         
         if ('policies' in policies && policies['policies'].length > 0) {
             var policyId = policies['policies'][0]['policyId']
@@ -106,14 +115,15 @@ module.exports = {
             }
             
             console.log('AVP params:' + JSON.stringify(params))
-            response = client.deletePolicy(params).promise()
-            console.log('AVP response:' + JSON.stringify(response))
+            const commandDeletePolicy = new DeletePolicyCommand(params);
+            responseDeletePolicy = await clientDeletePolicy.send(commandDeletePolicy);
+            console.log('AVP response:' + JSON.stringify(responseDeletePolicy))
         }
         else {
             console.log('No AVP policies found')
         }
         
-        return response
+        return responseDeletePolicy;
     }
 }
 

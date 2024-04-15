@@ -1,9 +1,10 @@
-var dbUtil = require("./dbUtils.js");
-var httpUtil = require("./httpUtil");
+import dbUtil from "./dbUtils.js";
+import httpUtil from "./httpUtil.js";
 
-
-exports.lambda_handler = function (event, context, callback) {
-    console.log("received input event: \n" + JSON.stringify(event, null, 2));
+export const lambda_handler = async (event) => {
+    
+    //console.log("received input event: \n" + JSON.stringify(event, null, 2));
+    
     if (event['httpMethod'] == 'GET') {
 
         var bodyPartToQuery = null;
@@ -29,31 +30,25 @@ exports.lambda_handler = function (event, context, callback) {
                 statusCode: 400,
                 body: "Unsupported body part"
             };
-            callback(null, response);
-            return;
+            return response;
         }
 
 
-        dbUtil.listBodyPartOptions(bodyPartToQuery).then(horns => {
-            console.log("successfully retrieved " + horns.length + " records.");
+        var horns = await dbUtil.listBodyPartOptions(bodyPartToQuery);
+        console.log("successfully retrieved " + horns.length + " records.");
 
-            let response = {
-                statusCode: 200,
-                body: JSON.stringify(horns)
-            };
-            console.log(response);
-            callback(null, response);
-        }).catch(e => {
-            console.error(e);
-            callback(null, httpUtil.returnFail("Error querying"));
-        })
+        let response = {
+            statusCode: 200,
+            body: JSON.stringify(horns)
+        };
+        console.log(response);
+        return response;
 
     } else {
         let response = {
             statusCode: 400,
             body: "Unsupported method"
         };
-        callback(null, response);
-        return;
+        return response;
     }
 };
