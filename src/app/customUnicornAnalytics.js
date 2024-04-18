@@ -19,11 +19,11 @@ export const lambda_handler = async (event) => {
         const putItemParam = {
                 TableName: demandForecastDDBTable,
                 Item: {
-                    'HornCount': hornCount[1],
-                    'SockCount': sockCount[1],
-                    'GlassCount': glassCount[1],
-                    'CapeCount': capeCount[1],
-                    'RecordTimeStamp':  recordTimeStamp
+                    'HornCount': { S : hornCount[1].toString() },
+                    'SockCount': { S : sockCount[1].toString() },
+                    'GlassCount': { S : glassCount[1].toString() },
+                    'CapeCount': { S : capeCount[1].toString() },
+                    'RecordTimeStamp':  { S : recordTimeStamp.toString() }
                 }
             }
             
