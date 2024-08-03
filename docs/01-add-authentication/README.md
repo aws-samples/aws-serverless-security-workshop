@@ -347,10 +347,9 @@ Now we have configured our API so only authenticated requests can get through to
 
 To make authenticated requests using the admin client credentials we just created in Module 1C, we can use PostMan:
 
-1. In Postman, right click on the **Manage Partner** folder and click **edit**
-1. In the Edit Folder window that pops up, go to **Authorization** tab, and change the Auth **Type** to `OAuth 2.0`, then click **Get New Access Token** 
-
-	![postman add auth](images/1E-postman-add-auth.png)
+1. In Postman, left click on the **Manage Partner** folder
+1. In the **Authorization** tab, and change the Auth **Type** to `OAuth 2.0`, then click **Get New Access Token** 
+	![postman add auth](images/1E-postman-gettoken.png)
 
 1. Configure the token request:
 	
@@ -365,8 +364,6 @@ To make authenticated requests using the admin client credentials we just create
 	* **Client Secret**:  this the client secret of the admin we created in Module 1D
 	* **Scope**: it's optional (the token will be scoped anyways) we can leave it blank
 		
-	![postman add auth](images/1E-postman-gettoken.png)
-
 	And click **Request Token**
 
 1. Now you should see the new token returned from Cognito. scroll down and click **Use Token**
