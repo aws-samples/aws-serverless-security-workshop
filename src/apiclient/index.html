@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en_US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="index.html" />
+    <title>API Client Tool</title>
+
+    <link rel="stylesheet" type="text/css" href="css/site.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div id="outerHeader" style="width: 100%;">
+        <div id="innerHeader" style="width: 50%; margin: 0 auto;">
+            <header>
+                <img src="img/request.png" alt="image">
+                <h1 id=title>API Client Tool</h1>
+            </header>
+        </div>
+    </div>
+    <div id="outer" style="width: 100%; margin-top: 50px; margin-bottom: 200px;">
+        <div id="inner" style="width: 60%; margin: 0 auto;">
+
+            <input type="text" class="form-control" id="BaseURL" aria-describedby="baseurlinfo"
+                placeholder="Enter your API Gateway base URL - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/">
+            <br>
+
+            <button class="accordion">Module 1E: Partner Companies</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL">Access Token URL (Hint: your Cognito domain + /oauth2/token)</label>
+                <input type="text" class="form-control" id="tokenURL" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID">Client ID</label>
+                <input type="text" class="form-control" id="clientID" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module1EgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br><br>
+                <label for="ResponseText1">Access Token</label>
+                <textarea class="form-control" id="ResponseText1E" rows="10"></textarea>
+                <br><br><br>
+                <label for="apipartners">API Gateway URL + /partners</label>
+                <input type="text" class="form-control" id="apipartners" aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /partners - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/partners">
+                <br>
+                <label for="body1E">Body JSON</label>
+                <textarea class="form-control" id="body1E" rows="10"></textarea>
+                <br>
+                <button type="button" id="getClient1E" onclick="module1EgetClientInfo()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="1Epartnerresponse">Response</label>
+                <textarea class="form-control" id="1Epartnerresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 1F: Customize Unicorns</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL1F">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL1F" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID1F">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID1F" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret1F">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret1F" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module1FgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText1F">Response:</label>
+                <textarea class="form-control" id="ResponseText1F" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype" style="width: 15%; float: left;">
+                    <option selected value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="body1F">Body JSON</label>
+                <textarea class="form-control" id="body1F" rows="10"></textarea>
+                <br>
+                <button type="button" id="send1F" onclick="module1FgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="1Fcustomresponse">Response</label>
+                <textarea class="form-control" id="1Fcustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 3B: Update Application Code - Create Custom Unicorn</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL3B">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL3B" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID3B">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID3B" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret3B">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret3B" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module3BgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText3B">Response:</label>
+                <textarea class="form-control" id="ResponseText3B" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations3B">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype3B" style="width: 15%; float: left;">
+                    <option selected value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations3B"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="body3B">Body JSON</label>
+                <textarea class="form-control" id="body3B" rows="10"></textarea>
+                <br>
+                <button type="button" id="send3B" onclick="module3BgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="3Bcustomresponse">Response</label>
+                <textarea class="form-control" id="3Bcustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 3C: Update Application Code - Get Custom Unicorn By ID</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL3C">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL3C" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID3C">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID3C" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret3C">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret3C" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module3CgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText3C">Response:</label>
+                <textarea class="form-control" id="ResponseText3C" rows="10"></textarea>
+                <br><br>
+                <label for="apicustomizations3C">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype3C" style="width: 15%; float: left;">
+                    <option value="POST">POST</option>
+                    <option selected value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations3C"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <button type="button" id="send3C" onclick="module3CgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="3Ccustomresponse">Response</label>
+                <textarea class="form-control" id="3Ccustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 3D: Update Application Code - List Unicorns</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL3D">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL3D" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID3D">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID3D" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret3D">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret3D" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module3DgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText3D">Response:</label>
+                <textarea class="form-control" id="ResponseText3D" rows="10"></textarea>
+                <br><br>
+                <label for="apicustomizations3D">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype3D" style="width: 15%; float: left;">
+                    <option value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option selected value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations3D"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <button type="button" id="send3D" onclick="module3DgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="3Dcustomresponse">Response</label>
+                <textarea class="form-control" id="3Dcustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 3E: Update Application Code - Delete Unicorn</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL3E">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL3E" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID3E">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID3E" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret3E">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret3E" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module3EgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText3E">Response:</label>
+                <textarea class="form-control" id="ResponseText3E" rows="10"></textarea>
+                <br><br>
+                <label for="apicustomizations3E">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype3E" style="width: 15%; float: left;">
+                    <option value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option selected value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations3E"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <button type="button" id="send3E" onclick="module3EgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="3Ecustomresponse">Response</label>
+                <textarea class="form-control" id="3Ecustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 5: Input validation on API Gateway</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL5">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL5" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID5">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID5" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret5">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret5" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module5getToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText5">Response:</label>
+                <textarea class="form-control" id="ResponseText5" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations5">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype5" style="width: 15%; float: left;">
+                    <option selected value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations5"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="body5">Body JSON</label>
+                <textarea class="form-control" id="body5" rows="10"></textarea>
+                <br>
+                <button type="button" id="send5" onclick="module5getCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="5customresponse">Response</label>
+                <textarea class="form-control" id="5customresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 5B: Testing</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL5B">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL5B" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID5B">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID5B" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret5B">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret5B" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module5BgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText5B">Response:</label>
+                <textarea class="form-control" id="ResponseText5B" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations5B">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype5B" style="width: 15%; float: left;">
+                    <option selected value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations5B"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="body5B">Body JSON</label>
+                <textarea class="form-control" id="body5B" rows="10"></textarea>
+                <br>
+                <button type="button" id="send5B" onclick="module5BgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="5Bcustomresponse">Response</label>
+                <textarea class="form-control" id="5Bcustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 9C: Test Request</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL9C">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL9C" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID9C">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID9C" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret9C">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret9C" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module9CgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText9C">Response:</label>
+                <textarea class="form-control" id="ResponseText9C" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations9C">API Gateway URL + /socks</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype9C" style="width: 15%; float: left;">
+                    <option value="POST">POST</option>
+                    <option selected value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations9C"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="apikey9C">API Key</label>
+                <input type="text" class="form-control" id="apikey9C" aria-describedby="apiKey"
+                    placeholder="Enter API Key">
+                <br>
+                <br>
+                <button type="button" id="send9C" onclick="module9CgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="9Ccustomresponse">Response</label>
+                <textarea class="form-control" id="9Ccustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 9E: Test Throttling</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL9E">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL9E" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID9E">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID9E" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret9E">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret9E" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module9EgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText9E">Response:</label>
+                <textarea class="form-control" id="ResponseText9E" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations9E">API Gateway URL + /socks</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype9E" style="width: 15%; float: left;">
+                    <option value="POST">POST</option>
+                    <option selected value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations9E"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="apikey9E">API Key</label>
+                <input type="text" class="form-control" id="apikey9E" aria-describedby="apiKey"
+                    placeholder="Enter API Key">
+                <br>
+                <br>
+                <button type="button" id="send9E" onclick="module9EgetCustomizations()" class="btn btn-primary">Send 20
+                    times</button>
+                <br><br>
+                <label for="9Ecustomresponse">Response</label>
+                <textarea class="form-control" id="9Ecustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 10: WAF</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL10">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL10" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID10">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID10" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret10">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret10" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module10getToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText10">Response:</label>
+                <textarea class="form-control" id="ResponseText10" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations10">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype10" style="width: 15%; float: left;">
+                    <option value="POST">POST</option>
+                    <option selected value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations10"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <button type="button" id="send10" onclick="module10getCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="10customresponse">Response</label>
+                <textarea class="form-control" id="10customresponse" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="accordion">Module 10C: Test Requests</button>
+            <div class="panel">
+                <br>
+                <label for="tokenURL10C">Access Token URL</label>
+                <input type="text" class="form-control" id="tokenURL10C" aria-describedby="urlinfo"
+                    placeholder="Enter Access Token URL - ex. https://custom-unicorn-johndoe.auth.us-west-2.amazoncognito.com/oauth2/token">
+                <br>
+                <label for="clientID10C">Client ID - (hint: grab the Client ID and Client Secret from the new cherry
+                    company response in section 1E above)</label>
+                <input type="text" class="form-control" id="clientID10C" aria-describedby="clientid"
+                    placeholder="Enter Client ID">
+                <br>
+                <label for="clientSecret10C">Client Secret</label>
+                <input type="text" class="form-control" id="clientSecret10C" aria-describedby="clientSecret"
+                    placeholder="Enter Client Secret">
+                <br>
+                <button type="button" onclick="module10CgetToken()" class="btn btn-primary">Get Access Token</button>
+                <br>
+                <label for="ResponseText10C">Response:</label>
+                <textarea class="form-control" id="ResponseText10C" rows="10"></textarea>
+                <br><br><br>
+                <label for="apicustomizations10C">API Gateway URL + /customizations</label><br>
+                <select class="form-select" aria-label="Method Type" id="methodtype10C"
+                    style="width: 15%; float: left;">
+                    <option selected value="POST">POST</option>
+                    <option value="GET">GET</option>
+                    <option value="GET">LIST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" style="width: 85%; float: right;" class="form-control" id="apicustomizations10C"
+                    aria-describedby="urlinfo"
+                    placeholder="API Gateway base URL + /customizations - ex. https://abcd1234.execute-api.us-east-1.amazonaws.com/dev/customizations">
+                <br><br>
+                <label for="body10C">Body JSON</label>
+                <textarea class="form-control" id="body10C" rows="10"></textarea>
+                <br>
+                <button type="button" id="send10C" onclick="module10CgetCustomizations()"
+                    class="btn btn-primary">Send</button>
+                <br><br>
+                <label for="10Ccustomresponse">Response</label>
+                <textarea class="form-control" id="10Ccustomresponse" rows="10"></textarea>
+                <br>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>

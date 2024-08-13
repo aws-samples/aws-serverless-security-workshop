@@ -1,0 +1,43 @@
+table, th, td {
+	border: 1px solid black;
+}
+table {
+	width: 20%;
+	min-width: 225px;
+	margin: 0 auto;
+}
+#status {
+margin: 0 auto;
+	width: 20%;
+	min-width: 225px;
+}
+
+#status2 {
+margin: 0 auto;
+	width: 20%;
+	min-width: 225px;
+}
+
+.panel-success > .panel-heading  {
+    background-image: none;
+    background-color: #237abf;
+    color: black;
+	border: none;
+}
+.panel   {
+    background-image: none;
+    color: black;
+	border-color: #237abf;;
+}
+.panel-title   {
+    background-image: none;
+    color: black;
+	border-color: #237abf;;
+}
+
+#toggleButton{
+	min-width: 225px;
+	color: white;
+	background-color: blue;
+	font-size: large;
+}
