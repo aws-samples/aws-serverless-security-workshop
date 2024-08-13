@@ -28,6 +28,11 @@ export const lambda_handler = async (event) => {
         if (bodyPartToQuery === null) {
             let response = {
                 statusCode: 400,
+                headers: {
+                    "Access-Control-Allow-Headers" : "Content-Type",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                },
                 body: "Unsupported body part"
             };
             return response;
@@ -39,6 +44,11 @@ export const lambda_handler = async (event) => {
 
         let response = {
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Headers" : "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+            },
             body: JSON.stringify(horns)
         };
         console.log(response);
@@ -47,6 +57,11 @@ export const lambda_handler = async (event) => {
     } else {
         let response = {
             statusCode: 400,
+            headers: {
+                "Access-Control-Allow-Headers" : "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+            },
             body: "Unsupported method"
         };
         return response;

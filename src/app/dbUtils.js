@@ -100,6 +100,10 @@ export const databaseFunctions = {
             .then(dbConn.query.bind(this, insertQuery));
         console.log(JSON.stringify(results, null, 2));
         let insertId = results.insertId;
+        if (insertId === undefined)
+        {
+            insertId = results[0].insertId;
+        }
         console.log("insert id: " + insertId);
         return { "customUnicornId": insertId };
     },
