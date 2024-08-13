@@ -1,6 +1,11 @@
 export const returnFail = (message) => {
     return {
         statusCode: 500,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
         body: JSON.stringify(message)
     };
 };
@@ -8,6 +13,11 @@ export const returnFail = (message) => {
 export const returnBadInput = (message) => {
     return {
         statusCode: 400,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
         body: JSON.stringify(message)
     };
 };
@@ -15,6 +25,11 @@ export const returnBadInput = (message) => {
 export const returnNotFound = (message) => {
     return {
         statusCode: 404,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
         body: JSON.stringify(message)
     };
 };
@@ -22,6 +37,11 @@ export const returnNotFound = (message) => {
 export const returnAccessDenied = (message) => {
     return {
         statusCode: 403,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
         body: JSON.stringify(message)
     };
 };
