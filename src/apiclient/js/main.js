@@ -1,9 +1,3 @@
-$('#tokenURL').val('https://josh.auth.us-east-1.amazoncognito.com/oauth2/token');
-$('#clientID').val('a8c1d38vkr6q06bpuka7kt2ih');
-$('#clientSecret').val('763rb1jkdgsj4ppf6bjsbiqj3jpc4lele12erlev0m7b53g5687');
-$('#apipartners').val('https://84dn9glnh5.execute-api.us-east-1.amazonaws.com/dev/partners');
-$('#body1E').val('{"name":"Cherry Company"}');
-
 async function module1EgetToken() {
 
   var tokenURL = $('#tokenURL').val();
