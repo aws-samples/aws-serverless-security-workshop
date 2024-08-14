@@ -1,3 +1,9 @@
+$('#tokenURL').val('https://josh.auth.us-east-1.amazoncognito.com/oauth2/token');
+$('#clientID').val('a8c1d38vkr6q06bpuka7kt2ih');
+$('#clientSecret').val('763rb1jkdgsj4ppf6bjsbiqj3jpc4lele12erlev0m7b53g5687');
+$('#apipartners').val('https://84dn9glnh5.execute-api.us-east-1.amazonaws.com/dev/partners');
+$('#body1E').val('{"name":"Cherry Company"}');
+
 async function module1EgetToken() {
 
   var tokenURL = $('#tokenURL').val();
@@ -5,6 +11,7 @@ async function module1EgetToken() {
   var clientSecret = $('#clientSecret').val();
 
   var response = await getToken(tokenURL, clientID, clientSecret);
+
   $('#ResponseText1E').val(response);
 
 }
@@ -366,7 +373,7 @@ async function module10CgetCustomizations() {
 
 async function getToken(tokenURL, clientID, clientSecret) {
 
-  $.ajax({
+  return await $.ajax({
     url: tokenURL,
     crossDomain: true,
     type: 'POST',
@@ -375,19 +382,19 @@ async function getToken(tokenURL, clientID, clientSecret) {
       client_id: clientID,
       client_secret: clientSecret
     },
-    dataType: 'json',
-    success: function (data) {
+    dataType: 'json'
+  })
+  .then(function (data) {
       return data.access_token.toString();
-    },
-    error: function (data) {
+    })
+  .catch(function (data) {
       return JSON.stringify(data, null, 4);
-    }
-  });
+    });
 }
 
 async function sendRequest(apiurl, requestBody, token, apitype, apikey) {
 
-  $.ajax({
+  return await $.ajax({
     url: apiurl,
     crossDomain: true,
     type: apitype,
@@ -397,14 +404,14 @@ async function sendRequest(apiurl, requestBody, token, apitype, apikey) {
       'x-api-key': apikey
     },
     data: requestBody,
-    dataType: 'json',
-    success: function (data) {
+    dataType: 'json'
+  })
+  .then(function (data) {
       return JSON.stringify(data, null, 4);
-    },
-    error: function (data) {
+    })
+  .catch(function (data) {
       return JSON.stringify(data, null, 4);
-    }
-  });
+    });
 }
 
 var acc = document.getElementsByClassName("accordion");
