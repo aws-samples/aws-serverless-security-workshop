@@ -272,6 +272,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
           "/horns":
             get:
 #              security:
@@ -282,6 +307,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
           "/glasses":
             get:
 #              security:
@@ -292,6 +342,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
           "/capes":
             get:
 #              security:
@@ -302,6 +377,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnicornPartsFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
           "/customizations":
             get:
 #              security:
@@ -321,6 +421,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
           "/customizations/{id}":
             get:
 #              security:
@@ -340,6 +465,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CustomizeUnicornFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
           "/partners":
             post:
 #              security:
@@ -350,6 +500,31 @@ Resources:
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ManagePartnerFunction.Arn}/invocations
               responses: {}
+            options:
+              consumes:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
 
 
 Outputs:
