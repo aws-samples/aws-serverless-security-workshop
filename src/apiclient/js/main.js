@@ -1,3 +1,19 @@
+async function module0getCustomizations() {
+
+  var apiurl = $('#apicustomizations0').val();
+  var requestBody = '';
+  var token = $('#ResponseText0').val();
+  var apitype = $('#methodtype0').find(":selected").val();
+  var apikey = 'abcdef';
+
+  $('#send0').attr('disabled', true);
+
+  var response = await sendRequest(apiurl, requestBody, token, apitype, apikey);
+  $('#0customresponse').val(response);
+
+  $('#send0').attr('disabled', false);
+}
+
 async function module1EgetToken() {
 
   var tokenURL = $('#tokenURL').val();
@@ -425,6 +441,7 @@ for (i = 0; i < acc.length; i++) {
 
 jQuery('#BaseURL').on('input', function () {
   $('#apipartners').val($('#BaseURL').val() + 'partners');
+  $('#apicustomizations0').val($('#BaseURL').val() + 'socks');
   $('#apicustomizations').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations3B').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations3C').val($('#BaseURL').val() + 'customizations');
