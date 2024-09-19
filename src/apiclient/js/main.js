@@ -48,10 +48,6 @@ async function module1FgetToken() {
   var clientID = $('#clientID1F').val();
   var clientSecret = $('#clientSecret1F').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText1F').val(response);
 
@@ -78,10 +74,6 @@ async function module3BgetToken() {
   var tokenURL = $('#tokenURL3B').val();
   var clientID = $('#clientID3B').val();
   var clientSecret = $('#clientSecret3B').val();
-
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
 
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText3B').val(response);
@@ -110,10 +102,6 @@ async function module3CgetToken() {
   var clientID = $('#clientID3C').val();
   var clientSecret = $('#clientSecret3C').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText3C').val(response);
 }
@@ -141,10 +129,6 @@ async function module3DgetToken() {
   var clientID = $('#clientID3D').val();
   var clientSecret = $('#clientSecret3D').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText3D').val(response);
 }
@@ -171,10 +155,6 @@ async function module3EgetToken() {
   var clientID = $('#clientID3E').val();
   var clientSecret = $('#clientSecret3E').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText3E').val(response);
 }
@@ -200,10 +180,6 @@ async function module5getToken() {
   var tokenURL = $('#tokenURL5').val();
   var clientID = $('#clientID5').val();
   var clientSecret = $('#clientSecret5').val();
-
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
 
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText5').val(response);
@@ -232,10 +208,6 @@ async function module5BgetToken() {
   var clientID = $('#clientID5B').val();
   var clientSecret = $('#clientSecret5B').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText5B').val(response);
 }
@@ -262,10 +234,6 @@ async function module9CgetToken() {
   var tokenURL = $('#tokenURL9C').val();
   var clientID = $('#clientID9C').val();
   var clientSecret = $('#clientSecret9C').val();
-
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
 
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText9C').val(response);
@@ -294,10 +262,6 @@ async function module9EgetToken() {
   var clientID = $('#clientID9E').val();
   var clientSecret = $('#clientSecret9E').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText9E').val(response);
 }
@@ -325,10 +289,6 @@ async function module10getToken() {
   var clientID = $('#clientID10').val();
   var clientSecret = $('#clientSecret10').val();
 
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
-
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText10').val(response);
 }
@@ -355,10 +315,6 @@ async function module10CgetToken() {
   var tokenURL = $('#tokenURL10C').val();
   var clientID = $('#clientID10C').val();
   var clientSecret = $('#clientSecret10C').val();
-
-  var tokenURL = $('#tokenURL').val();
-  var clientID = $('#clientID').val();
-  var clientSecret = $('#clientSecret').val();
 
   var response = await getToken(tokenURL, clientID, clientSecret);
   $('#ResponseText10C').val(response);
