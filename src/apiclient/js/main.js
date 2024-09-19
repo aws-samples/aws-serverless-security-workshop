@@ -275,9 +275,13 @@ async function module9EgetCustomizations() {
   var apikey = $('#apikey9E').val();
 
   $('#send9E').attr('disabled', true);
+  var responses = '';
 
-  var response = await sendRequest(apiurl, requestBody, token, apitype, apikey);
-  $('#9Ecustomresponse').val(response);
+  for (let i = 0; i < 20; i++) {
+    var response = await sendRequest(apiurl, requestBody, token, apitype, apikey);
+    responses = responses + '\n\n' + response;
+  }
+  $('#9Ecustomresponse').val(responses);
 
   $('#send9E').attr('disabled', false);
 
