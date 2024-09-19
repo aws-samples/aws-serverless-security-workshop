@@ -400,7 +400,7 @@ jQuery('#BaseURL').on('input', function () {
   $('#apicustomizations0').val($('#BaseURL').val() + 'socks');
   $('#apicustomizations').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations3B').val($('#BaseURL').val() + 'customizations');
-  $('#apicustomizations3C').val($('#BaseURL').val() + 'customizations');
+  $('#apicustomizations3C').val($('#BaseURL').val() + 'customizations/1');
   $('#apicustomizations3D').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations3E').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations5').val($('#BaseURL').val() + 'customizations');
