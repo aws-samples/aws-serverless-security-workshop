@@ -69,76 +69,40 @@ async function module1FgetCustomizations() {
   $('#send1F').attr('disabled', false);
 }
 
-async function module3BgetToken() {
-
-  var tokenURL = $('#tokenURL3B').val();
-  var clientID = $('#clientID3B').val();
-  var clientSecret = $('#clientSecret3B').val();
-
-  var response = await getToken(tokenURL, clientID, clientSecret);
-  $('#ResponseText3B').val(response);
-
-}
-
-async function module3BgetCustomizations() {
-
-  var apiurl = $('#apicustomizations3B').val();
-  var requestBody = $('#body3B').val();
-  var token = $('#ResponseText3B').val();
-  var apitype = $('#methodtype3B').find(":selected").val();
-  var apikey = 'abcdef';
-
-  $('#send3B').attr('disabled', true);
-
-  var response = await sendRequest(apiurl, requestBody, token, apitype, apikey);
-  $('#3Bcustomresponse').val(response);
-
-  $('#send3B').attr('disabled', false);
-}
-
-async function module3CgetToken() {
-
-  var tokenURL = $('#tokenURL3C').val();
-  var clientID = $('#clientID3C').val();
-  var clientSecret = $('#clientSecret3C').val();
-
-  var response = await getToken(tokenURL, clientID, clientSecret);
-  $('#ResponseText3C').val(response);
-}
-
-async function module3CgetCustomizations() {
-
-  var apiurl = $('#apicustomizations3C').val();
-  var requestBody = '';
-  var token = $('#ResponseText3C').val();
-  var apitype = $('#methodtype3C').find(":selected").val();
-  var apikey = 'abcdef';
-
-  $('#send3C').attr('disabled', true);
-
-  var response = await sendRequest(apiurl, requestBody, token, apitype, apikey);
-  $('#3Ccustomresponse').val(response);
-
-  $('#send3C').attr('disabled', false);
-
-}
-
 async function module3DgetToken() {
 
-  var tokenURL = $('#tokenURL3D').val();
-  var clientID = $('#clientID3D').val();
-  var clientSecret = $('#clientSecret3D').val();
+  var tokenURL = $('#tokenURL3B').val();
+  var body = $('#body3DAVP').val();
 
-  var response = await getToken(tokenURL, clientID, clientSecret);
-  $('#ResponseText3D').val(response);
+  var jsonbody = JSON.stringify(body);
+  jsonbody = JSON.parse(jsonbody.replace(/\r?\n|\r/g, ''));
+
+  $.ajax({
+    url: tokenURL,
+    crossDomain: true,
+    type: 'POST',
+    headers: {
+      'Accept': '*/*',
+      'Content-Type': 'application/x-amz-json-1.1',
+      'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth'
+    },
+    data: jsonbody,
+    dataType: 'json',
+    success: function (data) {
+      $('#ResponseText3D').val(data.AuthenticationResult.AccessToken.toString());
+    },
+    error: function (data) {
+      $('#ResponseText3D').val(JSON.stringify(data));
+    }
+  });
 }
 
-async function module3DgetCustomizations() {
+async function module3DnewPartner() {
 
-  var apiurl = $('#apicustomizations3D').val();
-  var requestBody = '';
+  var apiurl = $('#apipartners3D').val();
+  var requestBody = $('#body3D').val();
   var token = $('#ResponseText3D').val();
-  var apitype = $('#methodtype3D').find(":selected").val();
+  var apitype = $('#methodtype5').find(":selected").val();
   var apikey = 'abcdef';
 
   $('#send3D').attr('disabled', true);
@@ -147,32 +111,7 @@ async function module3DgetCustomizations() {
   $('#3Dcustomresponse').val(response);
 
   $('#send3D').attr('disabled', false);
-}
 
-async function module3EgetToken() {
-
-  var tokenURL = $('#tokenURL3E').val();
-  var clientID = $('#clientID3E').val();
-  var clientSecret = $('#clientSecret3E').val();
-
-  var response = await getToken(tokenURL, clientID, clientSecret);
-  $('#ResponseText3E').val(response);
-}
-
-async function module3EgetCustomizations() {
-
-  var apiurl = $('#apicustomizations3E').val();
-  var requestBody = '';
-  var token = $('#ResponseText3E').val();
-  var apitype = $('#methodtype3E').find(":selected").val();
-  var apikey = 'abcdef';
-
-  $('#send3E').attr('disabled', true);
-
-  var response = await sendRequest(apiurl, requestBody, token, apitype, apikey);
-  $('#3Ecustomresponse').val(response);
-
-  $('#send3E').attr('disabled', false);
 }
 
 async function module5getToken() {
@@ -406,7 +345,7 @@ jQuery('#BaseURL').on('input', function () {
   $('#apicustomizations3B').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations3C').val($('#BaseURL').val() + 'customizations/1');
   $('#apicustomizations3D').val($('#BaseURL').val() + 'customizations');
-  $('#apicustomizations3E').val($('#BaseURL').val() + 'customizations');
+  $('#apicustomizations3E').val($('#BaseURL').val() + 'customizations/1');
   $('#apicustomizations5').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations5B').val($('#BaseURL').val() + 'customizations');
   $('#apicustomizations9C').val($('#BaseURL').val() + 'socks');
@@ -428,6 +367,33 @@ jQuery('#tokenURL').on('input', function () {
   $('#tokenURL10').val($('#tokenURL').val());
   $('#tokenURL10C').val($('#tokenURL').val());
 });
+
+
+jQuery('#username3D').on('input', function () {
+  build3Dbody();
+});
+
+jQuery('#password3D').on('input', function () {
+  build3Dbody();
+});
+
+jQuery('#clientID3D').on('input', function () {
+  build3Dbody();
+});
+
+function build3Dbody() {
+  var body = {
+    "AuthFlow":"USER_PASSWORD_AUTH",
+    "ClientId": $('#clientID3D').val(),
+    "AuthParameters":{
+      "USERNAME":$('#username3D').val(),
+      "PASSWORD":$('#password3D').val()
+    },
+    "ClientMetadata":{}
+  }
+  $('#body3DAVP').val(JSON.stringify(body, null, 4));
+}
+
 
 $('#methodtype').change(function () {
   $('#body1F').val('');
