@@ -42,18 +42,20 @@ function setstackname() {
 
 function setclustername() {
     _logger "[+] Setting Auora Cluster name"
-    sed -i "s/secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com/$AuroraEndpoint/g" /home/ec2-user/environment/aws-serverless-security-workshop/src/app/dbUtils.js
+    sed -i "s/secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com/$AuroraEndpoint/g" /Workshop/src/app/dbUtils.js
 }
 
 function setregion() {
     _logger "[+] Setting region"
-    echo export "REGION=$(curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >> ~/.bashrc
-    echo  "REGION=$(curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >>/home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
+    #echo export REGION=$(aws ec2 describe-availability-zones --output text --query 'AvailabilityZones[0].[RegionName]') >> ~/.bashrc
+    ##echo export "REGION=$(curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >> ~/.bashrc
+    export "REGION=$(aws ec2 describe-availability-zones --output text --query 'AvailabilityZones[0].[RegionName]')" >> ~/.bashrc
+    echo "REGION=$(aws ec2 describe-availability-zones --output text --query 'AvailabilityZones[0].[RegionName]')" >>/Workshop/scratch.txt
 }
 
 function checkfile(){
         #check for file
-    export FILE=/home/ec2-user/environment/aws-serverless-security-workshop/src/app/dbUtils.js
+    export FILE=/Workshop/src/app/dbUtils.js
     if [ -f $FILE ];
     then
         echo "Files cloned from Git!"
@@ -71,7 +73,7 @@ function setcfoutput() {
     do
         export $output=$(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[?OutputKey==`'$output'`].OutputValue' --output text)
         echo "$output=$(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[?OutputKey==`'$output'`].OutputValue' --output text)" >> ~/.bashrc
-        echo "$output=$(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[?OutputKey==`'$output'`].OutputValue' --output text)" >> /home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
+        echo "$output=$(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[?OutputKey==`'$output'`].OutputValue' --output text)" >> /Workshop/scratch.txt
         #eval "echo $output : \"\$$output\"" 
     done
     
@@ -79,20 +81,21 @@ function setcfoutput() {
 
 function deployapp() {
     _logger "[+] Deploying app"
-    cd ~/environment/aws-serverless-security-workshop/src/app
+    cd /Workshop/src/app
+    export UV_USE_IO_URING=0
     npm install
-    cd  ~/environment/aws-serverless-security-workshop/src
-    sam deploy --stack-name CustomizeUnicorns --s3-bucket $DeploymentS3Bucket --capabilities CAPABILITY_IAM || true
-    cd  ~/environment/aws-serverless-security-workshop/
+    cd  /Workshop/src
+    sam deploy --stack-name CustomizeUnicorns --s3-bucket $DeploymentS3Bucket --region $REGION --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND || true
+    cd  /Workshop/
 
 }
 
 function getapiurl(){
     sam_stack_name="CustomizeUnicorns"
-    echo " " >> /home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
-    echo "-------------------------------------------" >> /home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
-    echo "API Gateway URL:" >> /home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
-    echo "$(aws cloudformation describe-stacks --stack-name $sam_stack_name --query 'Stacks[].Outputs[].OutputValue' --output text)" >> /home/ec2-user/environment/aws-serverless-security-workshop/scratch.txt
+    echo " " >> /Workshop/scratch.txt
+    echo "-------------------------------------------" >> /Workshop/scratch.txt
+    echo "API Gateway URL:" >> /Workshop/scratch.txt
+    echo "$(aws cloudformation describe-stacks --stack-name $sam_stack_name --query 'Stacks[].Outputs[].OutputValue' --output text)" >> /Workshop/scratch.txt
 
 }
 

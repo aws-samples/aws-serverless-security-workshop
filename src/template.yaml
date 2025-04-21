@@ -537,7 +537,6 @@ Resources:
               gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
               gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
 
-
 Outputs:
   ApiURL:
     Description: "API endpoint URL for dev environment"
