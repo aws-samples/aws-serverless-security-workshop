@@ -68,19 +68,16 @@ If you have completed **Module 3: Input validation on API Gateway**, your API no
 
 </details>
 
-### Module 6A: Create a WAF ACL 
+### Module 6A: Describe a Web ACL
 
 Now let's start creating an AWS WAF to give us additional protection: 
 
 1. Go to the [AWS WAF Console](https://console.aws.amazon.com/wafv2/home#/wafhome)
 
-1. The AWS WAF console has recently released a new version: see [Introducing AWS Managed Rules for AWS WAF
-](https://aws.amazon.com/about-aws/whats-new/2019/11/introducing-aws-managed-rules-for-aws-waf/). However, this workshop has not been yet adapted to the new version. Therefore, we will be using the classic version of the WAF console. You can use the **Switch to AWS WAF Classic** button to switch to classic:
 
-	![](images/switch-waf-classic.png)
+1. Click on **Create web ACL** 
 
-1. Click on **Create web ACL** on the WAF Classic console
-
+	![](images/6A-create-web-acl.png)
 	![](images/classifc-waf-opening.png)
 	
 1. In Step 1 of the ACL creation wizard, fill in:
@@ -88,122 +85,66 @@ Now let's start creating an AWS WAF to give us additional protection:
 	* **Web ACL Name**: `ProtectUnicorn`
 	* **CloudWatch metric name**: this should be automatically populated for you
 	* **Region**: select the AWS region you chose for previous steps of the workshop
-	* **Resource type to associate with web ACL**: Pick `API Gateway`
-	* **Amazon API Gateway API**: Pick the API Gateway we deployed previously, `CustomizeUnicorns`
-	* **Stage**: select `dev`
 
-	![screenshot](images/web-acl-name.png)
+1. To associate the WAF with your API Gateway resources, click **add AWS resources** and select the API Gateway we deployed previously, `CustomizeUnicorns`
+	![screenshot](images/6A-associate-resources.png)
+	click **Add**
+	![screenshot](images/6A-web-acl-step-1.png)
+	and then **Next**
+
+
+### Module 6B: Add web ACL rules
+
+1. Next you will create 3 different rules. Let's start with a rule to restrict the maximum size of request body: 
+
+	![screenshot](images/6B-own-rule.png)
+	* **Rule Type** select **Rule Builder**
+	* **Rule Name** Give the rulle a name, like `LargeBodyMatch`
+	* **Type** Regular rule
+	* **If a request** matches the statement
+	* **Inspect** Body
+	* **Content Type** Plain text
+	* **Match type** Size greater than
+	* **Size** `3000`
+	* **Action** Block
+	![screenshot](images/6B-large-body-rule.png)
+	* Then click **Add Rule**
 	
-	and click **Next**
 
-### Module 6B: Create WAF conditions
+1. Next, let's add a SQL injection rule. 
 
-1. Next you will create 2 different conditions. Let's start with a condition to restrict the maximum size of request body: 
-
-	* Go to **Size constraint conditions** section, click **Create condition**
-	* Give the condition a name, like `LargeBodyMatch`
-	* In Filter settings, add a filer on 
-		*  	**Part of the request to filter on**: body
-		*  **Comparison operator**: Greater than
-		*  **Size (Bytes)**: 3000
-	* Click **Add filter**  
-	* After the filter is added to the condition, click **Create**
-
-	![screenshot](images/large-body-condition.png)
+	![screenshot](images/6B-managed-rule.png)
+	* Expand the **AWS managed rule groups** section
+	* toggle the **SQL database** option
+	![screenshot](images/6B-sql-managed-rule.png)
+	* Then click **Add Rule**
 	
-
-1. Next, let's add a SQL injection condition. 
-
-	* Go to **SQL injection match conditions** section, click **Create condition**
-	* Give the condition a name, like `SQLinjectionMatch`
-	* Here, we want to add multiple rules to inspect multiple aspects of the request: request body, request URI and query strings 
-	* In the **Filter settings**, add 4 filters:
-
-		<table>
-		  <tr>
-		    <th></th>
-		    <th>Part of the request to filter on</th>
-		    <th>Transformation</th>
-		  </tr>
-		  <tr>
-		    <td>1</td>
-		    <td>Body</td>
-		    <td>None</td>
-		  </tr>
-		  <tr>
-		    <td>2</td>
-		    <td>Body</td>
-		    <td>URL decode</td>
-		  </tr>
-		  <tr>
-		    <td>3</td>
-		    <td>URI</td>
-		    <td>URL decode</td>
-		  </tr>
-		  <tr>
-		    <td>4</td>
-		    <td>Query string</td>
-		    <td>URL decode</td>
-		  </tr>
-		</table>
-	* Click **Create**
-	
-	![screenshot](images/sql-condition.png)
-
-1. Click **Next** to advance to the **Create rules** page 
-
-
-### Module 6C: Create WAF rules
-
-
-1.  Next, we create **Rules** that are composed of one or more **Conditions**. Let's start by creating a rule based on the request body size condition:
-
-	* Click **Create Rule** 
-	* Give it a name, like `LargeBodyMatchRule`
-	* For 	**Rule type**, keep `Regular rule`
-	* In Add conditions section, select 
-		* 	`does`
-		*  `match at least one of the filters in the size constraint condition `
-		*  `LargeBodyMatch`  -- the name of the condition we created for large request body in 6B 
-
-	* Then click **Create** 
-	
-	![screenshot](images/large-body-rule.png)
-	
-1. Next, we create the rule for SQL injection. 
-
-	* Click **Create Rule** 
-	* Give it a name, like `SQLinjectionRule`
-	* For **Rule type**, keep `Regular rule`
-	* In Add conditions section, select 
-		* 	`does`
-		*  `match at least one of the filters in the SQL injection match condition `
-		*  `SQlInjectionMatch`  -- the name of the condition we created for SQL injection in 6B 
-	*  Then click **Create**
-
-	![screenshot](images/sql-rule.png)
 
 1. Lastly, we can create a rate-based rule that prevents an overwhelming number of requests (either valid or invalid) from flooding our API:
 
-	* Click **Create Rule** 
-	* Give it a name, like `RequestFloodRule`
+	![screenshot](images/6B-own-rule.png)
+	* Give it a **Name**, like `RequestFloodRule`
 	* For **Rule type**, select `Rate-based rule`
 	* For **Rate limit**, use `2000` 
+	* **IP address to use for rate limiting** Source IP address
+	* **Criteria to count request towards rate limit** Consider all requests
+	* **Action** Block
 	*  Then click **Create**
 
-	![screenshot](images/request-flood-rule.png)
+	![screenshot](images/6B-request-flood-rule.png)
 	
 1. You should now see 3 rules in like below. Ensure you select `Block` if the request matches any of the rules. 
  
 	For **Default action**, select `Allow all requests that don't match any rules`
 
-	![screenshot](images/list-rules.png)
+	![screenshot](images/6B-three-rules.png)
+ ### Modules 6C: Rule priorities, metrics and review
+1. Frome here you can use the default selected options, 
+  
+	![screenshot](images/6B-rule-priorities.png)
 
-1. Click **Review and create** 
-
-1. In the next page, review the configuration and click **Confirm and Create** 	
-	
-	![screenshot](images/review-acl.png)
+	![screenshot](images/6B-metrics.png)
+1. and now you can **Create Web ACL**
 
 You have now added a WAF to our API gateway stage! 
 
