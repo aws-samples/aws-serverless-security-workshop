@@ -8,6 +8,7 @@ Globals:
     Environment:
       Variables:
         SECRET_NAME: secure-serverless-db-secret # name of the RDS credentials in secrets manager
+        NODE_OPTIONS: --tls-min-v1.0
 
 Parameters:
   InitResourceStack:
