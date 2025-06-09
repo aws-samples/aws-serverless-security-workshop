@@ -99,6 +99,11 @@ function getapiurl(){
 
 }
 
+function changeOwner() {
+    _logger "[+] Changing owner of /Workshop"
+    sudo chown -R ec2-user:ec2-user /Workshop
+}
+
 function main() {
     install_utility_tools
     checkfile
@@ -108,6 +113,7 @@ function main() {
     setregion
     deployapp
     getapiurl
+    changeOwner
     
     exec ${SHELL}
 }
