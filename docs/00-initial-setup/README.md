@@ -92,6 +92,7 @@ If you are working in your own AWS account, follow the steps below to launch a C
 
 	Region| Code | Launch
 	------|------|-------
+	AP Southeast (Sydney) | <span style="font-family:'Courier';">ap-southeast-2</span> | [![Launch setup resource in ap-southeast-2](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 	EU (Ireland) | <span style="font-family:'Courier';">eu-west-1</span> | [![Launch setup resource in eu-west-1](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 	US West (Oregon) | <span style="font-family:'Courier';">us-west-2</span> | [![Launch setup resource in us-west-2](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
 	US East (N. Virginia) | <span style="font-family:'Courier';">us-east-1</span> | [![Launch setup resource in us-east-1](images/cfn-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=Secure-Serverless&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/Security/init-template.yml)
@@ -381,11 +382,18 @@ In addition to the lambda code, the configurations for Lambda function and the R
 
    After doing this, it's time to test your API locally using SAM Local. 
 
-1. On the **right panel**, click on **AWS Resources**. 
+1. On the **top right**, click on the cog.
+	<img src="images/0D-aws-preferences.png" width="80%" />
+1. In the **Preferences Menu**, open **AWS settings**
 
+	<img src="images/0D-aws-settings.png" width="80%" />
+1. Untoggle the AWS Toolkit
+	<img src="images/0D-aws-toolkit.png" width="80%" />
+
+1. On the **right panel**, click on **AWS Resources**. 
 	<img src="images/0D-aws-resource-bar.png" width="80%" />
 
-1. You should see a folder tree with the name *Local Functions (1)*. 
+1. You should now see a folder tree with the name *Local Functions (1)*. 
 1. Select **UnicornPartsFunction** under the `src` folder
 1. Once you have selected the function, click on the dropdown on the panel on the top, and select **Run APIGateway Local**  
 
